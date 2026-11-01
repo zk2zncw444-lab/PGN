@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Baublog · Prüfgelände in Daten</title>
+<meta name="description" content="Baulogbuch zum digitalen Nachbau eines Fahrzeug-Prüfgeländes: Datenaufbereitung, Gelände, Fahrbahnen und die Fehlerbehebung Revision für Revision.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0a1e3c; --panel:#0c2549; --panel2:#0f2d57; --ink:#e8f1ff; --ink2:#b3c8e8; --muted:#7f9cc6;
+  --line:#2c5a99; --line2:#1d4274; --grid:rgba(120,170,255,.09); --accent:#ffb000; --accent-ink:#1a1200;
+  --cy:#5ec8ff; --ok:#4fe3c1; --bad:#ff5a4f; --warn:#ffd166;
+  --f-d:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --f-b:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-m:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --asph:#3a4558; --beton:#8da0bd; --gras:#2f6b4f; --mark:#f2f6ff;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f3f1e9; --panel:#fbfaf5; --panel2:#f0eee4; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
+  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#c2410c; --accent-ink:#fff;
+  --cy:#1b6ec2; --ok:#0b8f78; --bad:#e03131; --warn:#b07d00;
+  --asph:#56627a; --beton:#b5c0d2; --gras:#7fae8f; --mark:#fff; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#f3f1e9; --panel:#fbfaf5; --panel2:#f0eee4; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
+  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#c2410c; --accent-ink:#fff;
+  --cy:#1b6ec2; --ok:#0b8f78; --bad:#e03131; --warn:#b07d00;
+  --asph:#56627a; --beton:#b5c0d2; --gras:#7fae8f; --mark:#fff; color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-b);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;
+  padding:0 max(16px,env(safe-area-inset-right)) 72px max(16px,env(safe-area-inset-left))}
+.wrap{max-width:1180px;margin:0 auto}
+a{color:var(--cy)}
+h1,h2,h3{font-family:var(--f-d);text-transform:uppercase;letter-spacing:.02em;margin:0;text-wrap:balance}
+h1{font-weight:700;font-size:clamp(34px,5.2vw,76px);line-height:.92}
+h2{font-weight:600;font-size:clamp(26px,3.6vw,38px);line-height:1}
+h3{font-weight:600;font-size:19px;line-height:1.1;letter-spacing:.04em}
+p{margin:0 0 12px} .col{max-width:72ch}
+.mono{font-family:var(--f-m)} .muted{color:var(--muted)}
+.eyebrow{font:500 12px/1.2 var(--f-m);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+code{font:13px var(--f-m);background:var(--panel2);border:1px solid var(--line2);padding:1px 5px}
+/* Kopf */
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;font:500 12px var(--f-m);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.btn{font:500 12px var(--f-m);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--line);padding:7px 10px;cursor:pointer;border-radius:2px}
+.btn:hover{background:var(--panel2)} .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tabs{display:flex;gap:4px;margin-top:14px;border-bottom:1px solid var(--line)}
+.tabs a{font:500 12px/1 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:11px 16px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px}
+.tabs a:hover{color:var(--ink)} .tabs a[aria-current="page"]{color:var(--ink);background:var(--panel);border-color:var(--line)}
+.hero{padding-block:30px 8px;display:grid;gap:18px}
+.lead{font-size:18px;color:var(--ink2);margin-top:16px}
+.tb{display:grid;grid-template-columns:repeat(4,auto);border:1px solid var(--line);margin-top:22px;font:12px/1.35 var(--f-m);max-width:640px}
+.tb div{padding:6px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tb div:nth-child(4n){border-right:0} .tb div:nth-last-child(-n+4){border-bottom:0}
+.tb b{display:block;font-weight:500;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:18px}
+.kpi{background:var(--panel);padding:14px 14px 12px;display:grid;gap:2px;align-content:start}
+.kpi b{font:600 40px/1 var(--f-d);letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.kpi b i{font:500 14px var(--f-m);font-style:normal;color:var(--muted);margin-left:4px}
+.kpi span{font-size:13px;color:var(--ink2)} .kpi small{font:11px/1.3 var(--f-m);color:var(--muted)}
+/* Blatt */
+.sheet{border:1px solid var(--line);background:var(--panel);margin-top:30px;position:relative}
+.sheet::before,.sheet::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--accent);pointer-events:none}
+.sheet::before{left:-5px;top:-5px;border-right:0;border-bottom:0}.sheet::after{right:-5px;bottom:-5px;border-left:0;border-top:0}
+.sh{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-bottom:1px solid var(--line);font:500 11px/1.3 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--panel2)}
+.sb{padding:24px 22px 28px;display:grid;gap:22px}
+.sb>*{min-width:0}
+.card{border:1px solid var(--line2);background:var(--bg);padding:16px 16px 14px;min-width:0}
+.card h3{margin-bottom:6px}
+.col h2+p{margin-top:12px}
+.col>.meta+h2{margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+.grid2>*{min-width:0}
+/* Prozesskette */
+.pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:0;border:1px solid var(--line);background:var(--panel)}
+.pipe div{padding:12px 12px 10px;border-right:1px solid var(--line2);position:relative;font-size:13px;color:var(--ink2);line-height:1.35}
+.pipe div:last-child{border-right:0}
+.pipe b{display:block;font:600 11px var(--f-m);letter-spacing:.12em;color:var(--accent);margin-bottom:4px}
+.pipe strong{display:block;font:600 17px/1.05 var(--f-d);text-transform:uppercase;letter-spacing:.03em;color:var(--ink);margin-bottom:4px}
+.pipe div:not(:last-child)::after{content:"";position:absolute;right:-6px;top:50%;width:10px;height:10px;border-top:2px solid var(--accent);border-right:2px solid var(--accent);transform:translateY(-50%) rotate(45deg);background:var(--panel);z-index:1}
+.loop{font:11.5px var(--f-m);color:var(--muted);margin-top:8px}
+/* Fortschritt */
+.prog{display:grid;grid-template-columns:repeat(16,1fr);gap:3px}
+.prog span{font:500 10.5px/1 var(--f-m);text-align:center;padding:8px 0 7px;border:1px solid var(--line2);color:var(--muted);background:var(--bg)}
+.prog span.done{background:var(--ok);color:#06231c;border-color:var(--ok);font-weight:600}
+.prog span.open{background:transparent}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font:11.5px var(--f-m);color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line2)}
+/* Filter */
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:30px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.toc{display:flex;flex-wrap:wrap;gap:4px 14px;font:12px var(--f-m);margin-top:12px}
+.toc a{color:var(--ink2);text-decoration:none;border-bottom:1px dotted var(--line)} .toc a:hover{color:var(--accent)}
+/* Log */
+.log{display:flex;flex-direction:column} .log.rev{flex-direction:column-reverse}
+.entry[hidden]{display:none}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font:12px var(--f-m);color:var(--muted)}
+.tag{display:inline-block;font:500 11px/1 var(--f-m);padding:4px 6px;border:1px solid var(--line);color:var(--ink2);letter-spacing:.04em}
+.tag.ok{border-color:var(--ok);color:var(--ok)} .tag.bad{border-color:var(--bad);color:var(--bad)} .tag.warn{border-color:var(--warn);color:var(--warn)} .tag.open{border-style:dashed}
+.figs{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));align-items:start}
+.figs.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr))}
+.figs.one{grid-template-columns:minmax(0,860px)}
+figure{margin:0;min-width:0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--line2);background:var(--panel2);cursor:zoom-in}
+figure.tall img{max-height:430px;object-fit:cover;object-position:top}
+figcaption{font:11.5px/1.45 var(--f-m);color:var(--muted);margin-top:6px}
+figcaption b{color:var(--accent);font-weight:500;margin-right:6px}
+.note{border-left:3px solid var(--accent);background:var(--bg);padding:10px 14px;font-size:14.5px;color:var(--ink2)}
+.note b{color:var(--ink)}
+.rule{border:1px solid var(--line2);background:var(--bg);padding:12px 14px;font-size:14.5px}
+.rule .eyebrow{display:block;margin-bottom:4px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line2)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font:500 11px/1.3 var(--f-m);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--panel2);white-space:nowrap}
+td.n{font-family:var(--f-m);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap} th.n{text-align:right}
+tr:last-child td{border-bottom:0}
+ul.t{margin:0;padding-left:1.2em} ul.t li{margin:3px 0}
+.hb{display:grid;gap:7px}
+.hbr{display:grid;grid-template-columns:minmax(90px,28%) 1fr;gap:10px;align-items:center;font-size:13px}
+.hbk{color:var(--ink2);text-align:right}
+.hbt{display:flex;align-items:center;gap:8px;min-width:0}
+.hbb{display:block;height:16px;background:var(--cy);flex:0 0 auto}
+.hbv{font:500 12px var(--f-m);color:var(--ink);white-space:nowrap}
+.xs{width:100%;height:auto;display:block}
+.xs text{font:11px var(--f-m);fill:var(--ink2)} .xs .d{fill:var(--muted)} .xs .big{font:600 15px var(--f-d);fill:var(--ink);letter-spacing:.04em}
+.xs .ln{stroke:var(--line);stroke-width:1} .xs .dim{stroke:var(--accent);stroke-width:1.2;fill:none}
+.xs .dt{fill:var(--accent)}
+footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer p{margin-bottom:8px}
+/* Lightbox */
+.lb{position:fixed;inset:0;background:rgba(3,10,22,.92);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;flex-direction:column;gap:10px}
+.lb.on{display:flex} .lb img{max-width:100%;max-height:calc(100vh - 90px);border:1px solid var(--line);cursor:zoom-out}
+.lb p{font:12px var(--f-m);color:#b3c8e8;margin:0;max-width:90ch;text-align:center}
+@media (max-width:980px){.pipe{grid-template-columns:repeat(2,1fr)}.pipe div{border-bottom:1px solid var(--line2)}.pipe div:nth-child(2n){border-right:0}.pipe div::after{display:none!important}.prog{grid-template-columns:repeat(8,1fr)}}
+@media (max-width:860px){.tb{grid-template-columns:repeat(2,auto)}.tb div:nth-child(4n){border-right:1px solid var(--line)}.tb div:nth-child(2n){border-right:0}.tb div:nth-last-child(-n+4){border-bottom:1px solid var(--line)}.tb div:nth-last-child(-n+2){border-bottom:0}}
+@media (max-width:520px){.sb{padding:18px 14px 22px}.kpi b{font-size:32px}.sh{flex-direction:column;gap:2px}.pipe{grid-template-columns:1fr}.pipe div{border-right:0}.hbr{grid-template-columns:90px 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span>Baublog BL-PG-01 · Stand 01.11.2026</span><button class="btn" id="themebtn" type="button" aria-label="Darstellung wechseln">Blaupause / Papier</button></div>
+<nav class="tabs" aria-label="Bereiche"><a href="../">Datenblatt</a><a href="./" aria-current="page">Baublog</a></nav>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">Baublog · Digitaler Nachbau eines Fahrzeug-Prüfgeländes</div>
+    <h1 style="margin:12px 0 0">Vom Datensatz<br>zur Fahrbahn</h1>
+    <p class="lead col">Das Datenblatt zeigt, was das Gelände ist. Dieses Logbuch zeigt, wie daraus ein befahrbares Modell für den Fahrsimulator entsteht: welche Daten, welche Rechenschritte, welche Fehler und was wir daraus gemacht haben. Chronologisch, mit Messbildern, Prüfbildern und den Revisionen, die es gebraucht hat.</p>
+    <div class="tb" aria-label="Schriftfeld">
+      <div><b>Dokument</b>BL-PG-01</div><div><b>Revision</b>A</div><div><b>Zeitraum</b>30.10.–01.11.2026</div><div><b>Einträge</b>11</div>
+      <div><b>Gegenstand</b>Nachbau Prüfgelände</div><div><b>Raster</b>1 m, 4096 × 4096</div><div><b>Bezugssystem</b>lokal, 0/0 = Mitte</div><div><b>Status</b>privat, in Arbeit</div>
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>6<i>/ 15</i></b><span>Bauschritte abgeschlossen</span><small>plus Endtest Z1</small></div>
+    <div class="kpi"><b>84<i>Kacheln</i></b><span>Rohdaten</span><small>25 Höhe, 25 Luftbild, 25 Oberfläche, 9 Gebäude</small></div>
+    <div class="kpi"><b>16,8<i>Mio.</i></b><span>Höhenpunkte im Raster</span><small>4096 × 4096 bei 1 m</small></div>
+    <div class="kpi"><b>0,5<i>m</i></b><span>Lagegenauigkeit Oval-Mittellinie</span><small>an 32 Stichproben geprüft</small></div>
+    <div class="kpi"><b>4<i>Rev.</i></b><span>bis das Oval passte</span><small>v1 bis v4</small></div>
+    <div class="kpi"><b>60<i>FPS</i></b><span>im Fahrtest, Gelände + Böden</span><small>konstant, keine Texturfehler</small></div>
+  </div>
+</header>
+
+<section class="sheet" aria-label="Prozesskette"><div class="sh"><span>Übersicht · Prozesskette</span><span>jeder Schritt endet im Fahrtest</span></div>
+<div class="sb">
+  <div class="pipe">
+    <div><b>01</b><strong>Rohdaten</strong>Höhenmodell, Luftbild, Oberflächenmodell, Gebäude, Kartenlinien</div>
+    <div><b>02</b><strong>Gelände</strong>Höhenraster 16 Bit, Luftbild als Textur, leere Karte</div>
+    <div><b>03</b><strong>Böden</strong>Bodenkarte aus Luftbild, Höhe über Grund und Kartenlinien</div>
+    <div><b>04</b><strong>Fahrbahnen</strong>3D-Modelle aus gemessener Mittellinie und Breite</div>
+    <div><b>05</b><strong>Prüfung</strong>3D-Vorschau vorab, Abgleich mit dem Luftbild</div>
+    <div><b>06</b><strong>Paket</strong>Level-Dateien plus Skript zum Einsetzen und Zurücksetzen</div>
+    <div><b>07</b><strong>Fahrtest</strong>Befund, Ursache, Maßnahme, nächste Revision</div>
+  </div>
+  <p class="loop">Rückkopplung: Aus jedem Fahrtest-Befund entsteht eine Revision (v2, v3 …) bei Schritt 04 oder früher.</p>
+  <div>
+    <h3 style="margin-bottom:8px">Baufortschritt</h3>
+    <div class="prog" aria-label="Fortschritt der Bauschritte">
+      <span class="done" title="S01 Projekt anlegen und Kartengröße festlegen">S01</span><span class="done" title="S02 Arbeitsordner anlegen und Geodaten herunterladen">S02</span><span class="done" title="S03 Gelände, Luftbild und leere Karte">S03</span><span class="done" title="S04 Bodenmaterialien">S04</span><span class="done" title="S05 Oval mit Steilkurven">S05</span><span class="done" title="S06 Handling I und Handling 2">S06</span>
+      <span class="open" title="S07 Multifunktion, Kies-Kurs und übrige Innenkurse">S07</span><span class="open" title="S08 Kuhfladen-Kurse klein und groß">S08</span><span class="open" title="S09 Zustandsspuren">S09</span><span class="open" title="S10 SKS1 und SKS2">S10</span><span class="open" title="S11 Steigungshügel">S11</span><span class="open" title="S12 Dynamikfläche, Wartungswege, Pforte und Einfahrt">S12</span><span class="open" title="S13 Wald, Bäume, Sichtschutz und Ausstattung">S13</span><span class="open" title="S14 Gebäude als schlichte Platzhalter">S14</span><span class="open" title="S15 KI-Wege, Spawnpunkte und Fahrtrichtungen">S15</span><span class="open" title="Z1 Leistungs-Feinschliff und Endtest">Z1</span>
+    </div>
+    <div class="legend"><span><i style="background:var(--ok);border-color:var(--ok)"></i>abgeschlossen (Fahrtest bestanden)</span><span><i></i>offen</span></div>
+  </div>
+</div></section>
+
+<div class="bar">
+  <div class="chips" role="group" aria-label="Einträge filtern">
+    <button class="btn" type="button" data-f="all" aria-pressed="true">Alle</button>
+    <button class="btn" type="button" data-f="daten" aria-pressed="false">Daten &amp; Gelände</button>
+    <button class="btn" type="button" data-f="strecken" aria-pressed="false">Strecken</button>
+    <button class="btn" type="button" data-f="fehler" aria-pressed="false">Fehleranalyse</button>
+    <button class="btn" type="button" data-f="methodik" aria-pressed="false">Methodik</button>
+  </div>
+  <button class="btn" type="button" id="order" aria-pressed="false">Neueste zuerst</button>
+</div>
+<nav class="toc" aria-label="Einträge">
+  <a href="#e01">01 Machbarkeit</a><a href="#e02">02 Rohdaten</a><a href="#e03">03 Gelände</a><a href="#e04">04 Böden</a><a href="#e05">05 Oval v1</a><a href="#e06">06 Mittellinie</a><a href="#e07">07 Ein-/Ausfahrt</a><a href="#e08">08 Unterführung</a><a href="#e09">09 Randfehler</a><a href="#e10">10 Handling</a><a href="#e11">11 Revisionen</a><a href="#offen">Offene Posten</a>
+</nav>
+
+<main class="log" id="log">
+
+<!-- 01 -->
+<section class="sheet entry" id="e01" data-tags="daten"><div class="sh"><span>Eintrag 01 / 11 · 30.10.2026</span><span>Machbarkeit</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Daten</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Reichen offene Daten für einen fahrbaren Nachbau?</h2>
+  <p>Ausgangsfrage: Lässt sich ein Hochgeschwindigkeits-Prüfgelände aus öffentlichen Geodaten so rekonstruieren, dass es sich im Simulator plausibel fährt, einschließlich der Steilkurven? Geprüft wurden Luftbild und Höhenmodell. Beide liegen vollständig und unverfälscht vor, das Vorhaben ist machbar.</p>
+  <p>Festgelegt wurde ein Kartenquadrat von <b>4096 m</b> Kantenlänge bei <b>1 m Rasterweite</b>. Das Gelände (≈ 2,5 × 1,8 km) liegt mittig, rundherum bleiben mindestens 800 m Randzone, damit der Horizont nicht an einer Kante endet. Der Rest wird in <b>15 Bauschritte plus Endtest</b> zerlegt, jeder mit eigenem Fahrtest.</p></div>
+  <div class="figs two">
+    <figure><img src="../assets/blog/relief-dgm1.jpg" width="772" height="632" loading="lazy" alt="Schummerung des Geländes aus dem Höhenmodell: Oval mit Steilkurven, Innenkurse und Dämme als Relief"><figcaption><b>Abb. 1</b>Höhenmodell 1 m als Schummerung. Oval, Steilkurven und Dämme sind schon im nackten Gelände zu erkennen.</figcaption></figure>
+    <figure><img src="../assets/blog/luftbild-dop.jpg" width="772" height="632" loading="lazy" alt="Luftbild des Prüfgeländes mit Oval, Handlingkursen und Waldflächen"><figcaption><b>Abb. 2</b>Luftbild 20 cm. Es dient später als Messvorlage für Fahrbahnränder und als Vorlage für die Bodenkarte.</figcaption></figure>
+  </div>
+  <div class="rule"><span class="eyebrow">Arbeitsprinzip</span>Je Schritt: bauen, vorab in einer eigenen 3D-Vorschau prüfen, als Paket mit Zurücksetz-Skript ausliefern, im Simulator abfahren, Befund festhalten. Ein Schritt gilt erst nach bestandenem Fahrtest als abgeschlossen.</div>
+</div></section>
+
+<!-- 02 -->
+<section class="sheet entry" id="e02" data-tags="daten"><div class="sh"><span>Eintrag 02 / 11 · 30.10.2026</span><span>Schritt S02 · Rohdaten</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Daten</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Rohdaten holen, prüfen, verkleinern</h2>
+  <p>Fünf Datenquellen decken das Quadrat vollständig ab. Alle Kacheln wurden auf Vollständigkeit geprüft (Höhe 25/25, Luftbild 25/25, Oberfläche 25/25, Gebäude 9/9). Die Server der Vermessungsverwaltung sind aus der Rechenumgebung nicht direkt erreichbar, der Download läuft deshalb über den Browser.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Datensatz</th><th>Inhalt</th><th class="n">Kacheln</th><th>Aufbereitung</th></tr></thead>
+    <tbody>
+      <tr><td>Digitales Geländemodell</td><td>Höhe über NN, 1 m Raster</td><td class="n">25</td><td>unverändert übernommen</td></tr>
+      <tr><td>Luftbild</td><td>Orthofoto, 20 cm Pixel</td><td class="n">25</td><td>als JPEG (Qualität 95) von ≈ 62 auf ≈ 10 MB je Kachel, visuell verlustfrei</td></tr>
+      <tr><td>Oberflächenmodell</td><td>Höhe inkl. Bäume und Gebäude</td><td class="n">25</td><td>von 20 cm auf 1 m, je Zelle der <b>höchste</b> Wert, damit Baumspitzen bleiben</td></tr>
+      <tr><td>3D-Gebäudemodell (LoD2)</td><td>CityGML, 2-km-Kacheln</td><td class="n">9</td><td>31 Gebäude im Zaun (Kartendaten: 34)</td></tr>
+      <tr><td>Kartenlinien</td><td>Straßen, Kursnamen, Fahrtrichtung (<code>oneway</code>)</td><td class="n">1</td><td>Auszug als Rechteck, mit Metadaten</td></tr>
+    </tbody></table></div>
+  <div class="grid2">
+    <div class="card"><h3>Kennwerte</h3><ul class="t"><li>Gesamtvolumen Rohdaten: ≈ 360 MB</li><li>Höhen im Quadrat: 348,8 bis 423,8 m ü. NN</li><li>Randzone um den Zaun: mindestens 805 m</li></ul></div>
+    <div class="card"><h3>Laserpunkte geprüft, nicht geladen</h3><p style="margin:0;font-size:14.5px;color:var(--ink2)">Befliegung 2023, ≈ 17 Punkte/m², ≈ 160 MB je km². Für die Steilkurven wären sie genauer als das 1-m-Raster, wurden aber vorerst nicht benötigt (siehe Eintrag 05 ff.: Die Fahrbahn wird ohnehin als eigenes 3D-Modell gebaut).</p></div>
+  </div>
+</div></section>
+
+<!-- 03 -->
+<section class="sheet entry" id="e03" data-tags="daten"><div class="sh"><span>Eintrag 03 / 11 · 30.10.2026</span><span>Schritt S03 · Gelände</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Gelände</span><span class="tag ok">Fahrtest bestanden</span></div><h2 style="margin-top:10px">Das nackte Gelände: Höhenraster, Luftbild, erste Testfahrt</h2>
+  <p>Aus Höhenmodell und Luftbild entsteht eine leere Karte. Das Höhenraster wird als 16-Bit-Graustufenbild abgelegt, damit die Höhe auf Millimeter genau im Simulator ankommt:</p></div>
+  <div class="rule" style="max-width:720px"><span class="eyebrow">Festlegung (fix seit 30.10.)</span><code>z = Höhe über NN − 340 m</code> · Wertebereich 340 bis 440 m auf 65 535 Stufen → Auflösung <b>1,5 mm</b>. Karte 4096 × 4096 Punkte, Punktabstand 1 m, Nullpunkt in der Geländemitte (x nach Ost, y nach Nord).</div>
+  <div class="figs one">
+    <figure><img src="../assets/blog/s03-schummerung.jpg" width="1250" height="950" loading="lazy" alt="Schummerung des Höhenmodells mit eingezeichneten Kartenlinien der Kurse in Türkis und dem Zaun in Gelb"><figcaption><b>Abb. 3</b>Lageprüfung: Kartenlinien der Kurse (türkis) und Zaun (gelb) über der Schummerung. Die Linien liegen genau auf Damm und Innenkursen, die Karte ist also nicht verschoben.</figcaption></figure>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Prüfung vor dem Fahrtest</h3><ul class="t"><li>0 Lücken im Höhenraster (Min. 348,85 m, Max. 423,68 m)</li><li>Gelände-Datei weicht vom Höhenmodell um &lt; 1 mm ab (nachgerechnet)</li><li>Level ohne Editor-Handarbeit aus der Simulator-Vorlage erzeugt</li></ul></div>
+    <div class="card"><h3>Fahrtest-Befund</h3><ul class="t"><li>Lage und Ausrichtung stimmen, nicht gespiegelt (Steilkurven im Nordosten und Südwesten)</li><li>Steilkurven fahrbar, <b>60 FPS</b> ohne Einbruch</li><li><b>Fehlt:</b> die Unterführung unter der Südwest-Kurve. Das Höhenmodell kennt keine Brücken, übrig bleibt nur der Graben. Eingeplant in S05.</li></ul></div>
+  </div>
+  <div class="note"><b>Stolperstein:</b> Im Bild liegt Zeile 0 im Norden, in der Gelände-Datei des Simulators im Süden. Ohne senkrechtes Spiegeln beim Bau stünde das Gelände auf dem Kopf.</div>
+</div></section>
+
+<!-- 04 -->
+<section class="sheet entry" id="e04" data-tags="daten"><div class="sh"><span>Eintrag 04 / 11 · 30.10.2026</span><span>Schritt S04 · Bodenmaterialien</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Böden</span><span class="tag ok">Fahrtest bestanden</span></div><h2 style="margin-top:10px">Bodenkarte: Asphalt, Beton, Wiese, Wald, Kies</h2>
+  <p>Die Bodenart bestimmt Grip, Geräusch und Optik. Eine reine Farbklassifikation des Luftbilds scheitert an Schatten, deshalb kombiniert die Bodenkarte drei Quellen:</p>
+  <ul class="t"><li><b>Luftbild:</b> unbunt und hell = Belag, braun = Erde oder Acker</li><li><b>Höhe über Grund</b> (Oberflächenmodell minus Gelände): mehr als 3 m und mehr als 300 m² zusammenhängend = Wald</li><li><b>Kartenlinien:</b> Beton, Kies, Wasser, Gebäude, Straßenkern. Breite aus <code>width</code>, sonst Spurzahl × 3,5 m (Oval: 14 m)</li></ul></div>
+  <div class="figs one">
+    <figure><img src="../assets/blog/s04-bodenkarte.jpg" width="1800" height="740" loading="lazy" alt="Links Luftbild, rechts daraus abgeleitete Bodenkarte in Falschfarben für Asphalt, Beton, Wiese, Wald, Kies und Wasser"><figcaption><b>Abb. 4</b>Links Luftbild, rechts Bodenkarte. Grau Asphalt, hellgrau Beton, beige Kies, dunkelgrün Wald, hellgrün Wiese, braun Acker, blau Wasser.</figcaption></figure>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Flächenanteile innerhalb des Zauns</h3>
+      <div class="hb">
+        <div class="hbr"><span class="hbk">Wald</span><span class="hbt"><i class="hbb" style="width:76%"></i><span class="hbv">47,5 %</span></span></div>
+        <div class="hbr"><span class="hbk">Wiese</span><span class="hbt"><i class="hbb" style="width:53%"></i><span class="hbv">33,1 %</span></span></div>
+        <div class="hbr"><span class="hbk">Asphalt</span><span class="hbt"><i class="hbb" style="width:26%"></i><span class="hbv">16,2 %</span></span></div>
+        <div class="hbr"><span class="hbk">Beton</span><span class="hbt"><i class="hbb" style="width:4%"></i><span class="hbv">1,8 %</span></span></div>
+        <div class="hbr"><span class="hbk">Kies</span><span class="hbt"><i class="hbb" style="width:2%"></i><span class="hbv">0,9 %</span></span></div>
+        <div class="hbr"><span class="hbk">Erde</span><span class="hbt"><i class="hbb" style="width:1%"></i><span class="hbv">0,3 %</span></span></div>
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin:10px 0 0">Zusätzlich Feldweg 0,2 %. Gesamte Karte: Wald 38 %, Wiese 29 %, Acker 16 %, Beton 6 % (Gewerbe außerhalb), Asphalt 4,7 %.</p></div>
+    <div class="card"><h3>Entscheidungen</h3><ul class="t"><li>10 Materialien. Neue werden <b>nur hinten angehängt</b>, die Reihenfolge ist an die Gelände-Datei gebunden und darf sich nie ändern.</li><li>Belag im Baumschatten zählt nur direkt an einer Kartenstraße als Asphalt.</li><li>Das Paket sichert vorher den alten Stand, ein Skript setzt ihn auf Wunsch zurück.</li></ul>
+    <h3 style="margin-top:12px">Fahrtest-Befund</h3><p style="margin:0;font-size:14.5px;color:var(--ink2)">Asphalt fühlt sich stimmig an, Offroad und Schotter passen, keine fehlenden Texturen, 60 FPS konstant.</p></div>
+  </div>
+</div></section>
+
+<!-- 05 -->
+<section class="sheet entry" id="e05" data-tags="strecken fehler"><div class="sh"><span>Eintrag 05 / 11 · 30.10.2026</span><span>Schritt S05 · Oval v1</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag bad">Fahrtest nicht bestanden</span></div><h2 style="margin-top:10px">Oval, erster Versuch: warum v1 durchfiel</h2>
+  <p>Das 4,6 km lange Oval ist das Herzstück. Es wird nicht mehr als Gelände, sondern als eigene 3D-Fahrbahn modelliert, damit Spuren, Markierungen und die Steilkurven sauber sitzen. Die erste Version wurde ohne Vorab-Prüfung ausgeliefert, und der Fahrtest war eindeutig: Spuren unplausibel, Textur zu grob, Gelände sichtbar durch die Fahrbahn, Unterführung unbrauchbar.</p></div>
+  <div class="figs">
+    <figure><img src="../assets/blog/oval-v1-ueberblick.jpg" width="1500" height="847" loading="lazy" alt="Spielansicht von oben: Oval v1 mit Unterführung, Gelände sticht an den Rändern durch"><figcaption><b>Abb. 5</b>v1 aus der Luft: wellige Ränder, Asphaltflächen ohne Bezug zur Fahrbahn.</figcaption></figure>
+    <figure><img src="../assets/blog/oval-v1-p15-a.jpg" width="1500" height="795" loading="lazy" alt="Unterführung v1 von der Seite: Betondeckel steht über dem Oval"><figcaption><b>Abb. 6</b>Unterführung v1: Der Deckel ragt seitlich heraus und liegt über der Fahrbahn.</figcaption></figure>
+    <figure class="tall"><img src="../assets/blog/oval-v1-p15-b.jpg" width="563" height="919" loading="lazy" alt="Portal der Unterführung v1 mit ausgefransten Rändern und grauem Boden"><figcaption><b>Abb. 7</b>Portal v1: Gelände-Dreiecke stechen durch die Wände, innen nur graues Gelände statt Straße.</figcaption></figure>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Befund</th><th>Ursache</th><th>Maßnahme</th></tr></thead>
+    <tbody>
+      <tr><td>4 statt 3 Spuren</td><td>Kartendaten (<code>lanes=4</code>) sind falsch</td><td>Spuren am Luftbild nachgezählt und gemessen (Eintrag 06)</td></tr>
+      <tr><td>Beulen an jeder Einmündung</td><td>Fahrbahnrand folgte der Asphaltfläche der Bodenkarte</td><td>Feste Spurgeometrie entlang einer gemessenen Mittellinie</td></tr>
+      <tr><td>Gelände sticht durch</td><td>Fahrbahn nur 6 cm über dem Gelände</td><td>Gelände unter der Fahrbahn absenken</td></tr>
+      <tr><td>Textur zu grob und dunkel</td><td>Selbst erzeugte Rauschtextur</td><td>Asphalt-Textur aus dem Vorgängerprojekt, aufgehellt</td></tr>
+      <tr><td>Zacken an der Unterführung</td><td>Gelände nur bis Wand + 0,5 m ausgespart, Dreiecke bis 1,41 m lang</td><td>Siehe Eintrag 08</td></tr>
+    </tbody></table></div>
+  <div class="rule"><span class="eyebrow">Konsequenz</span>Nie wieder ohne Prüfbild ausliefern. Seit v2 entsteht vor jeder Auslieferung eine eigene 3D-Vorschau, die genau solche Fehler (Durchstechen, falsche Flächennormalen, verdrehte Schrift) vorab zeigt.</div>
+</div></section>
+
+<!-- 06 -->
+<section class="sheet entry" id="e06" data-tags="strecken methodik"><div class="sh"><span>Eintrag 06 / 11 · 30.10.2026</span><span>Schritt S05 · Messung</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Methodik</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Die Mittellinie aus dem Luftbild ablesen</h2>
+  <p>Die Kartenlinie des Ovals hat nur alle ≈ 70 m einen Stützpunkt und liegt bis zu <b>10 m neben der Fahrbahn</b>. Auch eine automatische Linienerkennung im Luftbild war unbrauchbar: Schatten und Leitplankenpfosten erzeugen Scheinlinien. Also wurde gemessen wie auf einer Vermessungsskizze:</p>
+  <ul class="t"><li>Luftbild entlang der Strecke „geradegezogen“: Streifenbilder von 60 × 38 m mit Meter-Skala</li><li>Strichreihen der Fahrbahnmarkierung abgelesen, Mitte zwischen den zwei Reihen = Mittellinie</li><li>Spline durch 32 Messstellen, Ausgabe alle 2 m (2302 Stationen auf 4605,5 m)</li><li>Gegenprobe an 32 weiteren Stellen: Abweichung ≲ 0,5 m</li></ul></div>
+  <div class="figs">
+    <figure><img src="../assets/blog/oval-streifen-a.jpg" width="1204" height="562" loading="lazy" alt="Vier Luftbildstreifen mit Meter-Skala; magenta Linien markieren Fahrbahnränder, Türkis die Strichreihen"><figcaption><b>Abb. 8</b>Messstreifen: Magenta = Dauerlinien (±5,8 m), Türkis = Strichreihen (±1,93 m). Quer zur Fahrtrichtung ist die Skala in Metern aufgetragen.</figcaption></figure>
+    <figure><img src="../assets/blog/oval-streifen-b.jpg" width="1008" height="1176" loading="lazy" alt="Fünf übereinander gestapelte Luftbildstreifen entlang des Ovals mit Messlinien"><figcaption><b>Abb. 9</b>Fünf aufeinanderfolgende Streifen: Die Linien müssen auf den Markierungen liegen, sonst wird nachgemessen.</figcaption></figure>
+    <figure><img src="../assets/blog/oval-luftbild-linien.jpg" width="1500" height="1247" loading="lazy" alt="Luftbild des gesamten Ovals mit roter und blauer Linie für Mittellinie und Fahrbahnrand"><figcaption><b>Abb. 10</b>Ergebnis über das ganze Oval: gemessene Linien (rot und blau) über dem Luftbild, gelb die Lage der Unterführung.</figcaption></figure>
+  </div>
+  <div class="card"><h3>Querschnitt des Ovals (schematisch, Gerade)</h3>
+    <svg class="xs" viewBox="0 0 800 230" role="img" aria-label="Querschnitt: Innen Randstreifen 2,7 m, drei Spuren zu je 3,87 m, außen 1,7 m bis zur Oberkante">
+      <g transform="translate(80,0)">
+        <rect x="0" y="70" width="108" height="46" fill="var(--beton)" opacity=".75"/>
+        <rect x="108" y="70" width="155" height="46" fill="var(--asph)"/>
+        <rect x="263" y="70" width="154" height="46" fill="var(--asph)"/>
+        <rect x="417" y="70" width="155" height="46" fill="var(--asph)"/>
+        <rect x="572" y="70" width="68" height="46" fill="var(--gras)" opacity=".85"/>
+        <line x1="108" y1="70" x2="108" y2="116" stroke="var(--mark)" stroke-width="3"/>
+        <line x1="572" y1="70" x2="572" y2="116" stroke="var(--mark)" stroke-width="3"/>
+        <line x1="263" y1="70" x2="263" y2="116" stroke="var(--mark)" stroke-width="2" stroke-dasharray="14 28"/>
+        <line x1="417" y1="70" x2="417" y2="116" stroke="var(--mark)" stroke-width="2" stroke-dasharray="14 28"/>
+        <text class="big" x="186" y="98" text-anchor="middle" style="fill:#fff">80</text>
+        <text class="big" x="340" y="98" text-anchor="middle" style="fill:#fff">140</text>
+        <text class="big" x="494" y="98" text-anchor="middle" style="fill:#fff">200</text>
+        <text x="54" y="45" text-anchor="middle">Randstreifen</text><text x="54" y="58" text-anchor="middle" class="d">Beton</text>
+        <text x="606" y="45" text-anchor="middle">Böschung</text><text x="606" y="58" text-anchor="middle" class="d">bis Oberkante</text>
+        <text x="340" y="48" text-anchor="middle">3 Spuren, Beschriftung auf der Fahrbahn</text>
+        <!-- Maßlinien -->
+        <path class="dim" d="M0 142H108M108 142H572M572 142H640M0 136v12M108 136v12M572 136v12M640 136v12"/>
+        <text x="54" y="162" text-anchor="middle" class="dt">2,7 m</text>
+        <text x="340" y="162" text-anchor="middle" class="dt">3 × 3,87 m = 11,6 m</text>
+        <text x="606" y="162" text-anchor="middle" class="dt">1,7 m</text>
+        <text x="0" y="190" class="d">innen (Querlage −8,5 m)</text>
+        <text x="640" y="190" text-anchor="end" class="d">außen (+7,5 m)</text>
+        <text x="320" y="214" text-anchor="middle" class="d">Dauerlinien ±5,8 m · Strichlinien ±1,93 m (6 m Strich, 12 m Lücke)</text>
+      </g>
+    </svg>
+    <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Maße aus dem Luftbild gemessen. In der Steilkurve kippt der Querschnitt: Aus dem Höhenmodell ergeben sich an der Spur 200 etwa 39 bis 41°, das Original erreicht laut Planungsunterlagen bis 49°.</p></div>
+</div></section>
+
+<!-- 07 -->
+<section class="sheet entry" id="e07" data-tags="strecken"><div class="sh"><span>Eintrag 07 / 11 · 30.–31.10.2026</span><span>Schritt S05 · v2 und v3</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag warn">v2 teilweise · v3 teilweise</span></div><h2 style="margin-top:10px">Spuren stimmen, jetzt fehlt das Ein- und Ausfahrtsystem</h2>
+  <p><b>v2</b> bringt die gemessene Mittellinie, drei Spuren, abgesenktes Gelände, hellere Asphalttextur und die Schrift „200 | 140 | 80“ an acht Stellen. Fahrtest: Die Spuren auf der Geraden passen, die Unterführung ist weiter schlecht, und das System aus Aus- und Auffahrt oberhalb der Unterführung fehlt komplett.</p></div>
+  <div class="figs two">
+    <figure><img src="../assets/blog/oval-v2-pruefbild.jpg" width="1280" height="1080" loading="lazy" alt="Sechs Prüfansichten von v2: Spurbeschriftung, Abzweig, Einschnitt der Unterführung, Portal und Luftansichten"><figcaption><b>Abb. 11</b>Prüfbild v2 aus der 3D-Vorschau: Spurschrift in Fahrtrichtung lesbar, aber die Unterführung (mittlere Zeile) ist noch ein Klotz im zackigen Einschnitt.</figcaption></figure>
+    <figure><img src="../assets/blog/oval-v3-plan.jpg" width="1300" height="700" loading="lazy" alt="Zwei Luftbildstreifen mit eingezeichneten Zusatzspuren in Pink, Innenstraße in Grün und der Unterführung in Orange"><figcaption><b>Abb. 12</b>Plan für v3 auf dem Luftbild: oben Südwest-Ende mit Ausfahrt und Unterführung (orange), unten Nordost-Ende mit Zusammenführung und Auffahrt. Pink = Zusatzspuren, Grün = Innenstraße.</figcaption></figure>
+  </div>
+  <div class="col"><p>Für v3 wurde das Luftbild nach <b>Station</b> (Meter entlang der Mittellinie) und <b>Querlage</b> (Meter seitlich) entzerrt und die Kartenwege darübergezeichnet. Damit war der „breite Bereich“ in kurzer Zeit verstanden. Er liegt zwischen Station 2950 und 4410 m an der Innenseite:</p>
+  <ul class="t"><li><b>6 Zusatzspuren</b> aus Beton (je 3 m) direkt neben dem Oval</li><li>Grasstreifen, dahinter die <b>Innenstraße</b> (Beton, 8 m, Randlinien)</li><li><b>Ausfahrt</b> im Südwesten und <b>Auffahrt</b> im Nordosten mit Sperrflächen (Schrägstreifen)</li><li>Die Kartenwege der Zusatzspuren sind nur Zweipunktlinien, die Sehne liegt bis 25 m neben der echten Lage. Maßgeblich ist deshalb das Luftbild.</li><li>Mittellinie nur in diesem Bereich nachgemessen und um bis zu 2,8 m korrigiert, der Rest bleibt unverändert</li></ul></div>
+  <div class="figs one">
+    <figure><img src="../assets/blog/oval-v3-pruefbild.jpg" width="1280" height="1440" loading="lazy" alt="Acht Prüfansichten von v3: Zusatzspuren, Auffahrt mit Sperrfläche, Innenstraße, Unterführung, Ausfahrt"><figcaption><b>Abb. 13</b>Prüfbild v3: Zusatzspuren in Beton, Auffahrt mit Sperrfläche, Innenstraße und die neu gebaute Unterführung mit durchgehender Straße.</figcaption></figure>
+  </div>
+  <p class="muted" style="max-width:72ch;font-size:14.5px">Fahrtest v3: Das Oval an sich passt. Offen sind die Unterführung (glitcht) und die Ränder von Innenstraße und Zusatzspuren (erhöht, schwarz). Beides behandeln die Einträge 08 und 09.</p>
+</div></section>
+
+<!-- 08 -->
+<section class="sheet entry" id="e08" data-tags="strecken fehler"><div class="sh"><span>Eintrag 08 / 11 · 31.10.2026</span><span>Unterführung · Gelände mit Loch</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag ok">abgeschlossen (v4)</span></div><h2 style="margin-top:10px">Unterführung in drei Anläufen: Loch statt Absenken</h2>
+  <p>Das Höhenmodell zeigt über dem Tunnel nur den Damm des Ovals. Die Unterführung muss also in das Gelände <b>hineingebaut</b> werden. Daten der Unterführung: 66,3 m lang, lichte Breite 7,8 m, Höhe 4,5 m, zweispurige Straße (6,5 m) mit Rand- und Mittellinie, Tunnelstrecke von Meter 5 bis 65, Wände bis über die Rampen hinaus.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Rev.</th><th>Ansatz</th><th>Fahrtest-Befund</th></tr></thead>
+    <tbody>
+      <tr><td>v1</td><td>Einschnitt im Gelände, Wände, Deckel</td><td><span class="tag bad">durchgefallen</span> Zacken durch Wände, Deckel über dem Oval</td></tr>
+      <tr><td>v2</td><td>Breiterer Einschnitt, Portale, Deckel unter dem Oval</td><td><span class="tag bad">durchgefallen</span> keine Straße darunter, Betonplatte sichtbar</td></tr>
+      <tr><td>v3</td><td><b>Loch im Gelände</b> (Schichtwert 255 = kein Gelände), durchgehende Asphaltstraße, Oval-Fahrbahn bildet selbst die Decke</td><td><span class="tag warn">teilweise</span> Rampenwände mit Zacken, Auto glitcht</td></tr>
+      <tr><td>v4</td><td>Loch seitlich erweitert, Randpunkte abgesenkt, gerade Stirnwände</td><td><span class="tag ok">bestanden</span> Ränder bündig, Unterführung sauber (vorerst)</td></tr>
+    </tbody></table></div>
+  <div class="figs two">
+    <figure><img src="../assets/blog/oval-v4-pruefbild.jpg" width="1280" height="1080" loading="lazy" alt="Prüfbild v4: Portale Südost und Nordwest, Unterführung von oben, Zusatzspuren und Innenstraße, Außenkante der Steilkurve vorher und nachher"><figcaption><b>Abb. 14</b>Prüfbild v4. Oben zwei Portale mit gerader Oberkante, in der Mitte die Unterführung von oben. Unten links v3 mit Stufen an der Außenkante, rechts v4 bündig.</figcaption></figure>
+    <div class="card"><h3>Warum ein Loch besser ist als Absenken</h3>
+      <p style="font-size:14.5px;color:var(--ink2)">Gelände-Dreiecke sind 1 m groß, bis 1,41 m lang. Wer das Gelände nur bis zur Wand absenkt, hat immer ein Dreieck, das auf der falschen Seite der Wand endet. Ein Loch dagegen schaltet das Gelände samt Kollision ganz ab.</p>
+      <h3 style="margin-top:10px">Die Falle am Lochrand</h3>
+      <p style="font-size:14.5px;color:var(--ink2);margin:0">Der Simulator lässt pro Lochpunkt nur das Quadrat nach +x/+y weg. Die Randquadrate werden gezeichnet und hängen an Lochpunkten mit der <b>Original-Höhe</b> (Damm, bis 19 m). Ergebnis in v3: Gelände-Keile durch Wände und Portal. Die alte Vorschau hat das versteckt, weil sie alle Dreiecke mit Lochecke wegließ. Die Vorschau rechnet jetzt wie der Simulator.</p></div>
+  </div>
+  <div class="rule"><span class="eyebrow">Prüfkriterium</span>Kein gezeichnetes Geländequadrat darf eine Ecke im Einschnitt haben, weder für +x/+y noch für −x/−y. Loch: 1 932 Punkte (Kern 1 466), seitlich um einen Punkt erweitert, nur dort, wo eine Abdeckung darüberliegt.</div>
+</div></section>
+
+<!-- 09 -->
+<section class="sheet entry" id="e09" data-tags="strecken fehler"><div class="sh"><span>Eintrag 09 / 11 · 31.10.2026</span><span>Schritt S05 · v4 Fehlerbehebung</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Fehleranalyse</span><span class="tag ok">behoben</span></div><h2 style="margin-top:10px">Schwarze Ränder und glitchende Fahrbahn</h2>
+  <p>Fahrtest v3: Straßenränder stehen erhöht und erscheinen schwarz, das Auto glitcht beim Überfahren. Zwei getrennte Ursachen, beide in der Geometrie am Rand:</p></div>
+  <div class="grid2">
+    <div class="card"><h3>Ursache 1: Graben statt Übergang</h3><p style="font-size:14.5px;color:var(--ink2)">Das Gelände war unter jeder Fläche pauschal 30 cm abgesenkt. Weil Geländedreiecke 1 m groß sind, entsteht am Rand ein Graben, die Fläche steht als Kante darüber. Die Schürze (senkrechte Blende) wird sichtbar.</p>
+      <h3 style="margin-top:10px">Maßnahme</h3><ul class="t"><li>Flächenraster mit 0,5 m aus allen befahrbaren Oberflächen (Abstandskarte)</li><li>Innen −30 cm, Randstreifen (1 m) −10 cm, außen 1,5 m bündig auf Rand −5 cm, danach 2 m weich zum Gelände</li></ul></div>
+    <div class="card"><h3>Ursache 2: Doppelte Schürzen</h3><p style="font-size:14.5px;color:var(--ink2)">Die Schürzen der Betonflächen waren beidseitig mit denselben Punkten gebaut. Gegenläufige Dreiecke heben sich auf: Die Flächennormale wird 0, die Fläche erscheint schwarz. Dazu kommen zwei Kollisionsflächen übereinander, daher das Glitchen.</p>
+      <h3 style="margin-top:10px">Maßnahme</h3><ul class="t"><li>Schürzen nur einseitig, Vorderseite nach oben</li><li>Stirnwände der Unterführung als Ausgleichsgerade über Gelände und Fahrbahn statt Punkt für Punkt (sonst Sägezahn), 50 cm dick mit Kappe</li></ul></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th colspan="2">Kennzahlen Oval v4</th><th colspan="2">Geländeanpassung</th></tr></thead>
+    <tbody>
+      <tr><td>Modelle</td><td class="n">43</td><td>Punkte unter Flächen</td><td class="n">105 692</td></tr>
+      <tr><td>Eckpunkte</td><td class="n">146 135</td><td>Punkte im Randstreifen</td><td class="n">9 809</td></tr>
+      <tr><td>Dreiecke</td><td class="n">201 392</td><td>Punkte in der Schulter</td><td class="n">37 867</td></tr>
+      <tr><td>Länge der Mittellinie</td><td class="n">4605,5 m</td><td>max. Absenkung / Anhebung</td><td class="n">1,55 m / 3,0 m</td></tr>
+    </tbody></table></div>
+</div></section>
+
+<!-- 10 -->
+<section class="sheet entry" id="e10" data-tags="strecken fehler"><div class="sh"><span>Eintrag 10 / 11 · 01.11.2026</span><span>Schritt S06 · Handling I und 2</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag ok">bestanden, Nacharbeit später</span></div><h2 style="margin-top:10px">Handlingkurse: erst messen, dann bauen</h2>
+  <p>Zwei Kurse, ein Netz aus Zufahrten. <b>Handling I</b> ist ein einziger geschlossener Kurs in Form einer Acht: Eine Überführung kreuzt den eigenen Südast, zwei flache Brücken queren einen Bachdurchlass. <b>Handling 2</b> ist ein kurviger Kurs mit Betoncurbs und wird nur über die Einfahrt von Handling I erreicht, mitten auf der Strecke.</p></div>
+  <div class="figs two">
+    <figure><img src="../assets/blog/h-lage.jpg" width="1500" height="1160" loading="lazy" alt="Luftbild mit roter Linie für den Verlauf von Handling I als Achterschleife und gelber Linie für Handling 2"><figcaption><b>Abb. 15</b>Lage im Luftbild: Handling I (rot) als Achter-Schleife, Handling 2 (gelb) im Osten. Der Lagevergleich lief vor dem Bau.</figcaption></figure>
+    <figure><img src="../assets/blog/h-netz-analyse.jpg" width="1100" height="825" loading="lazy" alt="Diagramm der Kartenwege im Gelände; die Strecke Handling I ist rot als geschlossene Schleife hervorgehoben"><figcaption><b>Abb. 16</b>Topologie-Analyse: Aus den Kartenwegen wird per gemeinsamer Knoten ein geschlossener Linienzug gesucht. Rot = Handling I.</figcaption></figure>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Befund v1 (Fahrtest)</th><th>Ursache</th><th>Maßnahme in v2</th></tr></thead>
+    <tbody>
+      <tr><td>Brücken und Ein-/Ausfahrten fehlen komplett</td><td>Die Überführung ist in den Kartendaten nicht „Handling I“ benannt und wurde übersehen. Die Bachdurchlässe wurden mit den gemeinten Brücken verwechselt.</td><td>Netz über gemeinsame Knoten durchsucht, Handling I als ein Linienzug mit Brücken als Streckenbereichen gebaut</td></tr>
+      <tr><td>Graue Asphaltstreifen neben der Fahrbahn</td><td>Lage und Breite aus der Kartenlinie geschätzt, bis 3,75 m daneben. Die Bodenkarte (S04) färbt den echten Belag grau.</td><td>Lage und Breite aus dem Luftbild gemessen; angrenzendes Gelände bis 3 m und kleine Asphaltflecken bis 25 m auf Wiese oder Wald umgesetzt</td></tr>
+      <tr><td>Überführung höhengleich gekreuzt</td><td>Kein Brückenbauwerk modelliert</td><td>Deck zwischen den Dammkronen, 1,2 m stark, Widerlager, ≈ 4,3 m lichte Höhe darunter</td></tr>
+      <tr><td>Einmündung als überlappendes Band</td><td>Zwei Flächen übereinander</td><td>Ecken ausgerundet (R 6 bis 10 m), Randlinie der Hauptstraße unterbrochen, Nebenstraße 2 cm tiefer angeschlossen</td></tr>
+    </tbody></table></div>
+  <div class="figs">
+    <figure><img src="../assets/blog/h-osm-vs-messung-a.jpg" width="600" height="480" loading="lazy" alt="Luftbildausschnitt mit roten Kartenlinien, die neben den Fahrbahnen liegen"><figcaption><b>Abb. 17</b>Ausgangslinie aus den Kartendaten (rot): schief zur echten Fahrbahn, eine Breite gibt es nicht.</figcaption></figure>
+    <figure><img src="../assets/blog/h-osm-vs-messung-b.jpg" width="600" height="480" loading="lazy" alt="Derselbe Luftbildausschnitt mit magentafarbenen gemessenen Fahrbahnrändern und gelber Mittellinie"><figcaption><b>Abb. 18</b>Gemessen: Ränder (magenta) und Mitte (gelb) liegen auf der echten Fahrbahn.</figcaption></figure>
+    <figure><img src="../assets/blog/h-zufahrt.jpg" width="900" height="1271" loading="lazy" alt="Luftbild mit Abzweig und Zufahrt zu Handling 2 sowie gelb eingezeichneter Mittellinie"><figcaption><b>Abb. 19</b>Zufahrt zu Handling 2: Der Anschluss führt mitten auf den Kurs, keine eigene Einfahrt.</figcaption></figure>
+  </div>
+  <div class="figs one">
+    <figure><img src="../assets/blog/h-v2-pruefbild.jpg" width="1400" height="1181" loading="lazy" alt="Sechs Prüfansichten v2: Überführung, Brückenbrüstung, Einmündung, Behelfsausfahrt mit Schranken, Kurven"><figcaption><b>Abb. 20</b>Prüfbild v2 mit Gelände in Materialfarben (grün Wiese, braun Erde): Überführung, Brücke, Einmündung, Behelf mit zwei Schranken.</figcaption></figure>
+    
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Gemessene Maße</h3><ul class="t"><li>Handling I: 7,0 m breit, max. Steigung 3,8 %</li><li>Handling 2: 9,25 m gesamt = 8,25 m Asphalt + 2 × 0,5 m Betoncurb (8 cm hoch)</li><li>Ein-/Ausfahrt: 6,5 m, Zufahrt zu Handling 2: 6 m, Behelfsauffahrt: 5 m</li><li>Überführung: Deck 1,2 m, Brüstung 0,9 m; Bachbrücken: Körper 0,8 m, Brüstung 0,7 m</li></ul></div>
+    <div class="card"><h3>Fahrtest v2 und offene Punkte</h3><ul class="t"><li>Überführung, Brücken, Curbs, Einmündungen und Wegfall der Streifen: <b>bestanden</b></li><li>Nacharbeit später: Sperrfläche an der Ein-/Ausfahrt, Lage der Schranken, Zufahrt auf Handling 2, kleine Kanten an Einmündungen</li><li>Bewusst noch nicht gebaut: Leitplanken (S13), das Nasshalte-System von Handling 2</li></ul></div>
+  </div>
+  <p class="muted" style="font-size:13px">Kennzahlen v2: 80 Modelle, 71 839 Eckpunkte, 83 389 Dreiecke.</p>
+</div></section>
+
+<!-- 11 -->
+<section class="sheet entry" id="e11" data-tags="methodik"><div class="sh"><span>Eintrag 11 / 11 · 01.11.2026</span><span>Auswertung · Revisionen</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Methodik</span></div><h2 style="margin-top:10px">Was sechs Revisionen gelehrt haben</h2>
+  <p>Die Fehler wiederholen sich in Mustern. Aus ihnen sind feste Arbeitsregeln geworden:</p></div>
+  <div class="grid2">
+    <div class="card"><h3>Regeln</h3><ol class="t" style="margin:0;padding-left:1.3em"><li><b>Messen statt schätzen.</b> Lage und Breite immer aus dem Luftbild, nie aus Kartenlinien.</li><li><b>Vorab prüfen.</b> Keine Auslieferung ohne 3D-Vorschau, die das Verhalten des Simulators nachbildet (Löcher, Flächennormalen, Materialfarben).</li><li><b>Rückweg sichern.</b> Jedes Paket sichert den Vorzustand und bringt ein Zurücksetz-Skript mit.</li><li><b>Reihenfolge einfrieren.</b> Materialliste nur anhängen.</li><li><b>Befund protokollieren.</b> Je Revision: Symptom, Ursache, Maßnahme.</li></ol></div>
+    <div class="card"><h3>Typische Fehlerklassen</h3><ul class="t"><li><b>Geometrie am Rand:</b> Graben, Kante, Zacken, Loch (Einträge 08, 09)</li><li><b>Daten ungenau:</b> Kartenlinien zu grob oder falsch (Einträge 05, 06, 10)</li><li><b>Objekt übersehen:</b> Bauwerk unter anderem Namen geführt (Eintrag 10)</li><li><b>Fläche doppelt:</b> Normale 0, doppelte Kollision (Eintrag 09)</li></ul></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Schritt</th><th>Rev.</th><th>Datum</th><th>Ergebnis Fahrtest</th><th>Anlass der Folgerevision</th></tr></thead>
+    <tbody>
+      <tr><td>S03 Gelände</td><td>v1</td><td>30.10.</td><td><span class="tag ok">bestanden</span></td><td>Unterführung fehlt (kommt in S05)</td></tr>
+      <tr><td>S04 Böden</td><td>v1</td><td>30.10.</td><td><span class="tag ok">bestanden</span></td><td>–</td></tr>
+      <tr><td rowspan="4">S05 Oval</td><td>v1</td><td>30.10.</td><td><span class="tag bad">durchgefallen</span></td><td>Spuren, Textur, Durchstechen, Unterführung</td></tr>
+      <tr><td>v2</td><td>31.10.</td><td><span class="tag warn">teilweise</span></td><td>Unterführung ohne Straße, Ein-/Ausfahrtssystem fehlt</td></tr>
+      <tr><td>v3</td><td>31.10.</td><td><span class="tag warn">teilweise</span></td><td>Unterführung glitcht, Ränder erhöht und schwarz</td></tr>
+      <tr><td>v4</td><td>01.11.</td><td><span class="tag ok">bestanden</span></td><td>–</td></tr>
+      <tr><td rowspan="2">S06 Handling</td><td>v1</td><td>01.11.</td><td><span class="tag bad">durchgefallen</span></td><td>Brücken und Einfahrten fehlen, graue Streifen, Einmündung überlappt</td></tr>
+      <tr><td>v2</td><td>01.11.</td><td><span class="tag ok">bestanden</span></td><td>Nacharbeit später (Details siehe Eintrag 10)</td></tr>
+    </tbody></table></div>
+</div></section>
+
+</main>
+
+<section class="sheet" id="offen"><div class="sh"><span>Offene Posten</span><span>S07 bis Z1</span></div>
+<div class="sb">
+  <div class="col"><div class="eyebrow">Ausblick</div><h2>Was als Nächstes kommt</h2>
+  <p>Die großen Fahrbahnen stehen. Es folgen die Innenkurse, die Sonderflächen und die Ausstattung. Als Vorbereitung für S07 sind Fächer-Kurs, Kreisverkehr und die Anbindungen bereits im Luftbild markiert.</p></div>
+  <div class="grid2">
+    <figure><img src="../assets/blog/ausblick-faecher.jpg" width="860" height="760" loading="lazy" alt="Luftbild des Fächer-Kurses mit Kreisverkehr; Fahrbahnflächen farbig markiert"><figcaption><b>Abb. 21</b>Vorbereitung S07: Flächen des Fächer-Kurses und seiner Anbindungen im Luftbild markiert (Rot Rand, Blau Fläche).</figcaption></figure>
+    <div class="tablewrap"><table style="min-width:0">
+      <thead><tr><th>Schritt</th><th>Inhalt</th></tr></thead>
+      <tbody>
+        <tr><td>S07</td><td>Multifunktion, Kies-Kurs und übrige Innenkurse</td></tr>
+        <tr><td>S08</td><td>Kuhfladen-Kurse klein und groß</td></tr>
+        <tr><td>S09</td><td>Zustandsspuren</td></tr>
+        <tr><td>S10</td><td>SKS1 und SKS2</td></tr>
+        <tr><td>S11</td><td>Steigungshügel</td></tr>
+        <tr><td>S12</td><td>Dynamikfläche, Wartungswege, Pforte, Einfahrt</td></tr>
+        <tr><td>S13</td><td>Wald, Bäume, Sichtschutz, Ausstattung</td></tr>
+        <tr><td>S14</td><td>Gebäude als schlichte Platzhalter</td></tr>
+        <tr><td>S15</td><td>KI-Wege, Spawnpunkte, Fahrtrichtungen</td></tr>
+        <tr><td>Z1</td><td>Leistungs-Feinschliff und Endtest</td></tr>
+      </tbody></table></div>
+  </div>
+</div></section>
+
+<footer>
+  <p><b>Datenquellen:</b> Bayerische Vermessungsverwaltung, www.geodaten.bayern.de (CC BY 4.0): Digitales Geländemodell 1 m, Oberflächenmodell, Luftbild, 3D-Gebäudemodell LoD2. Kartenlinien: © OpenStreetMap-Mitwirkende (ODbL). Die Luftbild-Ausschnitte in diesem Logbuch sind eigene Bearbeitungen (Entzerrung, Markierung, Überlagerung).</p>
+  <p><b>Abbildungen:</b> Prüfbilder stammen aus einer eigenen 3D-Vorschau. Spielansichten und Messstreifen sind Zwischenstände während des Baus und zeigen nicht den Endzustand.</p>
+  <p>Alle Maße sind Näherungen aus offenen Daten. Nur für private Zwecke, ohne Gewähr.</p>
+</footer>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Bildansicht"><img alt=""><p></p></div>
+
+<script>
+(function(){
+  /* Darstellung wechseln, gemeinsam mit dem Datenblatt */
+  const r=document.documentElement,b=document.getElementById("themebtn");
+  try{const s=localStorage.getItem("theme");if(s)r.setAttribute("data-theme",s)}catch(e){}
+  b.addEventListener("click",()=>{const cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");const nx=cur==="dark"?"light":"dark";r.setAttribute("data-theme",nx);try{localStorage.setItem("theme",nx)}catch(e){}});
+  /* Filter */
+  const chips=[...document.querySelectorAll("[data-f]")],entries=[...document.querySelectorAll(".entry")];
+  chips.forEach(c=>c.addEventListener("click",()=>{
+    chips.forEach(x=>x.setAttribute("aria-pressed",x===c));
+    const f=c.dataset.f;
+    entries.forEach(e=>{e.hidden=!(f==="all"||e.dataset.tags.split(" ").includes(f))});
+  }));
+  /* Reihenfolge */
+  const log=document.getElementById("log"),ob=document.getElementById("order");
+  ob.addEventListener("click",()=>{const on=ob.getAttribute("aria-pressed")!=="true";ob.setAttribute("aria-pressed",on);log.classList.toggle("rev",on);ob.textContent=on?"Chronologisch":"Neueste zuerst"});
+  /* Bild vergrößern */
+  const lb=document.getElementById("lb"),li=lb.querySelector("img"),lc=lb.querySelector("p");
+  document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{li.src=i.currentSrc||i.src;li.alt=i.alt;const c=i.parentElement.querySelector("figcaption");lc.textContent=c?c.textContent:"";lb.classList.add("on")}));
+  const close=()=>{lb.classList.remove("on");li.removeAttribute("src")};
+  lb.addEventListener("click",close);
+  addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+})();
+</script>
+</body>
+</html>
