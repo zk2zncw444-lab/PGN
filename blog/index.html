@@ -87,6 +87,7 @@ code{font:13px var(--f-m);background:var(--panel2);border:1px solid var(--line2)
 .prog span{font:500 10.5px/1 var(--f-m);text-align:center;padding:8px 0 7px;border:1px solid var(--line2);color:var(--muted);background:var(--bg)}
 .prog span.done{background:var(--ok);color:#06231c;border-color:var(--ok);font-weight:600}
 .prog span.open{background:transparent}
+.prog span.test{background:transparent;border-color:var(--warn);color:var(--warn);font-weight:600;border-style:dashed}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font:11.5px var(--f-m);color:var(--muted);margin-top:8px}
 .legend i{display:inline-block;width:12px;height:12px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line2)}
 /* Filter */
@@ -150,12 +151,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
     <h1 style="margin:12px 0 0">Vom Datensatz<br>zur Fahrbahn</h1>
     <p class="lead col">Das Datenblatt zeigt, was das Gelände ist. Dieses Logbuch zeigt, wie daraus ein befahrbares Modell für den Fahrsimulator entsteht: welche Daten, welche Rechenschritte, welche Fehler und was wir daraus gemacht haben. Chronologisch, mit Messbildern, Prüfbildern und den Revisionen, die es gebraucht hat.</p>
     <div class="tb" aria-label="Schriftfeld">
-      <div><b>Dokument</b>BL-PG-01</div><div><b>Revision</b>A</div><div><b>Zeitraum</b>30.10.–01.11.2026</div><div><b>Einträge</b>11</div>
+      <div><b>Dokument</b>BL-PG-01</div><div><b>Revision</b>A</div><div><b>Zeitraum</b>30.10.–01.11.2026</div><div><b>Einträge</b>12</div>
       <div><b>Gegenstand</b>Nachbau Prüfgelände</div><div><b>Raster</b>1 m, 4096 × 4096</div><div><b>Bezugssystem</b>lokal, 0/0 = Mitte</div><div><b>Status</b>privat, in Arbeit</div>
     </div>
   </div>
   <div class="kpis">
-    <div class="kpi"><b>6<i>/ 15</i></b><span>Bauschritte abgeschlossen</span><small>plus Endtest Z1</small></div>
+    <div class="kpi"><b>6<i>/ 15</i></b><span>Bauschritte abgeschlossen</span><small>S07 im Echttest, plus Endtest Z1</small></div>
     <div class="kpi"><b>84<i>Kacheln</i></b><span>Rohdaten</span><small>25 Höhe, 25 Luftbild, 25 Oberfläche, 9 Gebäude</small></div>
     <div class="kpi"><b>16,8<i>Mio.</i></b><span>Höhenpunkte im Raster</span><small>4096 × 4096 bei 1 m</small></div>
     <div class="kpi"><b>0,5<i>m</i></b><span>Lagegenauigkeit Oval-Mittellinie</span><small>an 32 Stichproben geprüft</small></div>
@@ -180,7 +181,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
     <h3 style="margin-bottom:8px">Baufortschritt</h3>
     <div class="prog" aria-label="Fortschritt der Bauschritte">
       <span class="done" title="S01 Projekt anlegen und Kartengröße festlegen">S01</span><span class="done" title="S02 Arbeitsordner anlegen und Geodaten herunterladen">S02</span><span class="done" title="S03 Gelände, Luftbild und leere Karte">S03</span><span class="done" title="S04 Bodenmaterialien">S04</span><span class="done" title="S05 Oval mit Steilkurven">S05</span><span class="done" title="S06 Handling I und Handling 2">S06</span>
-      <span class="open" title="S07 Multifunktion, Kies-Kurs und übrige Innenkurse">S07</span><span class="open" title="S08 Kuhfladen-Kurse klein und groß">S08</span><span class="open" title="S09 Zustandsspuren">S09</span><span class="open" title="S10 SKS1 und SKS2">S10</span><span class="open" title="S11 Steigungshügel">S11</span><span class="open" title="S12 Dynamikfläche, Wartungswege, Pforte und Einfahrt">S12</span><span class="open" title="S13 Wald, Bäume, Sichtschutz und Ausstattung">S13</span><span class="open" title="S14 Gebäude als schlichte Platzhalter">S14</span><span class="open" title="S15 KI-Wege, Spawnpunkte und Fahrtrichtungen">S15</span><span class="open" title="Z1 Leistungs-Feinschliff und Endtest">Z1</span>
+      <span class="test" title="S07 in Prüfung: Multifunktion, Kies-Kurs und übrige Innenkurse">S07</span><span class="open" title="S08 Kuhfladen-Kurse klein und groß">S08</span><span class="open" title="S09 Zustandsspuren">S09</span><span class="open" title="S10 SKS1 und SKS2">S10</span><span class="open" title="S11 Steigungshügel">S11</span><span class="open" title="S12 Dynamikfläche, Wartungswege, Pforte und Einfahrt">S12</span><span class="open" title="S13 Wald, Bäume, Sichtschutz und Ausstattung">S13</span><span class="open" title="S14 Gebäude als schlichte Platzhalter">S14</span><span class="open" title="S15 KI-Wege, Spawnpunkte und Fahrtrichtungen">S15</span><span class="open" title="Z1 Leistungs-Feinschliff und Endtest">Z1</span>
     </div>
     <div class="legend"><span><i style="background:var(--ok);border-color:var(--ok)"></i>abgeschlossen (Fahrtest bestanden)</span><span><i></i>offen</span></div>
   </div>
@@ -197,13 +198,13 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
   <button class="btn" type="button" id="order" aria-pressed="false">Neueste zuerst</button>
 </div>
 <nav class="toc" aria-label="Einträge">
-  <a href="#e01">01 Machbarkeit</a><a href="#e02">02 Rohdaten</a><a href="#e03">03 Gelände</a><a href="#e04">04 Böden</a><a href="#e05">05 Oval v1</a><a href="#e06">06 Mittellinie</a><a href="#e07">07 Ein-/Ausfahrt</a><a href="#e08">08 Unterführung</a><a href="#e09">09 Randfehler</a><a href="#e10">10 Handling</a><a href="#e11">11 Revisionen</a><a href="#offen">Offene Posten</a>
+  <a href="#e01">01 Machbarkeit</a><a href="#e02">02 Rohdaten</a><a href="#e03">03 Gelände</a><a href="#e04">04 Böden</a><a href="#e05">05 Oval v1</a><a href="#e06">06 Mittellinie</a><a href="#e07">07 Ein-/Ausfahrt</a><a href="#e08">08 Unterführung</a><a href="#e09">09 Randfehler</a><a href="#e10">10 Handling</a><a href="#e11">11 Revisionen</a><a href="#e12">12 Innenkurse</a><a href="#offen">Offene Posten</a>
 </nav>
 
 <main class="log" id="log">
 
 <!-- 01 -->
-<section class="sheet entry" id="e01" data-tags="daten"><div class="sh"><span>Eintrag 01 / 11 · 30.10.2026</span><span>Machbarkeit</span></div>
+<section class="sheet entry" id="e01" data-tags="daten"><div class="sh"><span>Eintrag 01 / 12 · 30.10.2026</span><span>Machbarkeit</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Daten</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Reichen offene Daten für einen fahrbaren Nachbau?</h2>
   <p>Ausgangsfrage: Lässt sich ein Hochgeschwindigkeits-Prüfgelände aus öffentlichen Geodaten so rekonstruieren, dass es sich im Simulator plausibel fährt, einschließlich der Steilkurven? Geprüft wurden Luftbild und Höhenmodell. Beide liegen vollständig und unverfälscht vor, das Vorhaben ist machbar.</p>
@@ -216,7 +217,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 02 -->
-<section class="sheet entry" id="e02" data-tags="daten"><div class="sh"><span>Eintrag 02 / 11 · 30.10.2026</span><span>Schritt S02 · Rohdaten</span></div>
+<section class="sheet entry" id="e02" data-tags="daten"><div class="sh"><span>Eintrag 02 / 12 · 30.10.2026</span><span>Schritt S02 · Rohdaten</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Daten</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Rohdaten holen, prüfen, verkleinern</h2>
   <p>Fünf Datenquellen decken das Quadrat vollständig ab. Alle Kacheln wurden auf Vollständigkeit geprüft (Höhe 25/25, Luftbild 25/25, Oberfläche 25/25, Gebäude 9/9). Die Server der Vermessungsverwaltung sind aus der Rechenumgebung nicht direkt erreichbar, der Download läuft deshalb über den Browser.</p></div>
@@ -236,7 +237,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 03 -->
-<section class="sheet entry" id="e03" data-tags="daten"><div class="sh"><span>Eintrag 03 / 11 · 30.10.2026</span><span>Schritt S03 · Gelände</span></div>
+<section class="sheet entry" id="e03" data-tags="daten"><div class="sh"><span>Eintrag 03 / 12 · 30.10.2026</span><span>Schritt S03 · Gelände</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Gelände</span><span class="tag ok">Fahrtest bestanden</span></div><h2 style="margin-top:10px">Das nackte Gelände: Höhenraster, Luftbild, erste Testfahrt</h2>
   <p>Aus Höhenmodell und Luftbild entsteht eine leere Karte. Das Höhenraster wird als 16-Bit-Graustufenbild abgelegt, damit die Höhe auf Millimeter genau im Simulator ankommt:</p></div>
@@ -252,7 +253,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 04 -->
-<section class="sheet entry" id="e04" data-tags="daten"><div class="sh"><span>Eintrag 04 / 11 · 30.10.2026</span><span>Schritt S04 · Bodenmaterialien</span></div>
+<section class="sheet entry" id="e04" data-tags="daten"><div class="sh"><span>Eintrag 04 / 12 · 30.10.2026</span><span>Schritt S04 · Bodenmaterialien</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Böden</span><span class="tag ok">Fahrtest bestanden</span></div><h2 style="margin-top:10px">Bodenkarte: Asphalt, Beton, Wiese, Wald, Kies</h2>
   <p>Die Bodenart bestimmt Grip, Geräusch und Optik. Eine reine Farbklassifikation des Luftbilds scheitert an Schatten, deshalb kombiniert die Bodenkarte drei Quellen:</p>
@@ -277,7 +278,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 05 -->
-<section class="sheet entry" id="e05" data-tags="strecken fehler"><div class="sh"><span>Eintrag 05 / 11 · 30.10.2026</span><span>Schritt S05 · Oval v1</span></div>
+<section class="sheet entry" id="e05" data-tags="strecken fehler"><div class="sh"><span>Eintrag 05 / 12 · 30.10.2026</span><span>Schritt S05 · Oval v1</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag bad">Fahrtest nicht bestanden</span></div><h2 style="margin-top:10px">Oval, erster Versuch: warum v1 durchfiel</h2>
   <p>Das 4,6 km lange Oval ist das Herzstück. Es wird nicht mehr als Gelände, sondern als eigene 3D-Fahrbahn modelliert, damit Spuren, Markierungen und die Steilkurven sauber sitzen. Die erste Version wurde ohne Vorab-Prüfung ausgeliefert, und der Fahrtest war eindeutig: Spuren unplausibel, Textur zu grob, Gelände sichtbar durch die Fahrbahn, Unterführung unbrauchbar.</p></div>
@@ -299,7 +300,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 06 -->
-<section class="sheet entry" id="e06" data-tags="strecken methodik"><div class="sh"><span>Eintrag 06 / 11 · 30.10.2026</span><span>Schritt S05 · Messung</span></div>
+<section class="sheet entry" id="e06" data-tags="strecken methodik"><div class="sh"><span>Eintrag 06 / 12 · 30.10.2026</span><span>Schritt S05 · Messung</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Methodik</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Die Mittellinie aus dem Luftbild ablesen</h2>
   <p>Die Kartenlinie des Ovals hat nur alle ≈ 70 m einen Stützpunkt und liegt bis zu <b>10 m neben der Fahrbahn</b>. Auch eine automatische Linienerkennung im Luftbild war unbrauchbar: Schatten und Leitplankenpfosten erzeugen Scheinlinien. Also wurde gemessen wie auf einer Vermessungsskizze:</p>
@@ -341,7 +342,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 07 -->
-<section class="sheet entry" id="e07" data-tags="strecken"><div class="sh"><span>Eintrag 07 / 11 · 30.–31.10.2026</span><span>Schritt S05 · v2 und v3</span></div>
+<section class="sheet entry" id="e07" data-tags="strecken"><div class="sh"><span>Eintrag 07 / 12 · 30.–31.10.2026</span><span>Schritt S05 · v2 und v3</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag warn">v2 teilweise · v3 teilweise</span></div><h2 style="margin-top:10px">Spuren stimmen, jetzt fehlt das Ein- und Ausfahrtsystem</h2>
   <p><b>v2</b> bringt die gemessene Mittellinie, drei Spuren, abgesenktes Gelände, hellere Asphalttextur und die Schrift „200 | 140 | 80“ an acht Stellen. Fahrtest: Die Spuren auf der Geraden passen, die Unterführung ist weiter schlecht, und das System aus Aus- und Auffahrt oberhalb der Unterführung fehlt komplett.</p></div>
@@ -358,7 +359,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 08 -->
-<section class="sheet entry" id="e08" data-tags="strecken fehler"><div class="sh"><span>Eintrag 08 / 11 · 31.10.2026</span><span>Unterführung · Gelände mit Loch</span></div>
+<section class="sheet entry" id="e08" data-tags="strecken fehler"><div class="sh"><span>Eintrag 08 / 12 · 31.10.2026</span><span>Unterführung · Gelände mit Loch</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag ok">abgeschlossen (v4)</span></div><h2 style="margin-top:10px">Unterführung in drei Anläufen: Loch statt Absenken</h2>
   <p>Das Höhenmodell zeigt über dem Tunnel nur den Damm des Ovals. Die Unterführung muss also in das Gelände <b>hineingebaut</b> werden. Daten der Unterführung: 66,3 m lang, lichte Breite 7,8 m, Höhe 4,5 m, zweispurige Straße (6,5 m) mit Rand- und Mittellinie, Tunnelstrecke von Meter 5 bis 65, Wände bis über die Rampen hinaus.</p></div>
@@ -381,7 +382,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 09 -->
-<section class="sheet entry" id="e09" data-tags="strecken fehler"><div class="sh"><span>Eintrag 09 / 11 · 31.10.2026</span><span>Schritt S05 · v4 Fehlerbehebung</span></div>
+<section class="sheet entry" id="e09" data-tags="strecken fehler"><div class="sh"><span>Eintrag 09 / 12 · 31.10.2026</span><span>Schritt S05 · v4 Fehlerbehebung</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Fehleranalyse</span><span class="tag ok">behoben</span></div><h2 style="margin-top:10px">Schwarze Ränder und glitchende Fahrbahn</h2>
   <p>Fahrtest v3: Straßenränder stehen erhöht und erscheinen schwarz, das Auto glitcht beim Überfahren. Zwei getrennte Ursachen, beide in der Geometrie am Rand:</p></div>
@@ -402,7 +403,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 10 -->
-<section class="sheet entry" id="e10" data-tags="strecken fehler"><div class="sh"><span>Eintrag 10 / 11 · 01.11.2026</span><span>Schritt S06 · Handling I und 2</span></div>
+<section class="sheet entry" id="e10" data-tags="strecken fehler"><div class="sh"><span>Eintrag 10 / 12 · 01.11.2026</span><span>Schritt S06 · Handling I und 2</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag ok">bestanden, Nacharbeit später</span></div><h2 style="margin-top:10px">Handlingkurse: erst messen, dann bauen</h2>
   <p>Zwei Kurse, ein Netz aus Zufahrten. <b>Handling I</b> ist ein einziger geschlossener Kurs in Form einer Acht: Eine Überführung kreuzt den eigenen Südast, zwei flache Brücken queren einen Bachdurchlass. <b>Handling 2</b> ist ein kurviger Kurs mit Betoncurbs und wird nur über die Einfahrt von Handling I erreicht, mitten auf der Strecke.</p></div>
@@ -435,7 +436,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </div></section>
 
 <!-- 11 -->
-<section class="sheet entry" id="e11" data-tags="methodik"><div class="sh"><span>Eintrag 11 / 11 · 01.11.2026</span><span>Auswertung · Revisionen</span></div>
+<section class="sheet entry" id="e11" data-tags="methodik"><div class="sh"><span>Eintrag 11 / 12 · 01.11.2026</span><span>Auswertung · Revisionen</span></div>
 <div class="sb">
   <div class="col"><div class="meta"><span class="tag">Methodik</span></div><h2 style="margin-top:10px">Was sechs Revisionen gelehrt haben</h2>
   <p>Die Fehler wiederholen sich in Mustern. Aus ihnen sind feste Arbeitsregeln geworden:</p></div>
@@ -454,21 +455,58 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
       <tr><td>v4</td><td>01.11.</td><td><span class="tag ok">bestanden</span></td><td>–</td></tr>
       <tr><td rowspan="2">S06 Handling</td><td>v1</td><td>01.11.</td><td><span class="tag bad">durchgefallen</span></td><td>Brücken und Einfahrten fehlen, graue Streifen, Einmündung überlappt</td></tr>
       <tr><td>v2</td><td>01.11.</td><td><span class="tag ok">bestanden</span></td><td>Nacharbeit später (Details siehe Eintrag 10)</td></tr>
+      <tr><td rowspan="2">S07 Innenkurse</td><td>v1</td><td>01.11.</td><td><span class="tag bad">durchgefallen</span></td><td>Beton zu hell, Kanten wellig, Markierungen fehlen, Barrieren im Kies-Kurs (Eintrag 12)</td></tr>
+      <tr><td>v2</td><td>01.11.</td><td><span class="tag warn">in Prüfung</span></td><td>3D-Vorschau ohne Befund, Fahrtest steht aus</td></tr>
     </tbody></table></div>
 </div></section>
 
 </main>
 
-<section class="sheet" id="offen"><div class="sh"><span>Offene Posten</span><span>S07 bis Z1</span></div>
+<!-- 12 -->
+<section class="sheet entry" id="e12" data-tags="strecken fehler"><div class="sh"><span>Eintrag 12 / 12 · 01.11.2026</span><span>Schritt S07 · Innenkurse</span></div>
+<div class="sb">
+  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag warn">v2 in Prüfung</span></div><h2 style="margin-top:10px">Innenkurse: vier Bereiche, zwei Revisionen an einem Tag</h2>
+  <p>S07 umfasst die Flächen innerhalb des Ovals: <b>A</b> Kies-Kurs mit rot-weißen Barken und Kies-Platz, <b>B</b> Kreisverkehr mit Kies-Innenfläche, <b>C</b> Multifunktionsfläche (Dreieck mit Gerade nach Süden) und <b>D</b> Fächer mit Kreisverkehr und einer Fliesen-Spur (52 × 5 m, vorerst normale Haftung, Nässe später). Die Flächen wurden aus dem Luftbild abgeleitet: befestigt = unbunt und hell, innerhalb vorgegebener Pufferzonen.</p></div>
+  <h3>v1: schnell gebaut, schnell durchgefallen</h3>
+  <ul class="t" style="max-width:72ch">
+    <li><b>A Kies-Kurs</b> als <em>Gelände</em> (9 700 m²) mit 605 Schlaglöchern (Radius 0,7 bis 1,7 m, 7 bis 25 cm tief) und 215 Buckeln (bis 15 cm), dazu ein neues Bodenmaterial für groben Kies (Index 10, an die Liste angehängt).</li>
+    <li><b>2 656 Barken</b> mit fester Kollision entlang des Kurses.</li>
+    <li><b>B, C, D</b> als 3D-Modelle aus hellem Beton mit Randlinien. Gesamt 60 Modelle, 89 500 Eckpunkte, 76 700 Dreiecke.</li>
+  </ul>
+  <div class="figs one">
+    <figure><img src="../assets/blog/s07-v1-pruefbild.jpg" width="1280" height="1080" loading="lazy" alt="Sechs Prüfansichten v1: Kies-Kurs mit Barken, Kreisverkehr mit Kiesfläche, Multifunktion, Fächer mit Fliesen-Spur"><figcaption><b>Abb. 21</b>Prüfbild v1: Kies-Kurs mit Barken (oben), Kreisverkehr B und Multifunktion C (Mitte), Fächer D mit Fliesen-Spur (unten).</figcaption></figure>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Befund v1 (Fahrtest)</th><th>Ursache</th><th>Maßnahme in v2</th></tr></thead>
+    <tbody>
+      <tr><td>Beton viel zu hell, fast weiß</td><td>Flächen mit heller Standardtextur, ohne Bezug zum Luftbild</td><td>Eigene Textur für alten, hellen Asphalt (Mittel ≈ 150 von 255), leichte Sprenkelung, feine Risse; Fahrzeug erhält etwas schlechteren Grip</td></tr>
+      <tr><td>Wellige Ränder, eckige Kreisverkehre</td><td>Ränder folgten der pixeligen Flächenmaske</td><td>Exakte Streifen, Fächerspuren 4 bis 4,75 m, Fliesen-Spur 10 m; Kreisverkehre als echte Kreisringe (B: R 28,9 / 35,3 m, D: R 27,0 / 34,0 m)</td></tr>
+      <tr><td>Markierungen fast nicht vorhanden</td><td>Nur einfache Randlinien erzeugt</td><td>Linien aus dem Luftbild gelesen: C 128 Linien (1,4 km), D 286 Linien (1,6 km), Breiten 15 / 25 / 40 cm</td></tr>
+      <tr><td>Barrieren auf dem Kies-Kurs</td><td>Barken als Wände modelliert, Kollision unerwünscht</td><td>Barken entfernt, eigener Schritt S07b: Modelle neu bauen oder Objekte des Simulators nutzen</td></tr>
+      <tr><td>Dunkle Asphaltflecken auf Grasinseln</td><td>Bodenkarte färbt kleine Flächen grau</td><td>Flecken in den Innenflächen auf Wiese umgesetzt</td></tr>
+    </tbody></table></div>
+  <h3>v2: Textur, Geometrie, Markierung</h3>
+  <p style="max-width:72ch">Die Asphalttextur (8-m-Kachel) wird aus der Körnung des Simulator-Asphalts erzeugt und aufgehellt, ohne fremde Bilder. Die Markierungen sind nur so gut wie das Luftbild: Wo Schatten liegen, entstehen Lücken. Der Kies-Kurs bleibt Gelände, damit Physik und Staub vom Simulator kommen; das 1-m-Raster macht die Schlaglöcher leicht eckig. Gesamt: 35 Modelle, 35 900 Eckpunkte, 48 200 Dreiecke.</p>
+  <div class="figs one">
+    <figure><img src="../assets/blog/s07-v2-pruefbild.jpg" width="1280" height="1080" loading="lazy" alt="Sechs Prüfansichten v2: Fächer mit Markierungen, Kreisverkehr, Multifunktion, Fahrersicht und Gerade nach Süden"><figcaption><b>Abb. 22</b>Prüfbild v2: alter heller Asphalt mit Markierungen aus dem Luftbild (Fächer D, Multifunktion C), Fahrersicht und Gerade nach Süden.</figcaption></figure>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Stand</h3><ul class="t"><li>3D-Vorschau v2 ohne Befund</li><li>Fahrtest v2: <b>offen</b></li><li>Folgeschritt S07b: Barken als Objekte</li></ul></div>
+    <div class="card"><h3>Gelernt</h3><ul class="t"><li>Texturen aus dem Simulator-Material ableiten statt Fremdbilder</li><li>Markierungen: Qualität des Luftbilds begrenzt das Ergebnis</li><li>Kreise rechnen statt Masken nachzeichnen</li></ul></div>
+  </div>
+</div></section>
+
+<section class="sheet" id="offen"><div class="sh"><span>Offene Posten</span><span>S07b bis Z1</span></div>
 <div class="sb">
   <div class="col"><div class="eyebrow">Ausblick</div><h2>Was als Nächstes kommt</h2>
-  <p>Die großen Fahrbahnen stehen. Es folgen die Innenkurse, die Sonderflächen und die Ausstattung. Als Vorbereitung für S07 sind Fächer-Kurs, Kreisverkehr und die Anbindungen bereits im Luftbild markiert.</p></div>
+  <p>Die großen Fahrbahnen stehen. Es folgen die Innenkurse, die Sonderflächen und die Ausstattung. S07 ist gebaut (v2) und wartet auf den Fahrtest; als Vorbereitung waren Fächer-Kurs, Kreisverkehr und die Anbindungen im Luftbild markiert.</p></div>
   <div class="grid2">
-    <figure><img src="../assets/blog/ausblick-faecher.jpg" width="860" height="760" loading="lazy" alt="Luftbild des Fächer-Kurses mit Kreisverkehr; Fahrbahnflächen farbig markiert"><figcaption><b>Abb. 21</b>Vorbereitung S07: Flächen des Fächer-Kurses und seiner Anbindungen im Luftbild markiert (Rot Rand, Blau Fläche).</figcaption></figure>
+    <figure><img src="../assets/blog/ausblick-faecher.jpg" width="860" height="760" loading="lazy" alt="Luftbild des Fächer-Kurses mit Kreisverkehr; Fahrbahnflächen farbig markiert"><figcaption><b>Abb. 23</b>Vorbereitung S07: Flächen des Fächer-Kurses und seiner Anbindungen im Luftbild markiert (Rot Rand, Blau Fläche).</figcaption></figure>
     <div class="tablewrap"><table style="min-width:0">
       <thead><tr><th>Schritt</th><th>Inhalt</th></tr></thead>
       <tbody>
-        <tr><td>S07</td><td>Multifunktion, Kies-Kurs und übrige Innenkurse</td></tr>
+        <tr><td>S07</td><td>Multifunktion, Kies-Kurs und übrige Innenkurse <span class="tag warn">in Prüfung</span></td></tr>
+        <tr><td>S07b</td><td>Barken und Objekte im Kies-Kurs</td></tr>
         <tr><td>S08</td><td>Kuhfladen-Kurse klein und groß</td></tr>
         <tr><td>S09</td><td>Zustandsspuren</td></tr>
         <tr><td>S10</td><td>SKS1 und SKS2</td></tr>
