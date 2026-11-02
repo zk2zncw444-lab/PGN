@@ -1,25 +1,39 @@
 # Prüfgelände in Daten
 
-Statische Seite im Blaupausen-Look, keine Build-Schritte nötig.
+Technisches Datenblatt und Baublog zu einem Fahrzeug-Prüfgelände, ausgewertet aus offenen Geodaten.
+Technical datasheet and build log of a vehicle proving ground, analysed from open geodata.
 
-- `index.html`: Datenblatt (Reiter „Datenblatt“)
-- `blog/index.html`: Baublog (Reiter „Baublog“), Bilder in `assets/blog/`
-- `quellen/index.html`: Quellenverzeichnis (Reiter „Quellen“): Herkunft aller Daten, Lizenzen, Grundsatz „nur öffentliche Daten“
+**Live:** https://zk2zncw444-lab.github.io/PGN/
 
-## Auf GitHub Pages veröffentlichen
-1. Den Inhalt dieses Ordners (`index.html`, `blog/`, `quellen/`, `assets/`, `.nojekyll`, `README.md`) in die oberste Ebene des Repositories hochladen und bestehende Dateien ersetzen.
-2. Settings → Pages → Source „Deploy from a branch“ → Branch `main`, Ordner `/ (root)`.
+## Inhalt
 
-Die Seite lädt nur die Schriften von Google Fonts nach, sonst ist alles enthalten.
+| Bereich | Beschreibung |
+|---|---|
+| **Datenblatt** | Kennzahlen, Lageplan, Hochgeschwindigkeitsoval, Handlingkurse, Straßennetz, Steigungshügel, Gelände, Bewuchs und Gebäude in neun Blättern |
+| **Baublog** | Logbuch zum digitalen Nachbau für einen Fahrsimulator: Datenaufbereitung, Messungen, Fehleranalysen und Revisionen mit Mess- und Prüfbildern |
+| **Quellen** | Quellenverzeichnis mit Herausgebern, Lizenzen und Zuordnung der wichtigsten Angaben |
 
-Daten: Bayerische Vermessungsverwaltung (CC BY 4.0), © OpenStreetMap-Mitwirkende (ODbL).
+Die Seite ist zweisprachig (Deutsch und Englisch) und bietet eine helle und eine dunkle Darstellung.
 
-## Sprachumschaltung (DE / EN)
+## Daten und Transparenz
 
-Oben rechts stehen die Buttons „DE“ und „EN“. Die Wahl wird im Browser gemerkt und gilt für Datenblatt und Baublog. Beim ersten Besuch richtet sich die Sprache nach dem Browser.
+Es werden ausschließlich Daten genutzt, die der Öffentlichkeit ohnehin zur Verfügung stehen: offene Geodaten der Bayerischen Vermessungsverwaltung (CC BY 4.0) und OpenStreetMap-Daten (ODbL). Firmeninterne oder sonstige nicht öffentliche Daten werden nicht verwendet. Details und Lizenzen stehen auf der Seite **Quellen**.
 
-- `assets/i18n.js` tauscht die Texte beim Laden aus.
-- `assets/i18n-en.js` enthält alle englischen Texte (Deutsch → Englisch, nach Textblock).
-- Neue deutsche Texte erscheinen auf Englisch erst, wenn ein Eintrag in `i18n-en.js` ergänzt ist. Bis dahin bleibt der deutsche Text stehen.
+## Aufbau
 
-Neue deutsche Texte, auch auf `quellen/index.html`, brauchen einen Eintrag in `assets/i18n-en.js`, sonst bleiben sie auch auf Englisch deutsch.
+```
+index.html          Datenblatt
+blog/               Baublog (Bilder in assets/blog/)
+quellen/            Quellenverzeichnis
+assets/             Relief, Bäume, Bilder, Übersetzung (i18n.js, i18n-en.js)
+```
+
+Statische Seite ohne Build-Schritt. Englische Texte stehen in `assets/i18n-en.js`.
+
+## Hinweis
+
+Private, nicht kommerzielle Auswertung. Alle Werte sind Näherungen aus offenen Daten, ohne Gewähr.
+
+---
+
+**EN:** A static, bilingual (German/English) site with a datasheet, a build log and a source index. Only publicly available data is used (Bavarian open geodata, CC BY 4.0, and OpenStreetMap, ODbL). All values are approximations, provided without warranty.
