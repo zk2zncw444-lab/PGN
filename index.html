@@ -133,7 +133,16 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 @media (max-width:520px){.sb{padding:18px 14px 22px}.kpi b{font-size:32px}.sh{flex-direction:column;gap:2px}}
 /* Reiter */
 .tabs{display:flex;gap:4px;margin-top:14px;border-bottom:1px solid var(--line)}
-.tabs a{font:500 12px/1 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:11px 16px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px}
+.tabs a{font:500 13px/1 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:14px 20px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px;white-space:nowrap}
+.tabs{overflow-x:auto}
+.tabs a .cnt{margin-left:8px;font-size:10px;letter-spacing:.04em;padding:3px 6px;background:var(--accent);color:var(--accent-ink);border-radius:9px;vertical-align:1px}
+.tabs a.hl:not([aria-current]){color:var(--ink)}
+.blogcta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:22px;padding:16px 20px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--panel)}
+.blogcta b{display:block;font:600 24px/1.15 var(--f-d);letter-spacing:.02em;text-transform:uppercase;margin-top:4px}
+.blogcta p{margin:6px 0 0;font-size:14.5px;color:var(--ink2);max-width:64ch}
+a.btn{text-decoration:none;display:inline-block;white-space:nowrap}
+.srcnote{margin-top:26px;font-size:13.5px;color:var(--muted)} .srcnote a{color:var(--accent)}
+@media (max-width:640px){.blogcta{flex-direction:column;align-items:flex-start}.tabs a{padding:13px 12px}}
 .tabs a:hover{color:var(--ink)} .tabs a[aria-current="page"]{color:var(--ink);background:var(--panel);border-color:var(--line)}
 </style>
 <script data-goatcounter="https://ericcarni.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -141,7 +150,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 <body>
 <div class="wrap">
 <div class="top"><span>Datenblatt DB-PG-01 · Rev. A</span><span class="tools"><button class="btn" id="lang-de" type="button" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button><button class="btn" id="lang-en" type="button" aria-pressed="false" aria-label="English" lang="en">EN</button><button class="btn" id="themebtn" type="button" aria-label="Darstellung wechseln">Blaupause / Papier</button></span></div>
-<nav class="tabs" aria-label="Bereiche"><a href="./" aria-current="page">Datenblatt</a><a href="blog/">Baublog</a></nav>
+<nav class="tabs" aria-label="Bereiche"><a href="./" aria-current="page">Datenblatt</a><a href="blog/" class="hl">Baublog<span class="cnt">12</span></a><a href="quellen/">Quellen</a></nav>
 
 <header class="hero">
   <div>
@@ -161,11 +170,17 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 
 <div class="kpis"><div class="kpi"><b>248<i>ha</i></b><span>Geländefläche</span><small>≈ 348 Fußballfelder</small></div><div class="kpi"><b>55,5<i>km</i></b><span>Straßennetz</span><small>1,3 Marathons</small></div><div class="kpi"><b>4,61<i>km</i></b><span>Hochgeschwindigkeitsoval</span><small>vier Fahrstreifen, 2 Steilkurven</small></div><div class="kpi"><b>30<i>%</i></b><span>steilste Rampe</span><small>Hügel 10,3 m hoch</small></div><div class="kpi"><b>36,5<i>m</i></b><span>höchster Baum</span><small>Wald: 45 % der Fläche</small></div><div class="kpi"><b>32<i></i></b><span>Gebäude</span><small>1,7 ha Grundfläche</small></div></div>
 
+<aside class="blogcta" aria-label="Baublog">
+  <div><span class="eyebrow">Neu · Baublog</span><b>Wie aus Rohdaten eine befahrbare Karte wird</b>
+  <p>Der Nachbau als Logbuch: Datenaufbereitung, Messungen, Fehler und Revisionen, mit 23 Abbildungen. Letzter Eintrag: Innenkurse (S07), 01.11.2026.</p></div>
+  <a class="btn" href="blog/">Zum Baublog →</a>
+</aside>
+
 <!-- BLATT 1 -->
 <section class="sheet" id="fakten"><div class="sh"><span>Blatt 01 / 09 · Kennzahlen</span><span>12 Fakten</span></div>
 <div class="sb">
   <div class="col"><div class="eyebrow">Überblick</div><h2>Die Zahlen hinter dem Zaun</h2><p class="muted">Alle Werte sind aus den Daten gerechnet. Wo geschätzt wird (Baumzahl, Kurvenzählung), steht es dabei.</p></div>
-  <div class="facts"><div class="fact"><span class="no">FAKT 01</span><b>348<i>Fußballfelder</i></b><h3>So groß ist das Gelände</h3><p>248 ha bei 2,5 × 1,8 km. Der Zaun ist 6,9 km lang.</p></div><div class="fact"><span class="no">FAKT 02</span><b>1,3<i>Marathons</i></b><h3>Das Straßennetz</h3><p>55,5 km Fahrbahn und Wege innerhalb des Geländes.</p></div><div class="fact"><span class="no">FAKT 03</span><b>1:59<i>min</i></b><h3>Eine Oval-Runde bei 140 km/h</h3><p>4,61 km Rundkurs, Tempolimit laut Karte 140 km/h.</p></div><div class="fact"><span class="no">FAKT 04</span><b>1.259<i>m</i></b><h3>Längste Gerade</h3><p>Die Spur 6 läuft nahezu schnurgerade. Sechs Spuren liegen nebeneinander.</p></div><div class="fact"><span class="no">FAKT 05</span><b>30<i>%</i></b><h3>Steilste Rampe</h3><p>16,7° Steigung, die sanfteste der 8 Rampen hat 8 %.</p></div><div class="fact"><span class="no">FAKT 06</span><b>36,5<i>m</i></b><h3>Höchster Baum</h3><p>Etwa ein zwölfstöckiges Haus. Im Mittel sind die Waldbäume 19 m hoch.</p></div><div class="fact"><span class="no">FAKT 07</span><b>≈ 7.981<i>Kronen</i></b><h3>Erkennbare Baumkronen</h3><p>Auf 112 ha Wald, 45 % des Geländes. Geschätzt aus dem Höhenmodell.</p></div><div class="fact"><span class="no">FAKT 08</span><b>32<i>Gebäude</i></b><h3>Nur ein Bruchteil bebaut</h3><p>0,7 % der Fläche, das höchste Gebäude ist 13,4 m hoch.</p></div><div class="fact"><span class="no">FAKT 09</span><b>95<i>Kurven</i></b><h3>Im gesamten Straßennetz</h3><p>59 links, 36 rechts, die engste ist ein Kreisel (≈ 21 m Radius). Zählung ist eine Näherung.</p></div><div class="fact"><span class="no">FAKT 10</span><b>8+1+1<i></i></b><h3>Brücken, Unterführung, Durchlass</h3><p>Ein Bach quert das Gelände. Straßen führen darüber oder darunter hindurch.</p></div><div class="fact"><span class="no">FAKT 11</span><b>16,8<i>m</i></b><h3>Höhenunterschied gesamt</h3><p>Von 349,7 bis 366,5 m ü. NN, der höchste Punkt ist der Steigungshügel.</p></div><div class="fact"><span class="no">FAKT 12</span><b>4,2<i>m</i></b><h3>Steilkurve: Außenkante über Innenkante</h3><p>Aus dem Höhenmodell gemessen. Planungswert der Neigung: bis 49°.</p></div></div>
+  <div class="facts"><div class="fact"><span class="no">FAKT 01</span><b>348<i>Fußballfelder</i></b><h3>So groß ist das Gelände</h3><p>248 ha bei 2,5 × 1,8 km. Der Zaun ist 6,9 km lang.</p></div><div class="fact"><span class="no">FAKT 02</span><b>1,3<i>Marathons</i></b><h3>Das Straßennetz</h3><p>55,5 km Fahrbahn und Wege innerhalb des Geländes.</p></div><div class="fact"><span class="no">FAKT 03</span><b>1:59<i>min</i></b><h3>Eine Oval-Runde bei 140 km/h</h3><p>4,61 km Rundkurs, Tempolimit laut Karte 140 km/h.</p></div><div class="fact"><span class="no">FAKT 04</span><b>1.259<i>m</i></b><h3>Längste Gerade</h3><p>Die Spur 6 läuft nahezu schnurgerade. Sechs Spuren liegen nebeneinander.</p></div><div class="fact"><span class="no">FAKT 05</span><b>30<i>%</i></b><h3>Steilste Rampe</h3><p>16,7° Steigung, die sanfteste der 8 Rampen hat 8 %.</p></div><div class="fact"><span class="no">FAKT 06</span><b>36,5<i>m</i></b><h3>Höchster Baum</h3><p>Etwa ein zwölfstöckiges Haus. Im Mittel sind die Waldbäume 19 m hoch.</p></div><div class="fact"><span class="no">FAKT 07</span><b>≈ 7.981<i>Kronen</i></b><h3>Erkennbare Baumkronen</h3><p>Auf 112 ha Wald, 45 % des Geländes. Geschätzt aus dem Höhenmodell.</p></div><div class="fact"><span class="no">FAKT 08</span><b>32<i>Gebäude</i></b><h3>Nur ein Bruchteil bebaut</h3><p>0,7 % der Fläche, das höchste Gebäude ist 13,4 m hoch.</p></div><div class="fact"><span class="no">FAKT 09</span><b>95<i>Kurven</i></b><h3>Im gesamten Straßennetz</h3><p>59 links, 36 rechts, die engste ist ein Kreisel (≈ 21 m Radius). Zählung ist eine Näherung.</p></div><div class="fact"><span class="no">FAKT 10</span><b>8+1+1<i></i></b><h3>Brücken, Unterführung, Durchlass</h3><p>Ein Bach quert das Gelände. Straßen führen darüber oder darunter hindurch.</p></div><div class="fact"><span class="no">FAKT 11</span><b>16,8<i>m</i></b><h3>Höhenunterschied gesamt</h3><p>Von 349,7 bis 366,5 m ü. NN, der höchste Punkt ist der Steigungshügel.</p></div><div class="fact"><span class="no">FAKT 12</span><b>4,2<i>m</i></b><h3>Steilkurve: Außenkante über Innenkante</h3><p>Aus dem Höhenmodell gemessen. Öffentliche Projektangabe zur Neigung: bis 49°.</p></div></div>
 </div></section>
 
 <!-- BLATT 2 -->
@@ -204,7 +219,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
   <div class="grid2">
     <div class="card"><h3>Querschnitt: Gerade und Steilkurve</h3><div class="chart" id="c-cs"></div>
       <div class="leg"><span><i style="background:var(--cy)"></i>Gerade</span><span><i style="background:var(--accent)"></i>Steilkurve</span></div>
-      <p class="note">Medianprofil quer zur Fahrbahnlinie, auf die Linie bezogen (Höhe 0). In der Kurve steigt die Außenkante rund 4,2 m über die Innenkante. Planungswert der Querneigung laut Bauunterlagen: bis 49°. Das 1-m-Raster glättet die steilsten Abschnitte.</p></div>
+      <p class="note">Medianprofil quer zur Fahrbahnlinie, auf die Linie bezogen (Höhe 0). In der Kurve steigt die Außenkante rund 4,2 m über die Innenkante. Öffentliche Projektangabe zur Querneigung: bis 49°. Das 1-m-Raster glättet die steilsten Abschnitte.</p></div>
     <div class="card"><h3>Kurvenrechner</h3>
       <div class="calc" style="margin-top:10px">
         <div><label for="v" class="mono muted" style="font-size:12px">Tempo</label><output id="o-v">140 km/h</output><input id="v" type="range" min="60" max="260" step="5" value="140"></div>
@@ -295,6 +310,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
   <p><b>Datenquellen:</b> Bayerische Vermessungsverwaltung, www.geodaten.bayern.de (CC BY 4.0): Digitales Geländemodell 1 m, Oberflächenmodell, 3D-Gebäudemodell LoD2. Kartenlinien: © OpenStreetMap-Mitwirkende (ODbL). Ausgewertet am 30.10.2026.</p>
   <p><b>Methodik:</b> Wald = zusammenhängender Bewuchs ab 3 m Höhe und ab 0,5 ha. Baumkronen über lokale Höhenmaxima geschätzt. Kurven aus geglätteten Kartenlinien berechnet, Radius als Median der Bogenstücke. Steigungen aus dem Höhenmodell entlang der Linien. Zuordnung von Handling 2 und Hügelrampen nach Kartenform.</p>
   <p>Die Daten messen keine Fahrbahn-Unebenheiten im Zentimeterbereich; alle Werte sind Näherungen aus offenen Daten. Nur für private Zwecke, ohne Gewähr.</p>
+  <p class="srcnote">Woher die Daten stammen, steht im Reiter <a href="quellen/">Quellen</a>: nur öffentlich verfügbare Daten, keine internen Daten.</p>
 </footer>
 </div>
 <div class="tip" id="tip" hidden></div>

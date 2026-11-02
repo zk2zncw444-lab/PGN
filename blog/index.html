@@ -49,7 +49,16 @@ code{font:13px var(--f-m);background:var(--panel2);border:1px solid var(--line2)
 .tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .btn:hover{background:var(--panel2)} .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .tabs{display:flex;gap:4px;margin-top:14px;border-bottom:1px solid var(--line)}
-.tabs a{font:500 12px/1 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:11px 16px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px}
+.tabs a{font:500 13px/1 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:14px 20px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px;white-space:nowrap}
+.tabs{overflow-x:auto}
+.tabs a .cnt{margin-left:8px;font-size:10px;letter-spacing:.04em;padding:3px 6px;background:var(--accent);color:var(--accent-ink);border-radius:9px;vertical-align:1px}
+.tabs a.hl:not([aria-current]){color:var(--ink)}
+.blogcta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:22px;padding:16px 20px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--panel)}
+.blogcta b{display:block;font:600 24px/1.15 var(--f-d);letter-spacing:.02em;text-transform:uppercase;margin-top:4px}
+.blogcta p{margin:6px 0 0;font-size:14.5px;color:var(--ink2);max-width:64ch}
+a.btn{text-decoration:none;display:inline-block;white-space:nowrap}
+.srcnote{margin-top:26px;font-size:13.5px;color:var(--muted)} .srcnote a{color:var(--accent)}
+@media (max-width:640px){.blogcta{flex-direction:column;align-items:flex-start}.tabs a{padding:13px 12px}}
 .tabs a:hover{color:var(--ink)} .tabs a[aria-current="page"]{color:var(--ink);background:var(--panel);border-color:var(--line)}
 .hero{padding-block:30px 8px;display:grid;gap:18px}
 .lead{font-size:18px;color:var(--ink2);margin-top:16px}
@@ -145,7 +154,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 <body>
 <div class="wrap">
 <div class="top"><span>Baublog BL-PG-01 · Stand 01.11.2026</span><span class="tools"><button class="btn" id="lang-de" type="button" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button><button class="btn" id="lang-en" type="button" aria-pressed="false" aria-label="English" lang="en">EN</button><button class="btn" id="themebtn" type="button" aria-label="Darstellung wechseln">Blaupause / Papier</button></span></div>
-<nav class="tabs" aria-label="Bereiche"><a href="../">Datenblatt</a><a href="./" aria-current="page">Baublog</a></nav>
+<nav class="tabs" aria-label="Bereiche"><a href="../">Datenblatt</a><a href="../blog/" class="hl" aria-current="page">Baublog<span class="cnt">12</span></a><a href="../quellen/">Quellen</a></nav>
 
 <header class="hero">
   <div>
@@ -340,7 +349,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
         <text x="320" y="214" text-anchor="middle" class="d">Dauerlinien ±5,8 m · Strichlinien ±1,93 m (6 m Strich, 12 m Lücke)</text>
       </g>
     </svg>
-    <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Maße aus dem Luftbild gemessen. In der Steilkurve kippt der Querschnitt: Aus dem Höhenmodell ergeben sich an der Spur 200 etwa 39 bis 41°, das Original erreicht laut Planungsunterlagen bis 49°.</p></div>
+    <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Maße aus dem Luftbild gemessen. In der Steilkurve kippt der Querschnitt: Aus dem Höhenmodell ergeben sich an der Spur 200 etwa 39 bis 41°, das Original erreicht laut öffentlicher Projektangabe bis 49°.</p></div>
 </div></section>
 
 <!-- 07 -->
@@ -526,6 +535,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
   <p><b>Datenquellen:</b> Bayerische Vermessungsverwaltung, www.geodaten.bayern.de (CC BY 4.0): Digitales Geländemodell 1 m, Oberflächenmodell, Luftbild, 3D-Gebäudemodell LoD2. Kartenlinien: © OpenStreetMap-Mitwirkende (ODbL). Die Luftbild-Ausschnitte in diesem Logbuch sind eigene Bearbeitungen (Entzerrung, Markierung, Überlagerung).</p>
   <p><b>Abbildungen:</b> Prüfbilder stammen aus einer eigenen 3D-Vorschau. Spielansichten und Messstreifen sind Zwischenstände während des Baus und zeigen nicht den Endzustand.</p>
   <p>Alle Maße sind Näherungen aus offenen Daten. Nur für private Zwecke, ohne Gewähr.</p>
+  <p class="srcnote">Alle Quellen und Lizenzen: Reiter <a href="../quellen/">Quellen</a>.</p>
 </footer>
 </div>
 
