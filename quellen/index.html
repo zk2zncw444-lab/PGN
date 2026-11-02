@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Quellen · Prüfgelände in Daten</title>
+<meta name="description" content="Quellenverzeichnis zum Prüfgelände-Projekt: welche öffentlichen Daten verwendet werden, unter welcher Lizenz, und was nie verwendet wird.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0a1e3c; --panel:#0c2549; --panel2:#0f2d57; --ink:#e8f1ff; --ink2:#b3c8e8; --muted:#7f9cc6;
+  --line:#2c5a99; --line2:#1d4274; --grid:rgba(120,170,255,.09); --accent:#ffb000; --accent-ink:#1a1200;
+  --cy:#5ec8ff; --ok:#4fe3c1; --bad:#ff5a4f; --warn:#ffd166;
+  --f-d:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --f-b:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-m:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --asph:#3a4558; --beton:#8da0bd; --gras:#2f6b4f; --mark:#f2f6ff;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f3f1e9; --panel:#fbfaf5; --panel2:#f0eee4; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
+  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#c2410c; --accent-ink:#fff;
+  --cy:#1b6ec2; --ok:#0b8f78; --bad:#e03131; --warn:#b07d00;
+  --asph:#56627a; --beton:#b5c0d2; --gras:#7fae8f; --mark:#fff; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#f3f1e9; --panel:#fbfaf5; --panel2:#f0eee4; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
+  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#c2410c; --accent-ink:#fff;
+  --cy:#1b6ec2; --ok:#0b8f78; --bad:#e03131; --warn:#b07d00;
+  --asph:#56627a; --beton:#b5c0d2; --gras:#7fae8f; --mark:#fff; color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-b);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;
+  padding:0 max(16px,env(safe-area-inset-right)) 72px max(16px,env(safe-area-inset-left))}
+.wrap{max-width:1180px;margin:0 auto}
+a{color:var(--cy)}
+h1,h2,h3{font-family:var(--f-d);text-transform:uppercase;letter-spacing:.02em;margin:0;text-wrap:balance}
+h1{font-weight:700;font-size:clamp(34px,5.2vw,76px);line-height:.92}
+h2{font-weight:600;font-size:clamp(26px,3.6vw,38px);line-height:1}
+h3{font-weight:600;font-size:19px;line-height:1.1;letter-spacing:.04em}
+p{margin:0 0 12px} .col{max-width:72ch}
+.mono{font-family:var(--f-m)} .muted{color:var(--muted)}
+.eyebrow{font:500 12px/1.2 var(--f-m);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+code{font:13px var(--f-m);background:var(--panel2);border:1px solid var(--line2);padding:1px 5px}
+/* Kopf */
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;font:500 12px var(--f-m);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.btn{font:500 12px var(--f-m);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--line);padding:7px 10px;cursor:pointer;border-radius:2px}
+.tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.btn:hover{background:var(--panel2)} .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tabs{display:flex;gap:4px;margin-top:14px;border-bottom:1px solid var(--line)}
+.tabs a{font:500 13px/1 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:14px 20px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px;white-space:nowrap}
+.tabs{overflow-x:auto}
+.tabs a .cnt{margin-left:8px;font-size:10px;letter-spacing:.04em;padding:3px 6px;background:var(--accent);color:var(--accent-ink);border-radius:9px;vertical-align:1px}
+.tabs a.hl:not([aria-current]){color:var(--ink)}
+.blogcta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:22px;padding:16px 20px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--panel)}
+.blogcta b{display:block;font:600 24px/1.15 var(--f-d);letter-spacing:.02em;text-transform:uppercase;margin-top:4px}
+.blogcta p{margin:6px 0 0;font-size:14.5px;color:var(--ink2);max-width:64ch}
+a.btn{text-decoration:none;display:inline-block;white-space:nowrap}
+.srcnote{margin-top:26px;font-size:13.5px;color:var(--muted)} .srcnote a{color:var(--accent)}
+@media (max-width:640px){.blogcta{flex-direction:column;align-items:flex-start}.tabs a{padding:13px 12px}}
+.tabs a:hover{color:var(--ink)} .tabs a[aria-current="page"]{color:var(--ink);background:var(--panel);border-color:var(--line)}
+.hero{padding-block:30px 8px;display:grid;gap:18px}
+.lead{font-size:18px;color:var(--ink2);margin-top:16px}
+.tb{display:grid;grid-template-columns:repeat(4,auto);border:1px solid var(--line);margin-top:22px;font:12px/1.35 var(--f-m);max-width:640px}
+.tb div{padding:6px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tb div:nth-child(4n){border-right:0} .tb div:nth-last-child(-n+4){border-bottom:0}
+.tb b{display:block;font-weight:500;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:18px}
+.kpi{background:var(--panel);padding:14px 14px 12px;display:grid;gap:2px;align-content:start}
+.kpi b{font:600 40px/1 var(--f-d);letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.kpi b i{font:500 14px var(--f-m);font-style:normal;color:var(--muted);margin-left:4px}
+.kpi span{font-size:13px;color:var(--ink2)} .kpi small{font:11px/1.3 var(--f-m);color:var(--muted)}
+/* Blatt */
+.sheet{border:1px solid var(--line);background:var(--panel);margin-top:30px;position:relative}
+.sheet::before,.sheet::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--accent);pointer-events:none}
+.sheet::before{left:-5px;top:-5px;border-right:0;border-bottom:0}.sheet::after{right:-5px;bottom:-5px;border-left:0;border-top:0}
+.sh{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-bottom:1px solid var(--line);font:500 11px/1.3 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--panel2)}
+.sb{padding:24px 22px 28px;display:grid;gap:22px}
+.sb>*{min-width:0}
+.card{border:1px solid var(--line2);background:var(--bg);padding:16px 16px 14px;min-width:0}
+.card h3{margin-bottom:6px}
+.col h2+p{margin-top:12px}
+.col>.meta+h2{margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+.grid2>*{min-width:0}
+/* Prozesskette */
+.pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:0;border:1px solid var(--line);background:var(--panel)}
+.pipe div{padding:12px 12px 10px;border-right:1px solid var(--line2);position:relative;font-size:13px;color:var(--ink2);line-height:1.35}
+.pipe div:last-child{border-right:0}
+.pipe b{display:block;font:600 11px var(--f-m);letter-spacing:.12em;color:var(--accent);margin-bottom:4px}
+.pipe strong{display:block;font:600 17px/1.05 var(--f-d);text-transform:uppercase;letter-spacing:.03em;color:var(--ink);margin-bottom:4px}
+.pipe div:not(:last-child)::after{content:"";position:absolute;right:-6px;top:50%;width:10px;height:10px;border-top:2px solid var(--accent);border-right:2px solid var(--accent);transform:translateY(-50%) rotate(45deg);background:var(--panel);z-index:1}
+.loop{font:11.5px var(--f-m);color:var(--muted);margin-top:8px}
+/* Fortschritt */
+.prog{display:grid;grid-template-columns:repeat(16,1fr);gap:3px}
+.prog span{font:500 10.5px/1 var(--f-m);text-align:center;padding:8px 0 7px;border:1px solid var(--line2);color:var(--muted);background:var(--bg)}
+.prog span.done{background:var(--ok);color:#06231c;border-color:var(--ok);font-weight:600}
+.prog span.open{background:transparent}
+.prog span.test{background:transparent;border-color:var(--warn);color:var(--warn);font-weight:600;border-style:dashed}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font:11.5px var(--f-m);color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line2)}
+/* Filter */
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:30px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.toc{display:flex;flex-wrap:wrap;gap:4px 14px;font:12px var(--f-m);margin-top:12px}
+.toc a{color:var(--ink2);text-decoration:none;border-bottom:1px dotted var(--line)} .toc a:hover{color:var(--accent)}
+/* Log */
+.log{display:flex;flex-direction:column} .log.rev{flex-direction:column-reverse}
+.entry[hidden]{display:none}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font:12px var(--f-m);color:var(--muted)}
+.tag{display:inline-block;font:500 11px/1 var(--f-m);padding:4px 6px;border:1px solid var(--line);color:var(--ink2);letter-spacing:.04em}
+.tag.ok{border-color:var(--ok);color:var(--ok)} .tag.bad{border-color:var(--bad);color:var(--bad)} .tag.warn{border-color:var(--warn);color:var(--warn)} .tag.open{border-style:dashed}
+.figs{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));align-items:start}
+.figs.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr))}
+.figs.one{grid-template-columns:minmax(0,860px)}
+figure{margin:0;min-width:0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--line2);background:var(--panel2);cursor:zoom-in}
+figure.tall img{max-height:430px;object-fit:cover;object-position:top}
+figcaption{font:11.5px/1.45 var(--f-m);color:var(--muted);margin-top:6px}
+figcaption b{color:var(--accent);font-weight:500;margin-right:6px}
+.note{border-left:3px solid var(--accent);background:var(--bg);padding:10px 14px;font-size:14.5px;color:var(--ink2)}
+.note b{color:var(--ink)}
+.rule{border:1px solid var(--line2);background:var(--bg);padding:12px 14px;font-size:14.5px}
+.rule .eyebrow{display:block;margin-bottom:4px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line2)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font:500 11px/1.3 var(--f-m);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--panel2);white-space:nowrap}
+td.n{font-family:var(--f-m);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap} th.n{text-align:right}
+tr:last-child td{border-bottom:0}
+ul.t{margin:0;padding-left:1.2em} ul.t li{margin:3px 0}
+.hb{display:grid;gap:7px}
+.hbr{display:grid;grid-template-columns:minmax(90px,28%) 1fr;gap:10px;align-items:center;font-size:13px}
+.hbk{color:var(--ink2);text-align:right}
+.hbt{display:flex;align-items:center;gap:8px;min-width:0}
+.hbb{display:block;height:16px;background:var(--cy);flex:0 0 auto}
+.hbv{font:500 12px var(--f-m);color:var(--ink);white-space:nowrap}
+.xs{width:100%;height:auto;display:block}
+.xs text{font:11px var(--f-m);fill:var(--ink2)} .xs .d{fill:var(--muted)} .xs .big{font:600 15px var(--f-d);fill:var(--ink);letter-spacing:.04em}
+.xs .ln{stroke:var(--line);stroke-width:1} .xs .dim{stroke:var(--accent);stroke-width:1.2;fill:none}
+.xs .dt{fill:var(--accent)}
+footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer p{margin-bottom:8px}
+/* Lightbox */
+.lb{position:fixed;inset:0;background:rgba(3,10,22,.92);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;flex-direction:column;gap:10px}
+.lb.on{display:flex} .lb img{max-width:100%;max-height:calc(100vh - 90px);border:1px solid var(--line);cursor:zoom-out}
+.lb p{font:12px var(--f-m);color:#b3c8e8;margin:0;max-width:90ch;text-align:center}
+@media (max-width:980px){.pipe{grid-template-columns:repeat(2,1fr)}.pipe div{border-bottom:1px solid var(--line2)}.pipe div:nth-child(2n){border-right:0}.pipe div::after{display:none!important}.prog{grid-template-columns:repeat(8,1fr)}}
+@media (max-width:860px){.tb{grid-template-columns:repeat(2,auto)}.tb div:nth-child(4n){border-right:1px solid var(--line)}.tb div:nth-child(2n){border-right:0}.tb div:nth-last-child(-n+4){border-bottom:1px solid var(--line)}.tb div:nth-last-child(-n+2){border-bottom:0}}
+@media (max-width:520px){.sb{padding:18px 14px 22px}.kpi b{font-size:32px}.sh{flex-direction:column;gap:2px}.pipe{grid-template-columns:1fr}.pipe div{border-right:0}.hbr{grid-template-columns:90px 1fr}}
+</style>
+<script data-goatcounter="https://ericcarni.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span>Quellenverzeichnis QV-PG-01 · Stand 02.11.2026</span><span class="tools"><button class="btn" id="lang-de" type="button" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button><button class="btn" id="lang-en" type="button" aria-pressed="false" aria-label="English" lang="en">EN</button><button class="btn" id="themebtn" type="button" aria-label="Darstellung wechseln">Blaupause / Papier</button></span></div>
+<nav class="tabs" aria-label="Bereiche"><a href="../">Datenblatt</a><a href="../blog/" class="hl">Baublog<span class="cnt">12</span></a><a href="./" aria-current="page">Quellen</a></nav>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">Quellen · Referenzsammlung</div>
+    <h1 style="margin:12px 0 0">Woher die<br>Daten kommen</h1>
+    <p class="lead col">Alles, was auf dieser Seite steht, lässt sich auf eine Quelle zurückführen. Hier ist sie aufgelistet: Herausgeber, Lizenz, Verwendung und die Stelle, an der sie vorkommt.</p>
+    <div class="tb" aria-label="Schriftfeld">
+      <div><b>Dokument</b>QV-PG-01</div><div><b>Revision</b>A</div><div><b>Stand</b>02.11.2026</div><div><b>Einträge</b>17</div>
+      <div><b>Gegenstand</b>Quellenverzeichnis</div><div><b>Grundsatz</b>nur öffentlich</div><div><b>Lizenzen</b>CC BY 4.0, ODbL 1.0</div><div><b>Status</b>privat</div>
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>5</b><span>Offene Datensätze genutzt</span><small>Höhe, Luftbild, Oberfläche, Gebäude, Karte</small></div>
+    <div class="kpi"><b>0</b><span>Interne Daten</span><small>niemals, auch künftig nicht</small></div>
+    <div class="kpi"><b>2</b><span>Lizenzen</span><small>CC BY 4.0 · ODbL 1.0</small></div>
+    <div class="kpi"><b>3</b><span>Referenzen nur zum Abgleich</span><small>keine Daten daraus übernommen</small></div>
+  </div>
+</header>
+
+<section class="sheet" id="grundsatz"><div class="sh"><span>Blatt 01 / 05 · Grundsatz</span><span>Transparenz</span></div>
+<div class="sb">
+  <div class="col"><div class="eyebrow">Erklärung</div><h2>Nur Daten, die ohnehin öffentlich sind</h2>
+  <p>Für dieses Projekt werden <b>ausschließlich Daten genutzt, die der Öffentlichkeit ohnehin zur Verfügung gestellt wurden oder frei zugänglich sind</b>: offene Geodaten amtlicher Stellen, die Gemeinschaftskarte OpenStreetMap und frei einsehbare Kartendienste. Es werden <b>niemals firmeninterne, vertrauliche oder sonst nicht öffentliche Daten</b> herangezogen, weder aus Unternehmen noch aus Behörden noch von Dritten.</p></div>
+  <div class="grid2">
+    <div class="rule"><span class="eyebrow">1 · Öffentlich</span>Jede Datenquelle ist frei abrufbar und steht unter einer offenen Lizenz oder ist ausdrücklich zur Einsicht bestimmt. Die Lizenzangaben stehen in der Tabelle.</div>
+    <div class="rule"><span class="eyebrow">2 · Nichts Internes</span>Keine firmeninternen Daten, Pläne, Unterlagen, Bilder oder Zugangsinformationen. Das gilt für alle Teile des Projekts und für alle künftigen Schritte.</div>
+    <div class="rule"><span class="eyebrow">3 · Eigene Auswertung</span>Messungen, Berechnungen, Modelle und Texturen sind eigene Ableitungen aus den öffentlichen Daten. Es sind Näherungen, keine amtlichen Angaben.</div>
+    <div class="rule"><span class="eyebrow">4 · Nachvollziehbar</span>Zu jeder Zahl in Datenblatt und Baublog gibt es hier die Quelle. Fehlt eine, ist das ein Mangel dieser Seite und wird ergänzt.</div>
+  </div>
+</div></section>
+
+<section class="sheet" id="daten"><div class="sh"><span>Blatt 02 / 05 · Offene Daten</span><span>Q1 bis Q6</span></div>
+<div class="sb">
+  <div class="col"><div class="eyebrow">A · Datengrundlage</div><h2>Offene amtliche Daten und Kartendaten</h2>
+  <p>Das Fundament des Projekts. Die Höhen-, Luftbild-, Oberflächen- und Gebäudedaten stammen aus dem Open-Data-Angebot der Bayerischen Vermessungsverwaltung, die Kartenlinien aus OpenStreetMap.</p></div>
+  <div class="tablewrap"><table style="min-width:820px"><thead><tr><th>Nr.</th><th>Quelle</th><th>Herausgeber</th><th>Lizenz</th><th>Inhalt und Verwendung</th><th>Zu sehen in</th></tr></thead><tbody>
+<tr><td>Q1</td><td><b>Digitales Geländemodell 1 m (DGM1)</b></td><td>Bayerische Vermessungsverwaltung, Open-Data-Portal geodaten.bayern.de</td><td>CC BY 4.0</td><td>Höhe über NN im 1-m-Raster. Grundlage des Höhenrasters der Karte, der Höhenlinien, des Reliefs und aller Höhen-, Neigungs- und Schnittwerte.</td><td>Datenblatt Blatt 02, 03, 04, 06, 07 · Baublog 01, 03, 05, 08, 09</td></tr>
+<tr><td>Q2</td><td><b>Digitales Orthophoto 20 cm (DOP20)</b></td><td>Bayerische Vermessungsverwaltung</td><td>CC BY 4.0</td><td>Luftbild. Grundlage der Bodenkarte und der Messung von Fahrbahnrändern, Spurbreiten und Markierungen. Die Mess- und Prüfbilder im Baublog sind eigene Bearbeitungen (Entzerrung, Markierung, Überlagerung).</td><td>Baublog 01, 02, 04, 06, 07, 10, 12</td></tr>
+<tr><td>Q3</td><td><b>Digitales Oberflächenmodell (20 cm, für die Karte auf 1 m verkleinert)</b></td><td>Bayerische Vermessungsverwaltung</td><td>CC BY 4.0</td><td>Höhe inklusive Bäumen und Gebäuden. Zusammen mit dem Geländemodell ergibt sich die Höhe über Grund: Wald, Baumhöhen, Bewuchs.</td><td>Datenblatt Blatt 08 · Baublog 02, 04</td></tr>
+<tr><td>Q4</td><td><b>3D-Gebäudemodell LoD2</b></td><td>Bayerische Vermessungsverwaltung</td><td>CC BY 4.0</td><td>Grundrisse, Höhen und Dachformen der Gebäude.</td><td>Datenblatt Blatt 09 · Baublog 02, 04</td></tr>
+<tr><td>Q5</td><td><b>OpenStreetMap-Kartendaten</b></td><td>OpenStreetMap-Mitwirkende, openstreetmap.org</td><td>ODbL 1.0</td><td>Kartenlinien der Straßen und Wege, Kursnamen, Einbahn- und Tempoangaben, Brücken- und Tunnelkennzeichnung, Geländegrenze (Zaun). Nur als grobe Orientierung: Lage und Breite der Fahrbahnen werden am Luftbild gemessen, weil die Kartenlinien bis zu 10 m danebenliegen können.</td><td>Datenblatt Blatt 02, 04, 05 · Baublog 03, 05, 06, 10</td></tr>
+<tr><td>Q6</td><td><b>Laserpunktdaten (Befliegung 2023)</b></td><td>Bayerische Vermessungsverwaltung</td><td>CC BY 4.0</td><td>Geprüft, aber nicht geladen und nicht verwendet. Hier nur der Vollständigkeit halber aufgeführt.</td><td>Baublog 02</td></tr>
+</tbody></table></div>
+</div></section>
+
+<section class="sheet" id="referenzen"><div class="sh"><span>Blatt 03 / 05 · Referenzen</span><span>Q7 bis Q9</span></div>
+<div class="sb">
+  <div class="col"><div class="eyebrow">B · Nur zum Abgleich</div><h2>Öffentlich einsehbare Referenzen</h2>
+  <p>Diese Quellen wurden angesehen, um eigene Ergebnisse zu prüfen. Daten, Messwerte oder Bilder daraus sind <b>nicht</b> in die Karte oder in die Abbildungen dieser Seite übernommen.</p></div>
+  <div class="tablewrap"><table style="min-width:820px"><thead><tr><th>Nr.</th><th>Quelle</th><th>Herausgeber</th><th>Lizenz</th><th>Inhalt und Verwendung</th><th>Zu sehen in</th></tr></thead><tbody>
+<tr><td>Q7</td><td><b>Kartendarstellung von OpenStreetMap</b> (Bildschirmfotos)</td><td>OpenStreetMap-Mitwirkende</td><td>ODbL 1.0</td><td>Sichtprüfung von Ein- und Ausfahrten und Anbindungen. Die Daten selbst stammen aus Q5.</td><td>Baublog 07</td></tr>
+<tr><td>Q8</td><td><b>Google Earth</b>, öffentliche Satellitenansicht (Bildschirmfotos)</td><td>Google / Bildanbieter</td><td>Nutzungsbedingungen des Dienstes</td><td>Ausschließlich zur Sichtprüfung der Form einzelner Bauwerke. Es werden keine Daten, Messwerte oder Bilder daraus übernommen oder veröffentlicht.</td><td>Baublog 08 (nur Abgleich)</td></tr>
+<tr><td>Q9</td><td><b>Frei zugängliche Projektinformation</b> eines am Bau beteiligten Unternehmens</td><td>Bauunternehmen (Name hier nicht genannt)</td><td>Öffentliche Angabe, keine Daten übernommen</td><td>Einzelwerte zur Querneigung der Steilkurven (bis 49°) und zur Fahrbahnbreite (≈ 11,5 m). Dienen nur dem Vergleich mit den selbst ermittelten Werten (39 bis 41° aus dem Höhenmodell, 11,6 m aus dem Luftbild).</td><td>Datenblatt Blatt 01, 03 · Baublog 06</td></tr>
+</tbody></table></div>
+</div></section>
+
+<section class="sheet" id="eigene"><div class="sh"><span>Blatt 04 / 05 · Eigene Ableitungen und Technik</span><span>E1 bis E5 · T1 bis T3</span></div>
+<div class="sb">
+  <div class="col"><div class="eyebrow">C · Selbst erzeugt</div><h2>Eigene Messungen, Berechnungen und Modelle</h2>
+  <p>Alles, was aus den Quellen oben abgeleitet oder neu erzeugt wurde, mit Angabe der Grundlage.</p></div>
+  <div class="tablewrap"><table style="min-width:820px"><thead><tr><th>Nr.</th><th>Quelle</th><th>Herausgeber</th><th>Lizenz</th><th>Inhalt und Verwendung</th><th>Zu sehen in</th></tr></thead><tbody>
+<tr><td>E1</td><td><b>Eigene Messung am Luftbild</b></td><td>eigene Arbeit</td><td>–</td><td>Mittellinie des Ovals (32 Messstellen, Abweichung ≲ 0,5 m), Spurbreiten, Linienabstände, Fahrbahnränder der Handlingkurse und Innenkurse, Markierungen. Basis: Q2.</td><td>Baublog 06, 07, 10, 12</td></tr>
+<tr><td>E2</td><td><b>Eigene Berechnung</b></td><td>eigene Arbeit</td><td>–</td><td>Flächen, Längen, Kurvenanalyse, Steigungen, Schnitte und Kurvenrechner (tan β = v² / (g·R), g = 9,81 m/s²). Basis: Q1, Q3, Q4, Q5. Alle Werte sind Näherungen.</td><td>Datenblatt Blatt 01 bis 09</td></tr>
+<tr><td>E3</td><td><b>Eigene Modelle und Texturen</b></td><td>eigene Arbeit</td><td>–</td><td>Fahrbahn-, Brücken-, Unterführungs- und Wandmodelle sowie die Asphalttextur sind selbst erzeugt (Textur aus der Körnung der Simulator-Vorlage und aus einem eigenen Vorgängerprojekt). Bauwerksmaße wie Deckstärke, Brüstung, Curbhöhe oder lichte Höhe sind Modellannahmen, keine amtlichen Werte.</td><td>Baublog 05 bis 12</td></tr>
+<tr><td>E4</td><td><b>Allgemeine Vergleichsgrößen</b></td><td>Allgemeinwissen</td><td>–</td><td>Fußballfeld 105 × 68 m (≈ 0,71 ha), Marathon 42,195 km, Stockwerk ≈ 3 m, steile Bergstraße ≈ 12 %. Nur zur Veranschaulichung.</td><td>Datenblatt Blatt 01, 06, 08</td></tr>
+<tr><td>E5</td><td><b>Öffentliche Herstellerdokumentation des Fahrsimulators</b></td><td>Hersteller des Fahrsimulators</td><td>Öffentliche Dokumentation</td><td>Level- und Geländeformat, zum Beispiel der Schichtwert 255 für „kein Gelände“. Der Simulator selbst wird mit eigener Lizenz genutzt; Programmdateien werden nicht weitergegeben.</td><td>Baublog 03, 08</td></tr>
+</tbody></table></div>
+  <div class="col"><div class="eyebrow">D · Seitentechnik</div><h2>Womit diese Seite betrieben wird</h2></div>
+  <div class="tablewrap"><table style="min-width:820px"><thead><tr><th>Nr.</th><th>Quelle</th><th>Herausgeber</th><th>Lizenz</th><th>Inhalt und Verwendung</th><th>Zu sehen in</th></tr></thead><tbody>
+<tr><td>T1</td><td><b>GitHub Pages</b></td><td>GitHub, Inc.</td><td>Nutzungsbedingungen des Dienstes</td><td>Hosting dieser statischen Seite.</td><td>gesamte Seite</td></tr>
+<tr><td>T2</td><td><b>Google Fonts</b>: Barlow Condensed, IBM Plex Mono, IBM Plex Sans</td><td>Google / Schriftautoren</td><td>SIL Open Font License 1.1</td><td>Schriften, die beim Aufruf von den Servern des Anbieters geladen werden.</td><td>gesamte Seite</td></tr>
+<tr><td>T3</td><td><b>GoatCounter</b></td><td>GoatCounter</td><td>Dienstbedingungen des Anbieters</td><td>Einfache Besucherzählung ohne Cookies, ohne Anmeldung der Besucher und ohne Werbenetzwerk. Gezählt werden Aufrufe der Seiten.</td><td>gesamte Seite</td></tr>
+</tbody></table></div>
+</div></section>
+
+<section class="sheet" id="zuordnung"><div class="sh"><span>Blatt 05 / 05 · Zuordnung</span><span>Welche Angabe stammt woher</span></div>
+<div class="sb">
+  <div class="col"><div class="eyebrow">Zuordnung</div><h2>Wichtige Angaben und ihre Herkunft</h2>
+  <p>Die Nummern verweisen auf die Tabellen oben.</p></div>
+  <div class="tablewrap"><table style="min-width:620px"><thead><tr><th>Angabe</th><th>Quelle</th><th>Art</th></tr></thead><tbody>
+<tr><td>Geländefläche, Zaunlänge</td><td>Q5 (Zaunlinie), E2</td><td>berechnet</td></tr>
+<tr><td>Höhen, Neigungen, Hügel und Rampen, Schnitte</td><td>Q1, E2</td><td>berechnet</td></tr>
+<tr><td>Wald, Baumhöhen, Zahl der Baumkronen</td><td>Q3 minus Q1, E2</td><td>berechnet, Kronenzahl geschätzt</td></tr>
+<tr><td>Gebäude: Anzahl, Höhen, Dachformen, Grundflächen</td><td>Q4</td><td>übernommen</td></tr>
+<tr><td>Streckenlängen, Kurven, Netzlänge</td><td>Q5, E2</td><td>berechnet</td></tr>
+<tr><td>Tempoangaben, Einbahn, Fahrtrichtung</td><td>Q5</td><td>übernommen</td></tr>
+<tr><td>Fahrstreifen, Spurbreite, Markierungen, Fahrbahnbreiten</td><td>E1 (Q2)</td><td>gemessen; Kartenangabe zur Spurzahl am Oval war falsch und wurde korrigiert</td></tr>
+<tr><td>Querneigung der Steilkurven</td><td>Q1 (39 bis 41°), Q9 (bis 49°)</td><td>gemessen am Höhenmodell; Q9 nur als Vergleichsangabe</td></tr>
+<tr><td>Brücken und Unterführung: Lage und Länge</td><td>Q5, E1</td><td>übernommen und am Luftbild geprüft</td></tr>
+<tr><td>Brücken und Unterführung: Maße der Modelle</td><td>E3</td><td>Modellannahme</td></tr>
+<tr><td>Bodenkarte (Asphalt, Beton, Wiese, Wald, Kies)</td><td>Q2, Q3, Q5, E2</td><td>abgeleitet</td></tr>
+<tr><td>Texturen</td><td>E3</td><td>selbst erzeugt</td></tr>
+</tbody></table></div>
+  <div class="rule"><span class="eyebrow">Nicht verwendet</span>Firmeninterne Daten und Unterlagen. Nicht öffentliche Pläne, Bau-, Vermessungs- oder Gebäudedaten. Daten oder Bilder Dritter ohne Lizenz oder Freigabe. Fremde Texturen oder Modelle. Die Laserpunktdaten (Q6) wurden ebenfalls nicht eingesetzt.</div>
+</div></section>
+
+<footer>
+  <p><b>Datenquellen:</b> Bayerische Vermessungsverwaltung, www.geodaten.bayern.de (CC BY 4.0). Kartenlinien: © OpenStreetMap-Mitwirkende (ODbL).</p>
+  <p>Alle Maße sind Näherungen aus offenen Daten. Nur für private Zwecke, ohne Gewähr.</p>
+</footer>
+</div>
+<script src="../assets/i18n-en.js"></script>
+<script src="../assets/i18n.js"></script>
+<script>
+(function(){
+  const r=document.documentElement,b=document.getElementById("themebtn");
+  try{const s=localStorage.getItem("theme");if(s)r.setAttribute("data-theme",s)}catch(e){}
+  b.addEventListener("click",()=>{const cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");const nx=cur==="dark"?"light":"dark";r.setAttribute("data-theme",nx);try{localStorage.setItem("theme",nx)}catch(e){}});
+})();
+</script>
+</body>
+</html>
