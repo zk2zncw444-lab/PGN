@@ -46,6 +46,7 @@ code{font:13px var(--f-m);background:var(--panel2);border:1px solid var(--line2)
 /* Kopf */
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;font:500 12px var(--f-m);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .btn{font:500 12px var(--f-m);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--line);padding:7px 10px;cursor:pointer;border-radius:2px}
+.tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .btn:hover{background:var(--panel2)} .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .tabs{display:flex;gap:4px;margin-top:14px;border-bottom:1px solid var(--line)}
 .tabs a{font:500 12px/1 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:11px 16px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px}
@@ -143,7 +144,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 </head>
 <body>
 <div class="wrap">
-<div class="top"><span>Baublog BL-PG-01 · Stand 01.11.2026</span><button class="btn" id="themebtn" type="button" aria-label="Darstellung wechseln">Blaupause / Papier</button></div>
+<div class="top"><span>Baublog BL-PG-01 · Stand 01.11.2026</span><span class="tools"><button class="btn" id="lang-de" type="button" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button><button class="btn" id="lang-en" type="button" aria-pressed="false" aria-label="English" lang="en">EN</button><button class="btn" id="themebtn" type="button" aria-label="Darstellung wechseln">Blaupause / Papier</button></span></div>
 <nav class="tabs" aria-label="Bereiche"><a href="../">Datenblatt</a><a href="./" aria-current="page">Baublog</a></nav>
 
 <header class="hero">
@@ -530,6 +531,8 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Bildansicht"><img alt=""><p></p></div>
 
+<script src="../assets/i18n-en.js"></script>
+<script src="../assets/i18n.js"></script>
 <script>
 (function(){
   /* Darstellung wechseln, gemeinsam mit dem Datenblatt */
@@ -545,7 +548,7 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
   }));
   /* Reihenfolge */
   const log=document.getElementById("log"),ob=document.getElementById("order");
-  ob.addEventListener("click",()=>{const on=ob.getAttribute("aria-pressed")!=="true";ob.setAttribute("aria-pressed",on);log.classList.toggle("rev",on);ob.textContent=on?"Chronologisch":"Neueste zuerst"});
+  ob.addEventListener("click",()=>{const on=ob.getAttribute("aria-pressed")!=="true";ob.setAttribute("aria-pressed",on);log.classList.toggle("rev",on);ob.textContent=t(on?"Chronologisch":"Neueste zuerst")});
   /* Bild vergrößern */
   const lb=document.getElementById("lb"),li=lb.querySelector("img"),lc=lb.querySelector("p");
   document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{li.src=i.currentSrc||i.src;li.alt=i.alt;const c=i.parentElement.querySelector("figcaption");lc.textContent=c?c.textContent:"";lb.classList.add("on")}));
