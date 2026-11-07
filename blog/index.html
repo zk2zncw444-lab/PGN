@@ -9,105 +9,91 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
 <style>
-:root{
-  --bg:#0a1e3c; --panel:#0c2549; --panel2:#0f2d57; --ink:#e8f1ff; --ink2:#b3c8e8; --muted:#7f9cc6;
-  --line:#2c5a99; --line2:#1d4274; --grid:rgba(120,170,255,.09); --accent:#ffb000; --accent-ink:#1a1200;
-  --cy:#5ec8ff; --ok:#4fe3c1; --bad:#ff5a4f; --warn:#ffd166;
-  --f-d:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --f-b:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-m:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
-  --asph:#3a4558; --beton:#8da0bd; --gras:#2f6b4f; --mark:#f2f6ff;
-  color-scheme:dark;
-}
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
-  --bg:#f3f1e9; --panel:#fbfaf5; --panel2:#f0eee4; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
-  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#c2410c; --accent-ink:#fff;
-  --cy:#1b6ec2; --ok:#0b8f78; --bad:#e03131; --warn:#b07d00;
-  --asph:#56627a; --beton:#b5c0d2; --gras:#7fae8f; --mark:#fff; color-scheme:light}}
-:root[data-theme="light"]{
-  --bg:#f3f1e9; --panel:#fbfaf5; --panel2:#f0eee4; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
-  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#c2410c; --accent-ink:#fff;
-  --cy:#1b6ec2; --ok:#0b8f78; --bad:#e03131; --warn:#b07d00;
-  --asph:#56627a; --beton:#b5c0d2; --gras:#7fae8f; --mark:#fff; color-scheme:light}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:16px}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-b);
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;
-  padding:0 max(16px,env(safe-area-inset-right)) 72px max(16px,env(safe-area-inset-left))}
-.wrap{max-width:1180px;margin:0 auto}
-a{color:var(--cy)}
-h1,h2,h3{font-family:var(--f-d);text-transform:uppercase;letter-spacing:.02em;margin:0;text-wrap:balance}
-h1{font-weight:700;font-size:clamp(34px,5.2vw,76px);line-height:.92}
-h2{font-weight:600;font-size:clamp(26px,3.6vw,38px);line-height:1}
-h3{font-weight:600;font-size:19px;line-height:1.1;letter-spacing:.04em}
-p{margin:0 0 12px} .col{max-width:72ch}
-.mono{font-family:var(--f-m)} .muted{color:var(--muted)}
-.eyebrow{font:500 12px/1.2 var(--f-m);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-code{font:13px var(--f-m);background:var(--panel2);border:1px solid var(--line2);padding:1px 5px}
-/* Kopf */
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;font:500 12px var(--f-m);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.btn{font:500 12px var(--f-m);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--line);padding:7px 10px;cursor:pointer;border-radius:2px}
-.tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-.btn:hover{background:var(--panel2)} .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.tabs{display:flex;gap:4px;margin-top:14px;border-bottom:1px solid var(--line)}
-.tabs a{font:500 13px/1 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:14px 20px;border:1px solid transparent;border-bottom:0;margin-bottom:-1px;white-space:nowrap}
-.tabs{overflow-x:auto}
-.tabs a .cnt{margin-left:8px;font-size:10px;letter-spacing:.04em;padding:3px 6px;background:var(--accent);color:var(--accent-ink);border-radius:9px;vertical-align:1px}
-.tabs a.hl:not([aria-current]){color:var(--ink)}
-.blogcta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:22px;padding:16px 20px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--panel)}
-.blogcta b{display:block;font:600 24px/1.15 var(--f-d);letter-spacing:.02em;text-transform:uppercase;margin-top:4px}
-.blogcta p{margin:6px 0 0;font-size:14.5px;color:var(--ink2);max-width:64ch}
-a.btn{text-decoration:none;display:inline-block;white-space:nowrap}
-.srcnote{margin-top:26px;font-size:13.5px;color:var(--muted)} .srcnote a{color:var(--accent)}
-@media (max-width:640px){.blogcta{flex-direction:column;align-items:flex-start}.tabs a{padding:13px 12px}}
-.tabs a:hover{color:var(--ink)} .tabs a[aria-current="page"]{color:var(--ink);background:var(--panel);border-color:var(--line)}
-.hero{padding-block:30px 8px;display:grid;gap:18px}
-.lead{font-size:18px;color:var(--ink2);margin-top:16px}
-.tb{display:grid;grid-template-columns:repeat(4,auto);border:1px solid var(--line);margin-top:22px;font:12px/1.35 var(--f-m);max-width:640px}
-.tb div{padding:6px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
-.tb div:nth-child(4n){border-right:0} .tb div:nth-last-child(-n+4){border-bottom:0}
-.tb b{display:block;font-weight:500;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:18px}
-.kpi{background:var(--panel);padding:14px 14px 12px;display:grid;gap:2px;align-content:start}
-.kpi b{font:600 40px/1 var(--f-d);letter-spacing:.01em;font-variant-numeric:tabular-nums}
-.kpi b i{font:500 14px var(--f-m);font-style:normal;color:var(--muted);margin-left:4px}
-.kpi span{font-size:13px;color:var(--ink2)} .kpi small{font:11px/1.3 var(--f-m);color:var(--muted)}
-/* Blatt */
-.sheet{border:1px solid var(--line);background:var(--panel);margin-top:30px;position:relative}
-.sheet::before,.sheet::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--accent);pointer-events:none}
-.sheet::before{left:-5px;top:-5px;border-right:0;border-bottom:0}.sheet::after{right:-5px;bottom:-5px;border-left:0;border-top:0}
-.sh{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-bottom:1px solid var(--line);font:500 11px/1.3 var(--f-m);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--panel2)}
-.sb{padding:24px 22px 28px;display:grid;gap:22px}
-.sb>*{min-width:0}
-.card{border:1px solid var(--line2);background:var(--bg);padding:16px 16px 14px;min-width:0}
-.card h3{margin-bottom:6px}
-.col h2+p{margin-top:12px}
-.col>.meta+h2{margin-bottom:12px}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
-.grid2>*{min-width:0}
-/* Prozesskette */
-.pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:0;border:1px solid var(--line);background:var(--panel)}
-.pipe div{padding:12px 12px 10px;border-right:1px solid var(--line2);position:relative;font-size:13px;color:var(--ink2);line-height:1.35}
+/* ---------- Kopf ---------- */
+.bh{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:end;padding:64px 0 10px}
+.bh h1{font-size:clamp(48px,8vw,112px);line-height:.84}
+.bh h1 span{display:block;color:transparent;-webkit-text-stroke:1.4px var(--ink)}
+.bh .lead{font-size:18px;color:var(--ink2);margin:20px 0 0;max-width:56ch}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{border:1px solid var(--line2);background:var(--panel);padding:14px 14px 12px}
+.stat b{display:block;font:700 40px/1 var(--f-d);font-variant-numeric:tabular-nums}
+.stat b i{font:500 13px var(--f-m);font-style:normal;color:var(--muted);margin-left:4px}
+.stat span{font:11px/1.3 var(--f-m);color:var(--muted);letter-spacing:.04em}
+@media (max-width:860px){.bh{grid-template-columns:1fr;gap:24px;padding-top:40px}}
+/* So wird gebaut */
+.how{margin-top:34px;border:1px solid var(--line2);background:var(--panel)}
+.how>summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:14px 18px;font:500 12px var(--f-m);letter-spacing:.12em;text-transform:uppercase}
+.how>summary::-webkit-details-marker{display:none}
+.how>summary b{font:600 20px var(--f-d);letter-spacing:.04em;color:var(--ink)}
+.how>summary .pm{margin-left:auto}
+.pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:0;border-top:1px solid var(--line2)}
+.pipe div{padding:14px 12px 12px;border-right:1px solid var(--line2);font-size:13px;color:var(--ink2);line-height:1.35;position:relative}
 .pipe div:last-child{border-right:0}
 .pipe b{display:block;font:600 11px var(--f-m);letter-spacing:.12em;color:var(--accent);margin-bottom:4px}
-.pipe strong{display:block;font:600 17px/1.05 var(--f-d);text-transform:uppercase;letter-spacing:.03em;color:var(--ink);margin-bottom:4px}
-.pipe div:not(:last-child)::after{content:"";position:absolute;right:-6px;top:50%;width:10px;height:10px;border-top:2px solid var(--accent);border-right:2px solid var(--accent);transform:translateY(-50%) rotate(45deg);background:var(--panel);z-index:1}
-.loop{font:11.5px var(--f-m);color:var(--muted);margin-top:8px}
-/* Fortschritt */
-.prog{display:grid;grid-template-columns:repeat(16,1fr);gap:3px}
-.prog span{font:500 10.5px/1 var(--f-m);text-align:center;padding:8px 0 7px;border:1px solid var(--line2);color:var(--muted);background:var(--bg)}
-.prog span.done{background:var(--ok);color:#06231c;border-color:var(--ok);font-weight:600}
-.prog span.open{background:transparent}
-.prog span.test{background:transparent;border-color:var(--warn);color:var(--warn);font-weight:600;border-style:dashed}
-.legend{display:flex;gap:16px;flex-wrap:wrap;font:11.5px var(--f-m);color:var(--muted);margin-top:8px}
-.legend i{display:inline-block;width:12px;height:12px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line2)}
-/* Filter */
-.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:30px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.toc{display:flex;flex-wrap:wrap;gap:4px 14px;font:12px var(--f-m);margin-top:12px}
-.toc a{color:var(--ink2);text-decoration:none;border-bottom:1px dotted var(--line)} .toc a:hover{color:var(--accent)}
+.pipe strong{display:block;font:600 18px/1.05 var(--f-d);text-transform:uppercase;letter-spacing:.03em;color:var(--ink);margin-bottom:4px}
+.how[open] .pipe div{animation:up .5s var(--ease) both;animation-delay:calc(var(--i) * 60ms)}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.loop{font:11.5px var(--f-m);color:var(--muted);padding:10px 18px 14px;margin:0;border-top:1px solid var(--line2)}
+@media (max-width:980px){.pipe{grid-template-columns:repeat(2,1fr)}.pipe div{border-bottom:1px solid var(--line2)}.pipe div:nth-child(2n){border-right:0}}
+@media (max-width:520px){.pipe{grid-template-columns:1fr}.pipe div{border-right:0}}
+/* ---------- Aufbau ---------- */
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;margin-top:40px;align-items:start}
+.side{position:sticky;top:76px;display:grid;gap:18px}
+.toc{display:grid;gap:2px;position:relative;padding-left:14px}
+.toc::before{content:"";position:absolute;left:3px;top:6px;bottom:6px;width:1px;background:var(--line2)}
+.toc .bar{position:absolute;left:2px;top:6px;width:3px;height:0;background:var(--accent);transition:height .2s linear}
+.toc a{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:baseline;text-decoration:none;color:var(--muted);padding:6px 0;font:500 12px/1.25 var(--f-m);letter-spacing:.04em;transition:color .2s}
+.toc a b{font:600 16px var(--f-d);color:inherit}
+.toc a em{font-style:normal;font-size:10.5px;opacity:.7}
+.toc a:hover,.toc a.on{color:var(--ink)} .toc a.on b{color:var(--accent)}
+.side h4{margin:0 0 8px;font:500 10.5px var(--f-m);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips .btn{padding:6px 8px;font-size:10.5px}
+.side .ctl{display:flex;flex-wrap:wrap;gap:6px}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:20px}
+  .side{position:sticky;top:56px;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);margin:0 -16px;padding:10px 16px;border-bottom:1px solid var(--line2);gap:10px}
+  .toc{display:flex;overflow-x:auto;gap:14px;padding-left:0;scrollbar-width:none}.toc::-webkit-scrollbar{display:none}.toc::before,.toc .bar{display:none}
+  .toc a{flex:none;grid-template-columns:auto auto;padding:4px 0}.toc a em{display:none}
+  .side .flt{display:none}
+}
+/* ---------- Kapitel ---------- */
+.chap{margin-bottom:64px}
+.ch{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;margin-bottom:22px}
+.chno{font:700 clamp(64px,9vw,120px)/.78 var(--f-d);color:transparent;-webkit-text-stroke:1.4px var(--accent);letter-spacing:-.01em}
+.ch h2{font-size:clamp(30px,4.2vw,52px);line-height:.95;margin-top:8px}
+.ch p{margin:10px 0 0;color:var(--ink2);max-width:60ch}
+.ents{display:grid;gap:10px}
+.ent{border:1px solid var(--line2);background:var(--panel);transition:border-color .25s,background .25s}
+.ent[hidden]{display:none}
+.ent:hover{border-color:var(--line)}
+.ent[open]{border-color:var(--line)}
+.ent>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px minmax(0,1fr) auto 28px;grid-template-areas:"no when sts pm" "no ttl ttl pm" "no tz tz pm";gap:4px 14px;padding:16px 16px 16px 14px;position:relative}
+.ent>summary::-webkit-details-marker{display:none}
+.ent>summary::before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:3px;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform .35s var(--ease)}
+.ent[open]>summary::before,.ent>summary:hover::before{transform:none}
+.ent .no{grid-area:no;font:700 30px/1 var(--f-d);color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+.ent[open] .no{color:var(--accent)}
+.ent .when{grid-area:when;display:flex;flex-wrap:wrap;gap:4px 12px;font:500 11px/1.4 var(--f-m);color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.ent .when span+span::before{content:"·";margin-right:12px;color:var(--line)}
+.ent strong{grid-area:ttl;font:600 clamp(21px,2.3vw,27px)/1.05 var(--f-d);text-transform:uppercase;letter-spacing:.02em}
+.ent .tz{grid-area:tz;font-size:14.5px;color:var(--ink2);margin-top:2px;max-width:78ch}
+.ent .sts{grid-area:sts;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.pm{grid-area:pm;width:28px;height:28px;border:1px solid var(--line);position:relative;align-self:start;flex:none;transition:transform .35s var(--ease),background .2s}
+.pm::before,.pm::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+.pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .35s var(--ease)}
+details[open]>summary .pm::after{transform:translate(-50%,-50%) rotate(0deg)}
+details[open]>summary .pm{background:var(--accent);border-color:var(--accent)}
+details[open]>summary .pm::before,details[open]>summary .pm::after{background:var(--accent-ink)}
+.eb{padding:6px 20px 24px 72px;display:grid;gap:20px;overflow:hidden}
+.eb>*{min-width:0}
+@media (max-width:640px){.ent>summary{grid-template-columns:34px minmax(0,1fr) 28px;grid-template-areas:"no when pm" "no ttl pm" "no tz pm" "no sts pm"}.ent .sts{justify-content:flex-start;margin-top:6px}.ent .no{font-size:24px}.eb{padding:4px 14px 20px}.ch{grid-template-columns:1fr;gap:4px}}
+/* Inhalt aus dem bisherigen Logbuch */
+.col{max-width:72ch} .col p:last-child{margin-bottom:0}
+h3{font-size:19px;line-height:1.1;letter-spacing:.04em;font-weight:600}
 /* Log */
-.log{display:flex;flex-direction:column} .log.rev{flex-direction:column-reverse}
-.entry[hidden]{display:none}
 .meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font:12px var(--f-m);color:var(--muted)}
 .tag{display:inline-block;font:500 11px/1 var(--f-m);padding:4px 6px;border:1px solid var(--line);color:var(--ink2);letter-spacing:.04em}
 .tag.ok{border-color:var(--ok);color:var(--ok)} .tag.bad{border-color:var(--bad);color:var(--bad)} .tag.warn{border-color:var(--warn);color:var(--warn)} .tag.open{border-style:dashed}
@@ -140,98 +126,92 @@ ul.t{margin:0;padding-left:1.2em} ul.t li{margin:3px 0}
 .xs text{font:11px var(--f-m);fill:var(--ink2)} .xs .d{fill:var(--muted)} .xs .big{font:600 15px var(--f-d);fill:var(--ink);letter-spacing:.04em}
 .xs .ln{stroke:var(--line);stroke-width:1} .xs .dim{stroke:var(--accent);stroke-width:1.2;fill:none}
 .xs .dt{fill:var(--accent)}
-footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer p{margin-bottom:8px}
-/* Lightbox */
-.lb{position:fixed;inset:0;background:rgba(3,10,22,.92);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;flex-direction:column;gap:10px}
-.lb.on{display:flex} .lb img{max-width:100%;max-height:calc(100vh - 90px);border:1px solid var(--line);cursor:zoom-out}
-.lb p{font:12px var(--f-m);color:#b3c8e8;margin:0;max-width:90ch;text-align:center}
-@media (max-width:980px){.pipe{grid-template-columns:repeat(2,1fr)}.pipe div{border-bottom:1px solid var(--line2)}.pipe div:nth-child(2n){border-right:0}.pipe div::after{display:none!important}.prog{grid-template-columns:repeat(8,1fr)}}
-@media (max-width:860px){.tb{grid-template-columns:repeat(2,auto)}.tb div:nth-child(4n){border-right:1px solid var(--line)}.tb div:nth-child(2n){border-right:0}.tb div:nth-last-child(-n+4){border-bottom:1px solid var(--line)}.tb div:nth-last-child(-n+2){border-bottom:0}}
-@media (max-width:520px){.sb{padding:18px 14px 22px}.kpi b{font-size:32px}.sh{flex-direction:column;gap:2px}.pipe{grid-template-columns:1fr}.pipe div{border-right:0}.hbr{grid-template-columns:90px 1fr}}
+.card{border:1px solid var(--line2);background:var(--bg);padding:16px 16px 14px;min-width:0}
+.card h3{margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+.grid2>*{min-width:0}
+p{margin:0 0 12px} .col{max-width:72ch}
+/* Ausblick */
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px}
+.nx{border:1px solid var(--line2);background:var(--panel);padding:14px 14px 12px;display:grid;gap:6px;align-content:start}
+.nx b{font:600 13px var(--f-m);color:var(--accent);letter-spacing:.08em}
+.nx strong{font:600 20px/1.05 var(--f-d);text-transform:uppercase;letter-spacing:.03em}
+.nx span{font-size:13.5px;color:var(--ink2)}
+.nx.warn{border-color:color-mix(in srgb,var(--warn) 50%,var(--line2))} .nx.warn b{color:var(--warn)}
+.empty{display:none;padding:30px;border:1px dashed var(--line);text-align:center;color:var(--muted);font:13px var(--f-m)}
 </style>
 <script data-goatcounter="https://ericcarni.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
-<div class="wrap">
-<div class="top"><span>Baublog BL-PG-01 · Stand 01.11.2026</span><span class="tools"><button class="btn" id="lang-de" type="button" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button><button class="btn" id="lang-en" type="button" aria-pressed="false" aria-label="English" lang="en">EN</button><button class="btn" id="themebtn" type="button" aria-label="Darstellung wechseln">Blaupause / Papier</button></span></div>
-<nav class="tabs" aria-label="Bereiche"><a href="../">Datenblatt</a><a href="../blog/" class="hl" aria-current="page">Baublog<span class="cnt">12</span></a><a href="../quellen/">Quellen</a></nav>
+<header class="nav">
+  <a class="brand" href="../" aria-label="Startseite"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" fill="none" stroke="var(--accent)" stroke-width="2"/><path d="M8 22c0-6 4-12 9-12s7 3 7 6-3 6-8 6H8" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>Prüfgelände in Daten</b><small>BL-PG-01 · Baublog</small></span></a>
+  <nav class="links" aria-label="Bereiche"><a href="../">Karte</a><a href="./" aria-current="page">Baublog<span class="cnt">19</span></a><a href="../datenblatt/">Datenblatt</a><a href="../quellen/">Quellen</a></nav>
+  <div class="tools"><button class="btn" id="lang-de" type="button" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button><button class="btn" id="lang-en" type="button" aria-pressed="false" aria-label="English" lang="en">EN</button><button class="btn ic" id="themebtn" type="button" aria-label="Darstellung wechseln">◐</button></div>
+</header>
 
-<header class="hero">
-  <div>
-    <div class="eyebrow">Baublog · Digitaler Nachbau eines Fahrzeug-Prüfgeländes</div>
-    <h1 style="margin:12px 0 0">Vom Datensatz<br>zur Fahrbahn</h1>
-    <p class="lead col">Das Datenblatt zeigt, was das Gelände ist. Dieses Logbuch zeigt, wie daraus ein befahrbares Modell für den Fahrsimulator entsteht: welche Daten, welche Rechenschritte, welche Fehler und was wir daraus gemacht haben. Chronologisch, mit Messbildern, Prüfbildern und den Revisionen, die es gebraucht hat.</p>
-    <div class="tb" aria-label="Schriftfeld">
-      <div><b>Dokument</b>BL-PG-01</div><div><b>Revision</b>A</div><div><b>Zeitraum</b>30.10.–01.11.2026</div><div><b>Einträge</b>12</div>
-      <div><b>Gegenstand</b>Nachbau Prüfgelände</div><div><b>Raster</b>1 m, 4096 × 4096</div><div><b>Bezugssystem</b>lokal, 0/0 = Mitte</div><div><b>Status</b>privat, in Arbeit</div>
-    </div>
+<div class="wrap">
+<header class="bh">
+  <div class="ttl">
+    <div class="eyebrow">Baublog · Stand 07.11.2026</div>
+    <h1 style="margin-top:14px">Vom Datensatz<span>zur Fahrbahn</span></h1>
+    <p class="lead">Wie aus offenen Geodaten ein befahrbares Modell für den Fahrsimulator wird. Jeder Eintrag zeigt erst die Kurzfassung, Messbilder und Details klappen auf.</p>
   </div>
-  <div class="kpis">
-    <div class="kpi"><b>6<i>/ 15</i></b><span>Bauschritte abgeschlossen</span><small>S07 im Echttest, plus Endtest Z1</small></div>
-    <div class="kpi"><b>84<i>Kacheln</i></b><span>Rohdaten</span><small>25 Höhe, 25 Luftbild, 25 Oberfläche, 9 Gebäude</small></div>
-    <div class="kpi"><b>16,8<i>Mio.</i></b><span>Höhenpunkte im Raster</span><small>4096 × 4096 bei 1 m</small></div>
-    <div class="kpi"><b>0,5<i>m</i></b><span>Lagegenauigkeit Oval-Mittellinie</span><small>an 32 Stichproben geprüft</small></div>
-    <div class="kpi"><b>4<i>Rev.</i></b><span>bis das Oval passte</span><small>v1 bis v4</small></div>
-    <div class="kpi"><b>60<i>FPS</i></b><span>im Fahrtest, Gelände + Böden</span><small>konstant, keine Texturfehler</small></div>
+  <div class="stats">
+    <div class="stat rv"><b>19</b><span>Einträge in 5 Kapiteln</span></div>
+    <div class="stat rv d1"><b>8<i>/ 16</i></b><span>Bauschritte bestanden</span></div>
+    <div class="stat rv d2"><b>4</b><span>Testfahrten offen</span></div>
+    <div class="stat rv d3"><b>60<i>FPS</i></b><span>mit Wald und Ausstattung</span></div>
   </div>
 </header>
 
-<section class="sheet" aria-label="Prozesskette"><div class="sh"><span>Übersicht · Prozesskette</span><span>jeder Schritt endet im Fahrtest</span></div>
-<div class="sb">
+<details class="how rv">
+  <summary><b>So entsteht jeder Bauschritt</b><span class="muted">7 Stationen</span><i class="pm" aria-hidden="true"></i></summary>
   <div class="pipe">
-    <div><b>01</b><strong>Rohdaten</strong>Höhenmodell, Luftbild, Oberflächenmodell, Gebäude, Kartenlinien</div>
-    <div><b>02</b><strong>Gelände</strong>Höhenraster 16 Bit, Luftbild als Textur, leere Karte</div>
-    <div><b>03</b><strong>Böden</strong>Bodenkarte aus Luftbild, Höhe über Grund und Kartenlinien</div>
-    <div><b>04</b><strong>Fahrbahnen</strong>3D-Modelle aus gemessener Mittellinie und Breite</div>
-    <div><b>05</b><strong>Prüfung</strong>3D-Vorschau vorab, Abgleich mit dem Luftbild</div>
-    <div><b>06</b><strong>Paket</strong>Level-Dateien plus Skript zum Einsetzen und Zurücksetzen</div>
-    <div><b>07</b><strong>Fahrtest</strong>Befund, Ursache, Maßnahme, nächste Revision</div>
+    <div style="--i:0"><b>01</b><strong>Rohdaten</strong>Höhenmodell, Luftbild, Oberflächenmodell, Gebäude, Kartenlinien</div>
+    <div style="--i:1"><b>02</b><strong>Gelände</strong>Höhenraster 16 Bit, Luftbild als Textur, leere Karte</div>
+    <div style="--i:2"><b>03</b><strong>Böden</strong>Bodenkarte aus Luftbild, Höhe über Grund und Kartenlinien</div>
+    <div style="--i:3"><b>04</b><strong>Fahrbahnen</strong>3D-Modelle aus gemessener Mittellinie und Breite</div>
+    <div style="--i:4"><b>05</b><strong>Prüfung</strong>3D-Vorschau vorab, Abgleich mit dem Luftbild</div>
+    <div style="--i:5"><b>06</b><strong>Paket</strong>Level-Dateien plus Skript zum Einsetzen und Zurücksetzen</div>
+    <div style="--i:6"><b>07</b><strong>Fahrtest</strong>Befund, Ursache, Maßnahme, nächste Revision</div>
   </div>
-  <p class="loop">Rückkopplung: Aus jedem Fahrtest-Befund entsteht eine Revision (v2, v3 …) bei Schritt 04 oder früher.</p>
-  <div>
-    <h3 style="margin-bottom:8px">Baufortschritt</h3>
-    <div class="prog" aria-label="Fortschritt der Bauschritte">
-      <span class="done" title="S01 Projekt anlegen und Kartengröße festlegen">S01</span><span class="done" title="S02 Arbeitsordner anlegen und Geodaten herunterladen">S02</span><span class="done" title="S03 Gelände, Luftbild und leere Karte">S03</span><span class="done" title="S04 Bodenmaterialien">S04</span><span class="done" title="S05 Oval mit Steilkurven">S05</span><span class="done" title="S06 Handling I und Handling 2">S06</span>
-      <span class="test" title="S07 in Prüfung: Multifunktion, Kies-Kurs und übrige Innenkurse">S07</span><span class="open" title="S08 Kuhfladen-Kurse klein und groß">S08</span><span class="open" title="S09 Zustandsspuren">S09</span><span class="open" title="S10 SKS1 und SKS2">S10</span><span class="open" title="S11 Steigungshügel">S11</span><span class="open" title="S12 Dynamikfläche, Wartungswege, Pforte und Einfahrt">S12</span><span class="open" title="S13 Wald, Bäume, Sichtschutz und Ausstattung">S13</span><span class="open" title="S14 Gebäude als schlichte Platzhalter">S14</span><span class="open" title="S15 KI-Wege, Spawnpunkte und Fahrtrichtungen">S15</span><span class="open" title="Z1 Leistungs-Feinschliff und Endtest">Z1</span>
-    </div>
-    <div class="legend"><span><i style="background:var(--ok);border-color:var(--ok)"></i>abgeschlossen (Fahrtest bestanden)</span><span><i></i>offen</span></div>
-  </div>
-</div></section>
+  <p class="loop">Rückkopplung: Aus jedem Fahrtest-Befund entsteht eine Revision (v2, v3 …) bei Schritt 04 oder früher. Seit S08 schaut zusätzlich die Prüfbrücke im Simulator nach.</p>
+</details>
 
-<div class="bar">
-  <div class="chips" role="group" aria-label="Einträge filtern">
-    <button class="btn" type="button" data-f="all" aria-pressed="true">Alle</button>
-    <button class="btn" type="button" data-f="daten" aria-pressed="false">Daten &amp; Gelände</button>
-    <button class="btn" type="button" data-f="strecken" aria-pressed="false">Strecken</button>
-    <button class="btn" type="button" data-f="fehler" aria-pressed="false">Fehleranalyse</button>
-    <button class="btn" type="button" data-f="methodik" aria-pressed="false">Methodik</button>
-  </div>
-  <button class="btn" type="button" id="order" aria-pressed="false">Neueste zuerst</button>
-</div>
-<nav class="toc" aria-label="Einträge">
-  <a href="#e01">01 Machbarkeit</a><a href="#e02">02 Rohdaten</a><a href="#e03">03 Gelände</a><a href="#e04">04 Böden</a><a href="#e05">05 Oval v1</a><a href="#e06">06 Mittellinie</a><a href="#e07">07 Ein-/Ausfahrt</a><a href="#e08">08 Unterführung</a><a href="#e09">09 Randfehler</a><a href="#e10">10 Handling</a><a href="#e11">11 Revisionen</a><a href="#e12">12 Innenkurse</a><a href="#offen">Offene Posten</a>
-</nav>
+<div class="layout">
+  <aside class="side">
+    <div><h4>Kapitel</h4><nav class="toc" id="toc" aria-label="Kapitel"><i class="bar" id="tocbar"></i><a href="#k1" data-k="k1"><b>01</b><span>Grundlagen</span><em>4</em></a><a href="#k2" data-k="k2"><b>02</b><span>Das Oval</span><em>5</em></a><a href="#k3" data-k="k3"><b>03</b><span>Handling und Innenkurse</span><em>3</em></a><a href="#k4" data-k="k4"><b>04</b><span>Sonderkurse und Ausstattung</span><em>4</em></a><a href="#k5" data-k="k5"><b>05</b><span>Feinschliff</span><em>3</em></a><a href="#offen" data-k="offen"><b>→</b><span>Ausblick</span><em></em></a></nav></div>
+    <div class="flt"><h4>Filter</h4><div class="chips" role="group" aria-label="Einträge filtern">
+      <button class="btn" type="button" data-f="all" aria-pressed="true">Alle</button>
+      <button class="btn" type="button" data-f="daten" aria-pressed="false">Daten &amp; Gelände</button>
+      <button class="btn" type="button" data-f="strecken" aria-pressed="false">Strecken</button>
+      <button class="btn" type="button" data-f="ausstattung" aria-pressed="false">Ausstattung</button>
+      <button class="btn" type="button" data-f="fehler" aria-pressed="false">Fehleranalyse</button>
+      <button class="btn" type="button" data-f="methodik" aria-pressed="false">Methodik</button>
+    </div></div>
+    <div class="flt ctl"><button class="btn" type="button" id="all" aria-pressed="false">Alle aufklappen</button></div>
+  </aside>
 
-<main class="log" id="log">
-
-<!-- 01 -->
-<section class="sheet entry" id="e01" data-tags="daten"><div class="sh"><span>Eintrag 01 / 12 · 30.10.2026</span><span>Machbarkeit</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Daten</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Reichen offene Daten für einen fahrbaren Nachbau?</h2>
-  <p>Ausgangsfrage: Lässt sich ein Hochgeschwindigkeits-Prüfgelände aus öffentlichen Geodaten so rekonstruieren, dass es sich im Simulator plausibel fährt, einschließlich der Steilkurven? Geprüft wurden Luftbild und Höhenmodell. Beide liegen vollständig und unverfälscht vor, das Vorhaben ist machbar.</p>
+  <main id="log">
+<section class="chap" id="k1">
+<header class="ch rv"><div class="chno">01</div><div><div class="eyebrow">Kapitel 01 · 30.10.2026 · Grundlagen</div><h2>Vom Datensatz zum Gelände</h2><p>Daten holen, Gelände bauen, Böden zuordnen. Die Basis für alles, was darauf fährt.</p></div></header>
+<div class="ents">
+<details class="ent" id="e01" data-tags="daten">
+  <summary><span class="no">01</span><span class="when"><span>30.10.2026</span><span>Machbarkeit</span></span><strong>Reichen offene Daten für einen fahrbaren Nachbau?</strong><span class="tz">Luftbild und Höhenmodell liegen vollständig vor. Festgelegt: ein Quadrat von 4 096 m bei 1 m Raster, zerlegt in 15 Bauschritte mit je eigener Testfahrt.</span><span class="sts"><span class="tag">Daten</span><span class="tag ok">abgeschlossen</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Ausgangsfrage: Lässt sich ein Hochgeschwindigkeits-Prüfgelände aus öffentlichen Geodaten so rekonstruieren, dass es sich im Simulator plausibel fährt, einschließlich der Steilkurven? Geprüft wurden Luftbild und Höhenmodell. Beide liegen vollständig und unverfälscht vor, das Vorhaben ist machbar.</p>
   <p>Festgelegt wurde ein Kartenquadrat von <b>4096 m</b> Kantenlänge bei <b>1 m Rasterweite</b>. Das Gelände (≈ 2,5 × 1,8 km) liegt mittig, rundherum bleiben mindestens 800 m Randzone, damit der Horizont nicht an einer Kante endet. Der Rest wird in <b>15 Bauschritte plus Endtest</b> zerlegt, jeder mit eigenem Fahrtest.</p></div>
   <div class="figs two">
     <figure><img src="../assets/blog/relief-dgm1.jpg" width="772" height="632" loading="lazy" alt="Schummerung des Geländes aus dem Höhenmodell: Oval mit Steilkurven, Innenkurse und Dämme als Relief"><figcaption><b>Abb. 1</b>Höhenmodell 1 m als Schummerung. Oval, Steilkurven und Dämme sind schon im nackten Gelände zu erkennen.</figcaption></figure>
     <figure><img src="../assets/blog/luftbild-dop.jpg" width="772" height="632" loading="lazy" alt="Luftbild des Prüfgeländes mit Oval, Handlingkursen und Waldflächen"><figcaption><b>Abb. 2</b>Luftbild 20 cm. Es dient später als Messvorlage für Fahrbahnränder und als Vorlage für die Bodenkarte.</figcaption></figure>
   </div>
   <div class="rule"><span class="eyebrow">Arbeitsprinzip</span>Je Schritt: bauen, vorab in einer eigenen 3D-Vorschau prüfen, als Paket mit Zurücksetz-Skript ausliefern, im Simulator abfahren, Befund festhalten. Ein Schritt gilt erst nach bestandenem Fahrtest als abgeschlossen.</div>
-</div></section>
-
-<!-- 02 -->
-<section class="sheet entry" id="e02" data-tags="daten"><div class="sh"><span>Eintrag 02 / 12 · 30.10.2026</span><span>Schritt S02 · Rohdaten</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Daten</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Rohdaten holen, prüfen, verkleinern</h2>
-  <p>Fünf Datenquellen decken das Quadrat vollständig ab. Alle Kacheln wurden auf Vollständigkeit geprüft (Höhe 25/25, Luftbild 25/25, Oberfläche 25/25, Gebäude 9/9). Die Server der Vermessungsverwaltung sind aus der Rechenumgebung nicht direkt erreichbar, der Download läuft deshalb über den Browser.</p></div>
+  </div>
+</details>
+<details class="ent" id="e02" data-tags="daten">
+  <summary><span class="no">02</span><span class="when"><span>30.10.2026</span><span>Schritt S02 · Rohdaten</span></span><strong>Rohdaten holen, prüfen, verkleinern</strong><span class="tz">Fünf Datenquellen, 84 Kacheln, rund 360 MB. Alles geprüft, verkleinert, wo es ohne Verlust ging, und für die nächsten Schritte vorbereitet.</span><span class="sts"><span class="tag">Daten</span><span class="tag ok">abgeschlossen</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Fünf Datenquellen decken das Quadrat vollständig ab. Alle Kacheln wurden auf Vollständigkeit geprüft (Höhe 25/25, Luftbild 25/25, Oberfläche 25/25, Gebäude 9/9). Die Server der Vermessungsverwaltung sind aus der Rechenumgebung nicht direkt erreichbar, der Download läuft deshalb über den Browser.</p></div>
   <div class="tablewrap"><table>
     <thead><tr><th>Datensatz</th><th>Inhalt</th><th class="n">Kacheln</th><th>Aufbereitung</th></tr></thead>
     <tbody>
@@ -245,13 +225,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
     <div class="card"><h3>Kennwerte</h3><ul class="t"><li>Gesamtvolumen Rohdaten: ≈ 360 MB</li><li>Höhen im Quadrat: 348,8 bis 423,8 m ü. NN</li><li>Randzone um den Zaun: mindestens 805 m</li></ul></div>
     <div class="card"><h3>Laserpunkte geprüft, nicht geladen</h3><p style="margin:0;font-size:14.5px;color:var(--ink2)">Befliegung 2023, ≈ 17 Punkte/m², ≈ 160 MB je km². Für die Steilkurven wären sie genauer als das 1-m-Raster, wurden aber vorerst nicht benötigt (siehe Eintrag 05 ff.: Die Fahrbahn wird ohnehin als eigenes 3D-Modell gebaut).</p></div>
   </div>
-</div></section>
-
-<!-- 03 -->
-<section class="sheet entry" id="e03" data-tags="daten"><div class="sh"><span>Eintrag 03 / 12 · 30.10.2026</span><span>Schritt S03 · Gelände</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Gelände</span><span class="tag ok">Fahrtest bestanden</span></div><h2 style="margin-top:10px">Das nackte Gelände: Höhenraster, Luftbild, erste Testfahrt</h2>
-  <p>Aus Höhenmodell und Luftbild entsteht eine leere Karte. Das Höhenraster wird als 16-Bit-Graustufenbild abgelegt, damit die Höhe auf Millimeter genau im Simulator ankommt:</p></div>
+  </div>
+</details>
+<details class="ent" id="e03" data-tags="daten">
+  <summary><span class="no">03</span><span class="when"><span>30.10.2026</span><span>Schritt S03 · Gelände</span></span><strong>Das nackte Gelände: Höhenraster, Luftbild, erste Testfahrt</strong><span class="tz">Höhenraster, Luftbild als Textur, eine leere Karte. Die erste Testfahrt zeigt: Das Gelände passt, nur die Unterführung fehlt.</span><span class="sts"><span class="tag">Gelände</span><span class="tag ok">Fahrtest bestanden</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Aus Höhenmodell und Luftbild entsteht eine leere Karte. Das Höhenraster wird als 16-Bit-Graustufenbild abgelegt, damit die Höhe auf Millimeter genau im Simulator ankommt:</p></div>
   <div class="rule" style="max-width:720px"><span class="eyebrow">Festlegung (fix seit 30.10.)</span><code>z = Höhe über NN − 340 m</code> · Wertebereich 340 bis 440 m auf 65 535 Stufen → Auflösung <b>1,5 mm</b>. Karte 4096 × 4096 Punkte, Punktabstand 1 m, Nullpunkt in der Geländemitte (x nach Ost, y nach Nord).</div>
   <div class="figs one">
     <figure><img src="../assets/blog/s03-schummerung.jpg" width="1250" height="950" loading="lazy" alt="Schummerung des Höhenmodells mit eingezeichneten Kartenlinien der Kurse in Türkis und dem Zaun in Gelb"><figcaption><b>Abb. 3</b>Lageprüfung: Kartenlinien der Kurse (türkis) und Zaun (gelb) über der Schummerung. Die Linien liegen genau auf Damm und Innenkursen, die Karte ist also nicht verschoben.</figcaption></figure>
@@ -261,13 +240,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
     <div class="card"><h3>Fahrtest-Befund</h3><ul class="t"><li>Lage und Ausrichtung stimmen, nicht gespiegelt (Steilkurven im Nordosten und Südwesten)</li><li>Steilkurven fahrbar, <b>60 FPS</b> ohne Einbruch</li><li><b>Fehlt:</b> die Unterführung unter der Südwest-Kurve. Das Höhenmodell kennt keine Brücken, übrig bleibt nur der Graben. Eingeplant in S05.</li></ul></div>
   </div>
   <div class="note"><b>Stolperstein:</b> Im Bild liegt Zeile 0 im Norden, in der Gelände-Datei des Simulators im Süden. Ohne senkrechtes Spiegeln beim Bau stünde das Gelände auf dem Kopf.</div>
-</div></section>
-
-<!-- 04 -->
-<section class="sheet entry" id="e04" data-tags="daten"><div class="sh"><span>Eintrag 04 / 12 · 30.10.2026</span><span>Schritt S04 · Bodenmaterialien</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Böden</span><span class="tag ok">Fahrtest bestanden</span></div><h2 style="margin-top:10px">Bodenkarte: Asphalt, Beton, Wiese, Wald, Kies</h2>
-  <p>Die Bodenart bestimmt Grip, Geräusch und Optik. Eine reine Farbklassifikation des Luftbilds scheitert an Schatten, deshalb kombiniert die Bodenkarte drei Quellen:</p>
+  </div>
+</details>
+<details class="ent" id="e04" data-tags="daten">
+  <summary><span class="no">04</span><span class="when"><span>30.10.2026</span><span>Schritt S04 · Bodenmaterialien</span></span><strong>Bodenkarte: Asphalt, Beton, Wiese, Wald, Kies</strong><span class="tz">Aus Luftbild, Höhe über Grund und Kartenlinien entsteht eine Bodenkarte mit zehn Materialien. Testfahrt bestanden, 60 FPS.</span><span class="sts"><span class="tag">Böden</span><span class="tag ok">Fahrtest bestanden</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Die Bodenart bestimmt Grip, Geräusch und Optik. Eine reine Farbklassifikation des Luftbilds scheitert an Schatten, deshalb kombiniert die Bodenkarte drei Quellen:</p>
   <ul class="t"><li><b>Luftbild:</b> unbunt und hell = Belag, braun = Erde oder Acker</li><li><b>Höhe über Grund</b> (Oberflächenmodell minus Gelände): mehr als 3 m und mehr als 300 m² zusammenhängend = Wald</li><li><b>Kartenlinien:</b> Beton, Kies, Wasser, Gebäude, Straßenkern. Breite aus <code>width</code>, sonst Spurzahl × 3,5 m (Oval: 14 m)</li></ul></div>
   <div class="figs one">
     <figure><img src="../assets/blog/s04-bodenkarte.jpg" width="1800" height="740" loading="lazy" alt="Links Luftbild, rechts daraus abgeleitete Bodenkarte in Falschfarben für Asphalt, Beton, Wiese, Wald, Kies und Wasser"><figcaption><b>Abb. 4</b>Links Luftbild, rechts Bodenkarte. Grau Asphalt, hellgrau Beton, beige Kies, dunkelgrün Wald, hellgrün Wiese, braun Acker, blau Wasser.</figcaption></figure>
@@ -286,13 +264,18 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
     <div class="card"><h3>Entscheidungen</h3><ul class="t"><li>10 Materialien. Neue werden <b>nur hinten angehängt</b>, die Reihenfolge ist an die Gelände-Datei gebunden und darf sich nie ändern.</li><li>Belag im Baumschatten zählt nur direkt an einer Kartenstraße als Asphalt.</li><li>Das Paket sichert vorher den alten Stand, ein Skript setzt ihn auf Wunsch zurück.</li></ul>
     <h3 style="margin-top:12px">Fahrtest-Befund</h3><p style="margin:0;font-size:14.5px;color:var(--ink2)">Asphalt fühlt sich stimmig an, Offroad und Schotter passen, keine fehlenden Texturen, 60 FPS konstant.</p></div>
   </div>
-</div></section>
+  </div>
+</details>
+</div>
+</section>
 
-<!-- 05 -->
-<section class="sheet entry" id="e05" data-tags="strecken fehler"><div class="sh"><span>Eintrag 05 / 12 · 30.10.2026</span><span>Schritt S05 · Oval v1</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag bad">Fahrtest nicht bestanden</span></div><h2 style="margin-top:10px">Oval, erster Versuch: warum v1 durchfiel</h2>
-  <p>Das 4,6 km lange Oval ist das Herzstück. Es wird nicht mehr als Gelände, sondern als eigene 3D-Fahrbahn modelliert, damit Spuren, Markierungen und die Steilkurven sauber sitzen. Die erste Version wurde ohne Vorab-Prüfung ausgeliefert, und der Fahrtest war eindeutig: Spuren unplausibel, Textur zu grob, Gelände sichtbar durch die Fahrbahn, Unterführung unbrauchbar.</p></div>
+<section class="chap" id="k2">
+<header class="ch rv"><div class="chno">02</div><div><div class="eyebrow">Kapitel 02 · 30.–31.10.2026 · Das Oval</div><h2>Vier Anläufe für 4,6 km</h2><p>Die Hauptstrecke mit Steilkurven und Unterführung. Jede Revision ein Fahrtest, jeder Fehler eine Lektion.</p></div></header>
+<div class="ents">
+<details class="ent" id="e05" data-tags="strecken fehler">
+  <summary><span class="no">05</span><span class="when"><span>30.10.2026</span><span>Schritt S05 · Oval v1</span></span><strong>Oval, erster Versuch: warum v1 durchfiel</strong><span class="tz">Das Oval aus den Kartenlinien gebaut: Spuren falsch, Gelände schaut durch, Unterführung kaputt. Was v1 lehrt.</span><span class="sts"><span class="tag">Strecken</span><span class="tag bad">Fahrtest nicht bestanden</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Das 4,6 km lange Oval ist das Herzstück. Es wird nicht mehr als Gelände, sondern als eigene 3D-Fahrbahn modelliert, damit Spuren, Markierungen und die Steilkurven sauber sitzen. Die erste Version wurde ohne Vorab-Prüfung ausgeliefert, und der Fahrtest war eindeutig: Spuren unplausibel, Textur zu grob, Gelände sichtbar durch die Fahrbahn, Unterführung unbrauchbar.</p></div>
   <div class="figs">
     <figure><img src="../assets/blog/oval-v1-ueberblick.jpg" width="1500" height="847" loading="lazy" alt="Spielansicht von oben: Oval v1 mit Unterführung, Gelände sticht an den Rändern durch"><figcaption><b>Abb. 5</b>v1 aus der Luft: wellige Ränder, Asphaltflächen ohne Bezug zur Fahrbahn.</figcaption></figure>
     <figure><img src="../assets/blog/oval-v1-p15-a.jpg" width="1500" height="795" loading="lazy" alt="Unterführung v1 von der Seite: Betondeckel steht über dem Oval"><figcaption><b>Abb. 6</b>Unterführung v1: Der Deckel ragt seitlich heraus und liegt über der Fahrbahn.</figcaption></figure>
@@ -308,13 +291,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
       <tr><td>Zacken an der Unterführung</td><td>Gelände nur bis Wand + 0,5 m ausgespart, Dreiecke bis 1,41 m lang</td><td>Siehe Eintrag 08</td></tr>
     </tbody></table></div>
   <div class="rule"><span class="eyebrow">Konsequenz</span>Nie wieder ohne Prüfbild ausliefern. Seit v2 entsteht vor jeder Auslieferung eine eigene 3D-Vorschau, die genau solche Fehler (Durchstechen, falsche Flächennormalen, verdrehte Schrift) vorab zeigt.</div>
-</div></section>
-
-<!-- 06 -->
-<section class="sheet entry" id="e06" data-tags="strecken methodik"><div class="sh"><span>Eintrag 06 / 12 · 30.10.2026</span><span>Schritt S05 · Messung</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Methodik</span><span class="tag ok">abgeschlossen</span></div><h2 style="margin-top:10px">Die Mittellinie aus dem Luftbild ablesen</h2>
-  <p>Die Kartenlinie des Ovals hat nur alle ≈ 70 m einen Stützpunkt und liegt bis zu <b>10 m neben der Fahrbahn</b>. Auch eine automatische Linienerkennung im Luftbild war unbrauchbar: Schatten und Leitplankenpfosten erzeugen Scheinlinien. Also wurde gemessen wie auf einer Vermessungsskizze:</p>
+  </div>
+</details>
+<details class="ent" id="e06" data-tags="strecken methodik">
+  <summary><span class="no">06</span><span class="when"><span>30.10.2026</span><span>Schritt S05 · Messung</span></span><strong>Die Mittellinie aus dem Luftbild ablesen</strong><span class="tz">Die Kartenlinie liegt bis zu mehrere Meter daneben. Also wird die Mittellinie selbst aus dem Luftbild gemessen, auf 0,5 m genau.</span><span class="sts"><span class="tag">Strecken</span><span class="tag">Methodik</span><span class="tag ok">abgeschlossen</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Die Kartenlinie des Ovals hat nur alle ≈ 70 m einen Stützpunkt und liegt bis zu <b>10 m neben der Fahrbahn</b>. Auch eine automatische Linienerkennung im Luftbild war unbrauchbar: Schatten und Leitplankenpfosten erzeugen Scheinlinien. Also wurde gemessen wie auf einer Vermessungsskizze:</p>
   <ul class="t"><li>Luftbild entlang der Strecke „geradegezogen“: Streifenbilder von 60 × 38 m mit Meter-Skala</li><li>Strichreihen der Fahrbahnmarkierung abgelesen, Mitte zwischen den zwei Reihen = Mittellinie</li><li>Spline durch 32 Messstellen, Ausgabe alle 2 m (2302 Stationen auf 4605,5 m)</li><li>Gegenprobe an 32 weiteren Stellen: Abweichung ≲ 0,5 m</li></ul></div>
   <div class="figs">
     <figure><img src="../assets/blog/oval-streifen-a.jpg" width="1204" height="562" loading="lazy" alt="Vier Luftbildstreifen mit Meter-Skala; magenta Linien markieren Fahrbahnränder, Türkis die Strichreihen"><figcaption><b>Abb. 8</b>Messstreifen: Magenta = Dauerlinien (±5,8 m), Türkis = Strichreihen (±1,93 m). Quer zur Fahrtrichtung ist die Skala in Metern aufgetragen.</figcaption></figure>
@@ -350,13 +332,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
       </g>
     </svg>
     <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Maße aus dem Luftbild gemessen. In der Steilkurve kippt der Querschnitt: Aus dem Höhenmodell ergeben sich an der Spur 200 etwa 39 bis 41°, das Original erreicht laut öffentlicher Projektangabe bis 49°.</p></div>
-</div></section>
-
-<!-- 07 -->
-<section class="sheet entry" id="e07" data-tags="strecken"><div class="sh"><span>Eintrag 07 / 12 · 30.–31.10.2026</span><span>Schritt S05 · v2 und v3</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag warn">v2 teilweise · v3 teilweise</span></div><h2 style="margin-top:10px">Spuren stimmen, jetzt fehlt das Ein- und Ausfahrtsystem</h2>
-  <p><b>v2</b> bringt die gemessene Mittellinie, drei Spuren, abgesenktes Gelände, hellere Asphalttextur und die Schrift „200 | 140 | 80“ an acht Stellen. Fahrtest: Die Spuren auf der Geraden passen, die Unterführung ist weiter schlecht, und das System aus Aus- und Auffahrt oberhalb der Unterführung fehlt komplett.</p></div>
+  </div>
+</details>
+<details class="ent" id="e07" data-tags="strecken">
+  <summary><span class="no">07</span><span class="when"><span>30.–31.10.2026</span><span>Schritt S05 · v2 und v3</span></span><strong>Spuren stimmen, jetzt fehlt das Ein- und Ausfahrtsystem</strong><span class="tz">v2 trifft die Spuren. Jetzt fehlt das Ein- und Ausfahrtsystem mit Zusatzspuren, Innenstraße und Sperrflächen: v3.</span><span class="sts"><span class="tag">Strecken</span><span class="tag warn">v2 teilweise · v3 teilweise</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p><b>v2</b> bringt die gemessene Mittellinie, drei Spuren, abgesenktes Gelände, hellere Asphalttextur und die Schrift „200 | 140 | 80“ an acht Stellen. Fahrtest: Die Spuren auf der Geraden passen, die Unterführung ist weiter schlecht, und das System aus Aus- und Auffahrt oberhalb der Unterführung fehlt komplett.</p></div>
   <div class="figs two">
     <figure><img src="../assets/blog/oval-v2-pruefbild.jpg" width="1280" height="1080" loading="lazy" alt="Sechs Prüfansichten von v2: Spurbeschriftung, Abzweig, Einschnitt der Unterführung, Portal und Luftansichten"><figcaption><b>Abb. 11</b>Prüfbild v2 aus der 3D-Vorschau: Spurschrift in Fahrtrichtung lesbar, aber die Unterführung (mittlere Zeile) ist noch ein Klotz im zackigen Einschnitt.</figcaption></figure>
     <figure><img src="../assets/blog/oval-v3-plan.jpg" width="1300" height="700" loading="lazy" alt="Zwei Luftbildstreifen mit eingezeichneten Zusatzspuren in Pink, Innenstraße in Grün und der Unterführung in Orange"><figcaption><b>Abb. 12</b>Plan für v3 auf dem Luftbild: oben Südwest-Ende mit Ausfahrt und Unterführung (orange), unten Nordost-Ende mit Zusammenführung und Auffahrt. Pink = Zusatzspuren, Grün = Innenstraße.</figcaption></figure>
@@ -367,13 +348,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
     <figure><img src="../assets/blog/oval-v3-pruefbild.jpg" width="1280" height="1440" loading="lazy" alt="Acht Prüfansichten von v3: Zusatzspuren, Auffahrt mit Sperrfläche, Innenstraße, Unterführung, Ausfahrt"><figcaption><b>Abb. 13</b>Prüfbild v3: Zusatzspuren in Beton, Auffahrt mit Sperrfläche, Innenstraße und die neu gebaute Unterführung mit durchgehender Straße.</figcaption></figure>
   </div>
   <p class="muted" style="max-width:72ch;font-size:14.5px">Fahrtest v3: Das Oval an sich passt. Offen sind die Unterführung (glitcht) und die Ränder von Innenstraße und Zusatzspuren (erhöht, schwarz). Beides behandeln die Einträge 08 und 09.</p>
-</div></section>
-
-<!-- 08 -->
-<section class="sheet entry" id="e08" data-tags="strecken fehler"><div class="sh"><span>Eintrag 08 / 12 · 31.10.2026</span><span>Unterführung · Gelände mit Loch</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag ok">abgeschlossen (v4)</span></div><h2 style="margin-top:10px">Unterführung in drei Anläufen: Loch statt Absenken</h2>
-  <p>Das Höhenmodell zeigt über dem Tunnel nur den Damm des Ovals. Die Unterführung muss also in das Gelände <b>hineingebaut</b> werden. Daten der Unterführung: 66,3 m lang, lichte Breite 7,8 m, Höhe 4,5 m, zweispurige Straße (6,5 m) mit Rand- und Mittellinie, Tunnelstrecke von Meter 5 bis 65, Wände bis über die Rampen hinaus.</p></div>
+  </div>
+</details>
+<details class="ent" id="e08" data-tags="strecken fehler">
+  <summary><span class="no">08</span><span class="when"><span>31.10.2026</span><span>Unterführung · Gelände mit Loch</span></span><strong>Unterführung in drei Anläufen: Loch statt Absenken</strong><span class="tz">Die Unterführung unter dem Oval braucht ein Loch im Gelände statt einer Absenkung. Und am Lochrand lauert eine Falle.</span><span class="sts"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag ok">abgeschlossen (v4)</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Das Höhenmodell zeigt über dem Tunnel nur den Damm des Ovals. Die Unterführung muss also in das Gelände <b>hineingebaut</b> werden. Daten der Unterführung: 66,3 m lang, lichte Breite 7,8 m, Höhe 4,5 m, zweispurige Straße (6,5 m) mit Rand- und Mittellinie, Tunnelstrecke von Meter 5 bis 65, Wände bis über die Rampen hinaus.</p></div>
   <div class="tablewrap"><table>
     <thead><tr><th>Rev.</th><th>Ansatz</th><th>Fahrtest-Befund</th></tr></thead>
     <tbody>
@@ -390,13 +370,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
       <p style="font-size:14.5px;color:var(--ink2);margin:0">Der Simulator lässt pro Lochpunkt nur das Quadrat nach +x/+y weg. Die Randquadrate werden gezeichnet und hängen an Lochpunkten mit der <b>Original-Höhe</b> (Damm, bis 19 m). Ergebnis in v3: Gelände-Keile durch Wände und Portal. Die alte Vorschau hat das versteckt, weil sie alle Dreiecke mit Lochecke wegließ. Die Vorschau rechnet jetzt wie der Simulator.</p></div>
   </div>
   <div class="rule"><span class="eyebrow">Prüfkriterium</span>Kein gezeichnetes Geländequadrat darf eine Ecke im Einschnitt haben, weder für +x/+y noch für −x/−y. Loch: 1 932 Punkte (Kern 1 466), seitlich um einen Punkt erweitert, nur dort, wo eine Abdeckung darüberliegt.</div>
-</div></section>
-
-<!-- 09 -->
-<section class="sheet entry" id="e09" data-tags="strecken fehler"><div class="sh"><span>Eintrag 09 / 12 · 31.10.2026</span><span>Schritt S05 · v4 Fehlerbehebung</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Fehleranalyse</span><span class="tag ok">behoben</span></div><h2 style="margin-top:10px">Schwarze Ränder und glitchende Fahrbahn</h2>
-  <p>Fahrtest v3: Straßenränder stehen erhöht und erscheinen schwarz, das Auto glitcht beim Überfahren. Zwei getrennte Ursachen, beide in der Geometrie am Rand:</p></div>
+  </div>
+</details>
+<details class="ent" id="e09" data-tags="strecken fehler">
+  <summary><span class="no">09</span><span class="when"><span>31.10.2026</span><span>Schritt S05 · v4 Fehlerbehebung</span></span><strong>Schwarze Ränder und glitchende Fahrbahn</strong><span class="tz">Schwarze, erhöhte Ränder und ein glitchendes Auto. Zwei Ursachen, zwei Maßnahmen, und das Oval ist fertig.</span><span class="sts"><span class="tag">Fehleranalyse</span><span class="tag ok">behoben</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Fahrtest v3: Straßenränder stehen erhöht und erscheinen schwarz, das Auto glitcht beim Überfahren. Zwei getrennte Ursachen, beide in der Geometrie am Rand:</p></div>
   <div class="grid2">
     <div class="card"><h3>Ursache 1: Graben statt Übergang</h3><p style="font-size:14.5px;color:var(--ink2)">Das Gelände war unter jeder Fläche pauschal 30 cm abgesenkt. Weil Geländedreiecke 1 m groß sind, entsteht am Rand ein Graben, die Fläche steht als Kante darüber. Die Schürze (senkrechte Blende) wird sichtbar.</p>
       <h3 style="margin-top:10px">Maßnahme</h3><ul class="t"><li>Flächenraster mit 0,5 m aus allen befahrbaren Oberflächen (Abstandskarte)</li><li>Innen −30 cm, Randstreifen (1 m) −10 cm, außen 1,5 m bündig auf Rand −5 cm, danach 2 m weich zum Gelände</li></ul></div>
@@ -411,13 +390,18 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
       <tr><td>Dreiecke</td><td class="n">201 392</td><td>Punkte in der Schulter</td><td class="n">37 867</td></tr>
       <tr><td>Länge der Mittellinie</td><td class="n">4605,5 m</td><td>max. Absenkung / Anhebung</td><td class="n">1,55 m / 3,0 m</td></tr>
     </tbody></table></div>
-</div></section>
+  </div>
+</details>
+</div>
+</section>
 
-<!-- 10 -->
-<section class="sheet entry" id="e10" data-tags="strecken fehler"><div class="sh"><span>Eintrag 10 / 12 · 01.11.2026</span><span>Schritt S06 · Handling I und 2</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag ok">bestanden, Nacharbeit später</span></div><h2 style="margin-top:10px">Handlingkurse: erst messen, dann bauen</h2>
-  <p>Zwei Kurse, ein Netz aus Zufahrten. <b>Handling I</b> ist ein einziger geschlossener Kurs in Form einer Acht: Eine Überführung kreuzt den eigenen Südast, zwei flache Brücken queren einen Bachdurchlass. <b>Handling 2</b> ist ein kurviger Kurs mit Betoncurbs und wird nur über die Einfahrt von Handling I erreicht, mitten auf der Strecke.</p></div>
+<section class="chap" id="k3">
+<header class="ch rv"><div class="chno">03</div><div><div class="eyebrow">Kapitel 03 · 01.11.2026 · Handling und Innenkurse</div><h2>Kurven, Kies und Revisionen</h2><p>Messen vor dem Bauen, dann die Kurse in der Mitte des Geländes.</p></div></header>
+<div class="ents">
+<details class="ent" id="e10" data-tags="strecken fehler">
+  <summary><span class="no">10</span><span class="when"><span>01.11.2026</span><span>Schritt S06 · Handling I und 2</span></span><strong>Handlingkurse: erst messen, dann bauen</strong><span class="tz">Erst die Breiten und Linien im Luftbild messen, dann bauen. v2 bringt Überführung, Brücken und saubere Einmündungen.</span><span class="sts"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag ok">bestanden, Nacharbeit später</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Zwei Kurse, ein Netz aus Zufahrten. <b>Handling I</b> ist ein einziger geschlossener Kurs in Form einer Acht: Eine Überführung kreuzt den eigenen Südast, zwei flache Brücken queren einen Bachdurchlass. <b>Handling 2</b> ist ein kurviger Kurs mit Betoncurbs und wird nur über die Einfahrt von Handling I erreicht, mitten auf der Strecke.</p></div>
   <div class="figs two">
     <figure><img src="../assets/blog/h-lage.jpg" width="1500" height="1160" loading="lazy" alt="Luftbild mit roter Linie für den Verlauf von Handling I als Achterschleife und gelber Linie für Handling 2"><figcaption><b>Abb. 15</b>Lage im Luftbild: Handling I (rot) als Achter-Schleife, Handling 2 (gelb) im Osten. Der Lagevergleich lief vor dem Bau.</figcaption></figure>
     <figure><img src="../assets/blog/h-netz-analyse.jpg" width="1100" height="825" loading="lazy" alt="Diagramm der Kartenwege im Gelände; die Strecke Handling I ist rot als geschlossene Schleife hervorgehoben"><figcaption><b>Abb. 16</b>Topologie-Analyse: Aus den Kartenwegen wird per gemeinsamer Knoten ein geschlossener Linienzug gesucht. Rot = Handling I.</figcaption></figure>
@@ -444,13 +428,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
     <div class="card"><h3>Fahrtest v2 und offene Punkte</h3><ul class="t"><li>Überführung, Brücken, Curbs, Einmündungen und Wegfall der Streifen: <b>bestanden</b></li><li>Nacharbeit später: Sperrfläche an der Ein-/Ausfahrt, Lage der Schranken, Zufahrt auf Handling 2, kleine Kanten an Einmündungen</li><li>Bewusst noch nicht gebaut: Leitplanken (S13), das Nasshalte-System von Handling 2</li></ul></div>
   </div>
   <p class="muted" style="font-size:13px">Kennzahlen v2: 80 Modelle, 71 839 Eckpunkte, 83 389 Dreiecke.</p>
-</div></section>
-
-<!-- 11 -->
-<section class="sheet entry" id="e11" data-tags="methodik"><div class="sh"><span>Eintrag 11 / 12 · 01.11.2026</span><span>Auswertung · Revisionen</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Methodik</span></div><h2 style="margin-top:10px">Was sechs Revisionen gelehrt haben</h2>
-  <p>Die Fehler wiederholen sich in Mustern. Aus ihnen sind feste Arbeitsregeln geworden:</p></div>
+  </div>
+</details>
+<details class="ent" id="e11" data-tags="methodik">
+  <summary><span class="no">11</span><span class="when"><span>01.11.2026</span><span>Auswertung · Revisionen</span></span><strong>Was sechs Revisionen gelehrt haben</strong><span class="tz">Sechs Revisionen in drei Tagen. Daraus entstehen feste Regeln und eine Liste typischer Fehlerklassen.</span><span class="sts"><span class="tag">Methodik</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>Die Fehler wiederholen sich in Mustern. Aus ihnen sind feste Arbeitsregeln geworden:</p></div>
   <div class="grid2">
     <div class="card"><h3>Regeln</h3><ol class="t" style="margin:0;padding-left:1.3em"><li><b>Messen statt schätzen.</b> Lage und Breite immer aus dem Luftbild, nie aus Kartenlinien.</li><li><b>Vorab prüfen.</b> Keine Auslieferung ohne 3D-Vorschau, die das Verhalten des Simulators nachbildet (Löcher, Flächennormalen, Materialfarben).</li><li><b>Rückweg sichern.</b> Jedes Paket sichert den Vorzustand und bringt ein Zurücksetz-Skript mit.</li><li><b>Reihenfolge einfrieren.</b> Materialliste nur anhängen.</li><li><b>Befund protokollieren.</b> Je Revision: Symptom, Ursache, Maßnahme.</li></ol></div>
     <div class="card"><h3>Typische Fehlerklassen</h3><ul class="t"><li><b>Geometrie am Rand:</b> Graben, Kante, Zacken, Loch (Einträge 08, 09)</li><li><b>Daten ungenau:</b> Kartenlinien zu grob oder falsch (Einträge 05, 06, 10)</li><li><b>Objekt übersehen:</b> Bauwerk unter anderem Namen geführt (Eintrag 10)</li><li><b>Fläche doppelt:</b> Normale 0, doppelte Kollision (Eintrag 09)</li></ul></div>
@@ -469,13 +452,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
       <tr><td rowspan="2">S07 Innenkurse</td><td>v1</td><td>01.11.</td><td><span class="tag bad">durchgefallen</span></td><td>Beton zu hell, Kanten wellig, Markierungen fehlen, Barrieren im Kies-Kurs (Eintrag 12)</td></tr>
       <tr><td>v2</td><td>01.11.</td><td><span class="tag warn">in Prüfung</span></td><td>3D-Vorschau ohne Befund, Fahrtest steht aus</td></tr>
     </tbody></table></div>
-</div></section>
-
-<!-- 12 -->
-<section class="sheet entry" id="e12" data-tags="strecken fehler"><div class="sh"><span>Eintrag 12 / 12 · 01.11.2026</span><span>Schritt S07 · Innenkurse</span></div>
-<div class="sb">
-  <div class="col"><div class="meta"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag warn">v2 in Prüfung</span></div><h2 style="margin-top:10px">Innenkurse: vier Bereiche, zwei Revisionen an einem Tag</h2>
-  <p>S07 umfasst die Flächen innerhalb des Ovals: <b>A</b> Kies-Kurs mit rot-weißen Barken und Kies-Platz, <b>B</b> Kreisverkehr mit Kies-Innenfläche, <b>C</b> Multifunktionsfläche (Dreieck mit Gerade nach Süden) und <b>D</b> Fächer mit Kreisverkehr und einer Fliesen-Spur (52 × 5 m, vorerst normale Haftung, Nässe später). Die Flächen wurden aus dem Luftbild abgeleitet: befestigt = unbunt und hell, innerhalb vorgegebener Pufferzonen.</p></div>
+  </div>
+</details>
+<details class="ent" id="e12" data-tags="strecken fehler">
+  <summary><span class="no">12</span><span class="when"><span>01.11.2026</span><span>Schritt S07 · Innenkurse</span></span><strong>Innenkurse: vier Bereiche, zwei Revisionen an einem Tag</strong><span class="tz">Kies-Kurs, Kreisverkehr, Multifunktion und Fächer an einem Tag. v1 fällt durch, v2 bringt alten, hellen Asphalt und exakte Formen.</span><span class="sts"><span class="tag">Strecken</span><span class="tag">Fehleranalyse</span><span class="tag warn">v2 in Prüfung</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+<div class="col"><p>S07 umfasst die Flächen innerhalb des Ovals: <b>A</b> Kies-Kurs mit rot-weißen Barken und Kies-Platz, <b>B</b> Kreisverkehr mit Kies-Innenfläche, <b>C</b> Multifunktionsfläche (Dreieck mit Gerade nach Süden) und <b>D</b> Fächer mit Kreisverkehr und einer Fliesen-Spur (52 × 5 m, vorerst normale Haftung, Nässe später). Die Flächen wurden aus dem Luftbild abgeleitet: befestigt = unbunt und hell, innerhalb vorgegebener Pufferzonen.</p></div>
   <h3>v1: schnell gebaut, schnell durchgefallen</h3>
   <ul class="t" style="max-width:72ch">
     <li><b>A Kies-Kurs</b> als <em>Gelände</em> (9 700 m²) mit 605 Schlaglöchern (Radius 0,7 bis 1,7 m, 7 bis 25 cm tief) und 215 Buckeln (bis 15 cm), dazu ein neues Bodenmaterial für groben Kies (Index 10, an die Liste angehängt).</li>
@@ -503,68 +485,254 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
     <div class="card"><h3>Stand</h3><ul class="t"><li>3D-Vorschau v2 ohne Befund</li><li>Fahrtest v2: <b>offen</b></li><li>Folgeschritt S07b: Barken als Objekte</li></ul></div>
     <div class="card"><h3>Gelernt</h3><ul class="t"><li>Texturen aus dem Simulator-Material ableiten statt Fremdbilder</li><li>Markierungen: Qualität des Luftbilds begrenzt das Ergebnis</li><li>Kreise rechnen statt Masken nachzeichnen</li></ul></div>
   </div>
-</div></section>
-
-</main>
-
-<section class="sheet" id="offen"><div class="sh"><span>Offene Posten</span><span>S07b bis Z1</span></div>
-<div class="sb">
-  <div class="col"><div class="eyebrow">Ausblick</div><h2>Was als Nächstes kommt</h2>
-  <p>Die großen Fahrbahnen stehen. Es folgen die Innenkurse, die Sonderflächen und die Ausstattung. S07 ist gebaut (v2) und wartet auf den Fahrtest; als Vorbereitung waren Fächer-Kurs, Kreisverkehr und die Anbindungen im Luftbild markiert.</p></div>
-  <div class="grid2">
-    <figure><img src="../assets/blog/ausblick-faecher.jpg" width="860" height="760" loading="lazy" alt="Luftbild des Fächer-Kurses mit Kreisverkehr; Fahrbahnflächen farbig markiert"><figcaption><b>Abb. 23</b>Vorbereitung S07: Flächen des Fächer-Kurses und seiner Anbindungen im Luftbild markiert (Rot Rand, Blau Fläche).</figcaption></figure>
-    <div class="tablewrap"><table style="min-width:0">
-      <thead><tr><th>Schritt</th><th>Inhalt</th></tr></thead>
-      <tbody>
-        <tr><td>S07</td><td>Multifunktion, Kies-Kurs und übrige Innenkurse <span class="tag warn">in Prüfung</span></td></tr>
-        <tr><td>S07b</td><td>Barken und Objekte im Kies-Kurs</td></tr>
-        <tr><td>S08</td><td>Kuhfladen-Kurse klein und groß</td></tr>
-        <tr><td>S09</td><td>Zustandsspuren</td></tr>
-        <tr><td>S10</td><td>SKS1 und SKS2</td></tr>
-        <tr><td>S11</td><td>Steigungshügel</td></tr>
-        <tr><td>S12</td><td>Dynamikfläche, Wartungswege, Pforte, Einfahrt</td></tr>
-        <tr><td>S13</td><td>Wald, Bäume, Sichtschutz, Ausstattung</td></tr>
-        <tr><td>S14</td><td>Gebäude als schlichte Platzhalter</td></tr>
-        <tr><td>S15</td><td>KI-Wege, Spawnpunkte, Fahrtrichtungen</td></tr>
-        <tr><td>Z1</td><td>Leistungs-Feinschliff und Endtest</td></tr>
-      </tbody></table></div>
   </div>
-</div></section>
+</details>
+</div>
+</section>
 
-<footer>
+<section class="chap" id="k4">
+<header class="ch rv"><div class="chno">04</div><div><div class="eyebrow">Kapitel 04 · 05.11.2026 · Sonderkurse und Ausstattung</div><h2>Der Simulator schaut zurück</h2><p>Ein neues Prüfwerkzeug, die Kuhfladen-Kurse, die Einfahrt und ein ganzer Wald.</p></div></header>
+<div class="ents">
+<details class="ent" id="e13" data-tags="methodik">
+  <summary><span class="no">13</span><span class="when"><span>05.11.2026</span><span>Werkzeug · Prüfbrücke</span></span><strong>Der Simulator schaut zurück</strong><span class="tz">Eine kleine Erweiterung im Simulator nimmt Aufträge als Datei an: Kamera setzen, Bild machen, Höhe messen, Bildrate zählen, Log lesen. Prüfen geht jetzt ohne Handarbeit.</span><span class="sts"><span class="tag ok">in Betrieb</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+  <div class="col"><p>Bisher hieß Prüfen: Paket einsetzen, Simulator starten, selbst hinfahren, Bilder schicken. Seit diesem Eintrag gibt es eine Prüfbrücke. Ein Auftrag wird als Datei in einen Briefkasten-Ordner gelegt. Die Erweiterung im Simulator schaut fünfmal pro Sekunde hinein, führt ihn aus und legt die Antwort daneben, Bilder in einen eigenen Ordner.</p>
+  <p>Kein Netzwerk-Port, keine Zugangsdaten, nur eine feste Liste von Befehlen. Gebaut wird weiter über Skripte, die Brücke schaut nur nach.</p></div>
+  <div class="grid2">
+    <div class="card"><h3>Was die Brücke kann</h3><ul class="t"><li>Karte laden</li><li>Kamera an eine Koordinate setzen und ein Bild machen</li><li>Höhe an einem Punkt messen</li><li>Objekte in der Karte suchen</li><li>Bildrate messen</li><li>Log nach Fehlern durchsuchen</li></ul></div>
+    <div class="card"><h3>Warum ein Briefkasten</h3><p style="margin:0;font-size:14.5px;color:var(--ink2)">Eine fertige Programmierschnittstelle gibt es nur in der Forschungsversion des Simulators. Den Editor fernzusteuern hätte sich nicht gelohnt. Der Briefkasten ist der kleinste Weg, der funktioniert.</p></div>
+  </div>
+  <div class="note"><b>Neuer Ablauf ab S08:</b> Jeder Schritt wird nach dem Einsetzen mit der Brücke abgefahren: Log sauber, Bilder an festen Kamerapunkten, Bildrate.</div>
+  </div>
+</details>
+<details class="ent" id="e14" data-tags="strecken">
+  <summary><span class="no">14</span><span class="when"><span>05.11.2026</span><span>Schritt S08 · Kuhfladen</span></span><strong>Kuhfladen: 2 535 Höcker nach Plan</strong><span class="tz">Zwei schmale Kurse mit flachen, runden Höckern. Jeder Höcker sitzt dort, wo er im Luftbild liegt, und lässt sich einzeln verschieben.</span><span class="sts"><span class="tag warn">Fahrtest offen</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+  <div class="col"><p>Die beiden Kuhfladen-Kurse sind schmale Bahnen aus altem, hellem Asphalt, auf denen flache Höcker verteilt sind. Fahrbahn und Ränder entstehen als 3D-Fahrbahn wie bei den anderen Kursen, ein 171 m langes Stück trägt eine dunkle Teerdecke wie im Luftbild.</p>
+  <p>Die Höcker sind keine Geländeform, sondern einzelne Objekte. So bleiben sie scharfkantig, lassen sich im Editor einzeln verschieben und haben eine harte Oberfläche, damit die Reifen sie spürbar überrollen.</p></div>
+  <div class="tablewrap"><table style="min-width:480px">
+    <thead><tr><th>Kurs</th><th class="n">Fahrbahn</th><th class="n">Höhe der Höcker</th><th class="n">Länge</th></tr></thead>
+    <tbody><tr><td>Kuhfladen klein</td><td class="n">4,6 m</td><td class="n">2,5 cm</td><td class="n">0,65 km</td></tr>
+    <tr><td>Kuhfladen groß</td><td class="n">4,8 m</td><td class="n">3,5 cm</td><td class="n">0,54 km</td></tr>
+    <tr><td>Beide zusammen</td><td class="n"></td><td class="n">2 535 Höcker</td><td class="n">1,19 km</td></tr></tbody></table></div>
+  <div class="figs one"><figure><img src="../assets/blog/s08-kuhfladen-pruefbild.jpg" width="1400" height="788" loading="lazy" alt="Vier Ansichten aus dem Simulator: schmale helle Fahrbahnen mit vielen runden, dunkelroten Höckern, links aus Fahrerhöhe, rechts von oben"><figcaption><b>Abb. 24</b>Prüfbilder aus dem Simulator, aufgenommen über die Prüfbrücke: oben der kleine, unten der große Kurs, links aus Fahrerhöhe, rechts von oben.</figcaption></figure></div>
+  <div class="note"><b>Erstmals ohne Umweg:</b> Das Paket kam direkt in den Simulator, die Prüfbrücke hat nachgesehen. Die 3D-Vorschau war dafür nicht mehr nötig.</div>
+  </div>
+</details>
+<details class="ent" id="e15" data-tags="strecken">
+  <summary><span class="no">15</span><span class="when"><span>05.11.2026</span><span>Schritt S12 · Einfahrt</span></span><strong>Pforte, Einfahrt, Dynamikfläche</strong><span class="tz">Hier beginnt jede Fahrt: Pförtnerhaus aus dem Gebäudemodell, zwei Schranken, die sich öffnen, wenn ein Auto kommt, dazu die Dynamikfläche und 2,8 km Wartungsweg.</span><span class="sts"><span class="tag ok">eingebaut</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+  <div class="col"><p>S12 deckt vier Bereiche ab, die vorher im Luftbild abgegrenzt wurden. Die Schranken sind kleine Skripte im Simulator: Kommt ein Fahrzeug näher als ein paar Meter, schwenken sie hoch. Der Startpunkt der Karte liegt jetzt vor der Pforte, die Übersichtskarte im Menü zeigt das neue Gelände.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Bereich</th><th>Inhalt</th></tr></thead>
+    <tbody><tr><td>A Dynamikfläche</td><td>Große ebene Fläche als 3D-Fahrbahn, Markierungen aus dem Luftbild</td></tr>
+    <tr><td>B Wartungsweg</td><td>2,8 km Asphalt rund um das Oval, Schotter-Zufahrt von außen</td></tr>
+    <tr><td>C Pforte und Einfahrt</td><td>Pförtnerhaus aus dem 3D-Gebäudemodell mit Vordach, Insel mit zwei Schranken, Fahnenmasten, Pylon ohne Logo, Zaun</td></tr>
+    <tr><td>D Werkstattgelände</td><td>Straßen zwischen den Hallen</td></tr></tbody></table></div>
+  <div class="figs one"><figure><img src="../assets/blog/s12-plan.jpg" width="1200" height="891" loading="lazy" alt="Luftbild mit farbig markierten Bereichen: Dynamikfläche, Wartungsweg, Schotter-Zufahrt, Einfahrt, Pforte und Werkstattgelände"><figcaption><b>Abb. 25</b>Plan für S12 im Luftbild: A Dynamikfläche, B Wartungsweg und Schotter-Zufahrt, C Einfahrt und Pforte, D Werkstattgelände.</figcaption></figure></div>
+  </div>
+</details>
+<details class="ent" id="e16" data-tags="ausstattung">
+  <summary><span class="no">16</span><span class="when"><span>05.11.2026</span><span>Schritt S13 · Wald</span></span><strong>49 400 Bäume, 10,6 km Zaun</strong><span class="tz">Jeder Baum steht dort, wo das Oberflächenmodell eine Krone zeigt. Dazu Sichtschutzwand, Außenzaun und Leitplanken am Oval, bei weiter 60 Bildern pro Sekunde.</span><span class="sts"><span class="tag warn">Fahrtest offen</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+  <div class="col"><p>Die Bäume kommen aus dem Oberflächenmodell: Wo es deutlich über dem Gelände liegt und die Form einer Krone hat, wird ein Baum gesetzt, in passender Höhe. Gesetzt werden sie als Waldobjekte, die der Simulator sehr sparsam zeichnet.</p></div>
+  <div class="tablewrap"><table style="min-width:420px">
+    <thead><tr><th>Element</th><th class="n">Menge</th></tr></thead>
+    <tbody><tr><td>Bäume aus dem Oberflächenmodell</td><td class="n">49 400</td></tr>
+    <tr><td>Außenzaun</td><td class="n">10,6 km</td></tr>
+    <tr><td>Leitplanken am Oval</td><td class="n">7,4 km</td></tr>
+    <tr><td>Holz-Sichtschutzwand</td><td class="n">5 m hoch</td></tr></tbody></table></div>
+  <div class="note"><b>Bildrate:</b> nach dem Einsetzen über die Prüfbrücke gemessen, weiter 60 FPS. Offen sind noch hohe Wände an zwei Stellen und die Leitplanken an den Innenkursen.</div>
+  </div>
+</details>
+</div>
+</section>
+
+<section class="chap" id="k5">
+<header class="ch rv"><div class="chno">05</div><div><div class="eyebrow">Kapitel 05 · 07.11.2026 · Feinschliff</div><h2>Vom Modell zur Gebrauchsspur</h2><p>Echte Bauteile, eine alte Waldstraße und Spuren, die zeigen, dass hier gefahren wird.</p></div></header>
+<div class="ents">
+<details class="ent" id="e17" data-tags="ausstattung fehler">
+  <summary><span class="no">17</span><span class="when"><span>07.11.2026</span><span>S13 v2 · S07b · Fertigteile</span></span><strong>Fertigteile statt Eigenbau</strong><span class="tz">Selbst gebaute Leitplanken und Zäune sahen nach Modell aus. Ersetzt durch die Bauteile, die der Simulator selbst mitbringt. Dabei aufgefallen: eine Wand, die die Unterführung versperrte.</span><span class="sts"><span class="tag warn">Fahrtest offen</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+  <div class="col"><p>Die erste Ausstattung war selbst modelliert: einfache Formen mit eigener Textur. Im Simulator wirkte das flach. Version 2 nimmt die Bauteile, die der Simulator mitbringt und die auch auf seinen eigenen Karten stehen.</p>
+  <p>Die passenden Modelle wurden mit einem kleinen eigenen Werkzeug in den Spieldateien gesucht. Gesetzt werden sie wie die Bäume als Waldobjekte, entlang der gemessenen Linien.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Element</th><th>vorher</th><th>jetzt</th></tr></thead>
+    <tbody><tr><td>Leitplanke</td><td>eigenes Profil</td><td>Leitplanke mit Pfosten aus dem Spiel</td></tr>
+    <tr><td>Sichtschutzwand</td><td>eigene Holzwand</td><td>Holzwand aus dem Spiel</td></tr>
+    <tr><td>Außenzaun</td><td>eigener Zaun</td><td>Maschendrahtzaun aus dem Spiel, 6-m-Felder</td></tr>
+    <tr><td>Barken am Kies-Kurs</td><td>in v1 entfernt</td><td>Barke rot-weiß aus dem Spiel (S07b)</td></tr></tbody></table></div>
+  <div class="rule"><span class="eyebrow">Befund</span>Die Holzwand lief über die Unterführung P15 hinweg und versperrte sie auf Fahrbahnhöhe. Jetzt sitzt sie dort auf Höhe des Deckels.</div>
+  </div>
+</details>
+<details class="ent" id="e18" data-tags="strecken">
+  <summary><span class="no">18</span><span class="when"><span>07.11.2026</span><span>Schritt S10 · SKS</span></span><strong>SKS: die alte Waldstraße</strong><span class="tz">Zwei einspurige Kurse durch den Wald, absichtlich in schlechtem Zustand: Wellen, Absenkungen, Risse, Flicken und Moos am Rand.</span><span class="sts"><span class="tag warn">Fahrtest offen</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+  <div class="col"><p>SKS 1 und 2 sind schmale Einbahnstraßen durch den Wald, 4 m breit, zusammen 1,7 km. Anders als die übrigen Kurse sollen sie alt wirken. Deshalb sind sie nicht als eigene 3D-Fahrbahn gebaut, sondern ins Gelände eingearbeitet: Wellen und Absenkungen stecken direkt im Höhenraster.</p></div>
+  <div class="grid2">
+    <div class="card"><h3>Aufbau</h3><ul class="t"><li>Wellen und Absenkungen im Gelände</li><li>Risse, Flicken und Moosränder als Straßen-Aufkleber (Decals) des Simulators</li><li>Leitpfosten am Rand</li><li>Fahrtrichtung aus den Kartendaten</li></ul></div>
+    <div class="card"><h3>Warum im Gelände</h3><p style="margin:0;font-size:14.5px;color:var(--ink2)">Eine 3D-Fahrbahn ist glatt und hat saubere Kanten. Eine alte Waldstraße hat beides nicht. Im Gelände gehen Fahrbahn und Bankett weich ineinander über.</p></div>
+  </div>
+  </div>
+</details>
+<details class="ent" id="e19" data-tags="ausstattung">
+  <summary><span class="no">19</span><span class="when"><span>07.11.2026</span><span>S13c · S12b · Decals</span></span><strong>Gebrauchsspuren und saubere Linien</strong><span class="tz">247 Straßen-Decals bringen Reifenspuren, Abnutzung, Risse und Flicken auf alle Kurse außer dem Oval. Die welligen Linien an der Einfahrt sind ersetzt.</span><span class="sts"><span class="tag warn">Fahrtest offen</span></span><i class="pm" aria-hidden="true"></i></summary>
+  <div class="eb">
+  <div class="col"><p>Neue Fahrbahnen sehen zu sauber aus. S13c legt entlang der Fahrlinien 247 Decal-Straßen: Reifenspuren in der Spurmitte, Abnutzung, Risse, Flicken und dunkle Ränder. Das Oval bleibt frei, dort ist der Belag in gutem Zustand.</p>
+  <p>Beim Rundgang mit der Prüfbrücke fiel auf: Die Randlinien der Haupteinfahrt waren wellig, weil sie aus dem Luftbild abgelesen waren. S12b ersetzt sie durch saubere Linien: Randlinien parallel im Abstand von 6 m, Mittelstriche 3 m lang mit 9 m Lücke.</p></div>
+  <div class="rule"><span class="eyebrow">Gelernt</span>Was aus dem Luftbild gemessen wird, wackelt im Dezimeterbereich. Für Markierungen, die gerade sein müssen, ist eine konstruierte Linie besser als eine gemessene.</div>
+  </div>
+</details>
+</div>
+</section>
+
+<section class="chap" id="offen">
+<header class="ch rv"><div class="chno">→</div><div><div class="eyebrow">Ausblick</div><h2>Was als Nächstes kommt</h2><p>Vier Bauschritte warten auf ihre Testfahrt. Danach geht es an den Steigungshügel.</p></div></header>
+<div class="next">
+  <div class="nx warn rv"><b>Testfahrt</b><strong>S07b · S08 · S10</strong><span>Barken am Kies-Kurs, Kuhfladen-Kurse, SKS 1 und 2</span></div>
+  <div class="nx warn rv d1"><b>Testfahrt</b><strong>S12b · S13 · S13c</strong><span>Einfahrt-Linien, Wald und Fertigteile, Straßen-Decals</span></div>
+  <div class="nx rv d2"><b>S11</b><strong>Steigungshügel</strong><span>Acht Rampen von 8 bis 30 % Steigung</span></div>
+  <div class="nx rv d3"><b>S09</b><strong>Zustandsspuren</strong><span>Auf Abruf: Gelände und Boden liegen schon</span></div>
+  <div class="nx rv"><b>S14 · S15</b><strong>Gebäude, Verkehr</strong><span>Schlichte Platzhalter-Gebäude, Fahrwege für Verkehr, Startpunkte</span></div>
+  <div class="nx rv d1"><b>Z1</b><strong>Endtest</strong><span>Leistungs-Feinschliff und letzte Runde über alles</span></div>
+</div>
+</section>
+<p class="empty" id="empty">Keine Einträge für diesen Filter.</p>
+  </main>
+</div>
+
+<footer class="foot">
   <p><b>Datenquellen:</b> Bayerische Vermessungsverwaltung, www.geodaten.bayern.de (CC BY 4.0): Digitales Geländemodell 1 m, Oberflächenmodell, Luftbild, 3D-Gebäudemodell LoD2. Kartenlinien: © OpenStreetMap-Mitwirkende (ODbL). Die Luftbild-Ausschnitte in diesem Logbuch sind eigene Bearbeitungen (Entzerrung, Markierung, Überlagerung).</p>
-  <p><b>Abbildungen:</b> Prüfbilder stammen aus einer eigenen 3D-Vorschau. Spielansichten und Messstreifen sind Zwischenstände während des Baus und zeigen nicht den Endzustand.</p>
-  <p>Alle Maße sind Näherungen aus offenen Daten. Nur für private Zwecke, ohne Gewähr.</p>
-  <p class="srcnote">Alle Quellen und Lizenzen: Reiter <a href="../quellen/">Quellen</a>.</p>
+  <p><b>Abbildungen:</b> Prüfbilder stammen aus einer eigenen 3D-Vorschau oder aus dem Simulator. Spielansichten und Messstreifen sind Zwischenstände während des Baus und zeigen nicht den Endzustand.</p>
+  <p>Alle Maße sind Näherungen aus offenen Daten. Nur für private Zwecke, ohne Gewähr. Alle Quellen und Lizenzen: <a href="../quellen/">Quellen</a>.</p>
 </footer>
 </div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Bildansicht"><img alt=""><p></p></div>
 
 <script src="../assets/i18n-en.js"></script>
+<script>
+Object.assign(window.I18N_EN=window.I18N_EN||{},{
+"Karte":"Map","Darstellung wechseln":"Switch theme","Startseite":"Home","Prüfgelände in Daten":"Proving ground in data","BL-PG-01 · Baublog":"BL-PG-01 · Build log",
+"Baublog · Stand 07.11.2026":"Build log · as of 7 Nov 2026","Vom Datensatz<span>zur Fahrbahn</span>":"From dataset<span>to road surface</span>",
+"Wie aus offenen Geodaten ein befahrbares Modell für den Fahrsimulator wird. Jeder Eintrag zeigt erst die Kurzfassung, Messbilder und Details klappen auf.":"How open geodata becomes a drivable model for the driving simulator. Each entry shows the short version first; measurement images and details expand.",
+"Einträge in 5 Kapiteln":"entries in 5 chapters","Bauschritte bestanden":"build steps passed","Testfahrten offen":"test drives pending","mit Wald und Ausstattung":"with forest and furniture",
+"So entsteht jeder Bauschritt":"How each build step is made","7 Stationen":"7 stations",
+"Rückkopplung: Aus jedem Fahrtest-Befund entsteht eine Revision (v2, v3 …) bei Schritt 04 oder früher. Seit S08 schaut zusätzlich die Prüfbrücke im Simulator nach.":"Feedback loop: every test-drive finding leads to a revision (v2, v3 …) at step 04 or earlier. Since S08 the inspection bridge also checks inside the simulator.",
+"Kapitel":"Chapters","Filter":"Filter","Ausblick":"Outlook","Ausstattung":"Furniture","Alle aufklappen":"Expand all","Alle zuklappen":"Collapse all","Keine Einträge für diesen Filter.":"No entries for this filter.","Einträge filtern":"Filter entries",
+"Kapitel 01 · 30.10.2026 · Grundlagen":"Chapter 01 · 30 Oct 2026 · Foundations","Vom Datensatz zum Gelände":"From dataset to terrain","Daten holen, Gelände bauen, Böden zuordnen. Die Basis für alles, was darauf fährt.":"Fetch the data, build the terrain, assign the ground. The base for everything that drives on it.",
+"Kapitel 02 · 30.–31.10.2026 · Das Oval":"Chapter 02 · 30–31 Oct 2026 · The oval","Vier Anläufe für 4,6 km":"Four attempts for 4.6 km","Die Hauptstrecke mit Steilkurven und Unterführung. Jede Revision ein Fahrtest, jeder Fehler eine Lektion.":"The main track with banked curves and underpass. Every revision a test drive, every mistake a lesson.",
+"Kapitel 03 · 01.11.2026 · Handling und Innenkurse":"Chapter 03 · 1 Nov 2026 · Handling and infield courses","Kurven, Kies und Revisionen":"Curves, gravel and revisions","Messen vor dem Bauen, dann die Kurse in der Mitte des Geländes.":"Measure before building, then the courses in the middle of the site.",
+"Kapitel 04 · 05.11.2026 · Sonderkurse und Ausstattung":"Chapter 04 · 5 Nov 2026 · Special courses and furniture","Der Simulator schaut zurück":"The simulator looks back","Ein neues Prüfwerkzeug, die Kuhfladen-Kurse, die Einfahrt und ein ganzer Wald.":"A new inspection tool, the cowpat courses, the entrance and an entire forest.",
+"Kapitel 05 · 07.11.2026 · Feinschliff":"Chapter 05 · 7 Nov 2026 · Finishing","Vom Modell zur Gebrauchsspur":"From model to wear marks","Echte Bauteile, eine alte Waldstraße und Spuren, die zeigen, dass hier gefahren wird.":"Real components, an old forest road and marks that show cars drive here.",
+"Grundlagen":"Foundations","Das Oval":"The oval","Handling und Innenkurse":"Handling and infield","Sonderkurse und Ausstattung":"Special courses and furniture","Feinschliff":"Finishing",
+"30.10.2026":"30 Oct 2026","30.–31.10.2026":"30–31 Oct 2026","31.10.2026":"31 Oct 2026","01.11.2026":"1 Nov 2026","05.11.2026":"5 Nov 2026","07.11.2026":"7 Nov 2026",
+"Luftbild und Höhenmodell liegen vollständig vor. Festgelegt: ein Quadrat von 4 096 m bei 1 m Raster, zerlegt in 15 Bauschritte mit je eigener Testfahrt.":"Aerial image and elevation model are complete. Decided: a 4,096 m square at 1 m resolution, split into 15 build steps, each with its own test drive.",
+"Fünf Datenquellen, 84 Kacheln, rund 360 MB. Alles geprüft, verkleinert, wo es ohne Verlust ging, und für die nächsten Schritte vorbereitet.":"Five data sources, 84 tiles, about 360 MB. All checked, shrunk where it was lossless, and prepared for the next steps.",
+"Höhenraster, Luftbild als Textur, eine leere Karte. Die erste Testfahrt zeigt: Das Gelände passt, nur die Unterführung fehlt.":"Height grid, aerial image as texture, an empty map. The first test drive shows: the terrain fits, only the underpass is missing.",
+"Aus Luftbild, Höhe über Grund und Kartenlinien entsteht eine Bodenkarte mit zehn Materialien. Testfahrt bestanden, 60 FPS.":"Aerial image, height above ground and map lines produce a ground map with ten materials. Test drive passed, 60 FPS.",
+"Das Oval aus den Kartenlinien gebaut: Spuren falsch, Gelände schaut durch, Unterführung kaputt. Was v1 lehrt.":"The oval built from map lines: lanes wrong, terrain pokes through, underpass broken. What v1 teaches.",
+"Die Kartenlinie liegt bis zu mehrere Meter daneben. Also wird die Mittellinie selbst aus dem Luftbild gemessen, auf 0,5 m genau.":"The map line is off by up to several metres. So the centre line is measured from the aerial image, to within 0.5 m.",
+"v2 trifft die Spuren. Jetzt fehlt das Ein- und Ausfahrtsystem mit Zusatzspuren, Innenstraße und Sperrflächen: v3.":"v2 hits the lanes. Now the entry and exit system with extra lanes, inner road and hatched areas is missing: v3.",
+"Die Unterführung unter dem Oval braucht ein Loch im Gelände statt einer Absenkung. Und am Lochrand lauert eine Falle.":"The underpass beneath the oval needs a hole in the terrain instead of a dip. And a trap lurks at the edge of the hole.",
+"Schwarze, erhöhte Ränder und ein glitchendes Auto. Zwei Ursachen, zwei Maßnahmen, und das Oval ist fertig.":"Black, raised edges and a glitching car. Two causes, two fixes, and the oval is done.",
+"Erst die Breiten und Linien im Luftbild messen, dann bauen. v2 bringt Überführung, Brücken und saubere Einmündungen.":"Measure widths and lines in the aerial image first, then build. v2 brings the overpass, bridges and clean junctions.",
+"Sechs Revisionen in drei Tagen. Daraus entstehen feste Regeln und eine Liste typischer Fehlerklassen.":"Six revisions in three days. They yield firm rules and a list of typical error classes.",
+"Kies-Kurs, Kreisverkehr, Multifunktion und Fächer an einem Tag. v1 fällt durch, v2 bringt alten, hellen Asphalt und exakte Formen.":"Gravel course, roundabout, multi-purpose course and fan in one day. v1 fails, v2 brings old light asphalt and exact shapes.",
+"Werkzeug · Prüfbrücke":"Tool · inspection bridge","Der Simulator schaut zurück":"The simulator looks back","in Betrieb":"in service",
+"Eine kleine Erweiterung im Simulator nimmt Aufträge als Datei an: Kamera setzen, Bild machen, Höhe messen, Bildrate zählen, Log lesen. Prüfen geht jetzt ohne Handarbeit.":"A small extension inside the simulator takes jobs as files: place the camera, take a picture, measure height, count frame rate, read the log. Checking no longer needs manual work.",
+"Bisher hieß Prüfen: Paket einsetzen, Simulator starten, selbst hinfahren, Bilder schicken. Seit diesem Eintrag gibt es eine Prüfbrücke. Ein Auftrag wird als Datei in einen Briefkasten-Ordner gelegt. Die Erweiterung im Simulator schaut fünfmal pro Sekunde hinein, führt ihn aus und legt die Antwort daneben, Bilder in einen eigenen Ordner.":"Until now, checking meant: install the package, start the simulator, drive there yourself, send pictures. Since this entry there is an inspection bridge. A job is dropped as a file into a mailbox folder. The extension in the simulator looks inside five times per second, runs it and puts the answer next to it, pictures in a folder of their own.",
+"Kein Netzwerk-Port, keine Zugangsdaten, nur eine feste Liste von Befehlen. Gebaut wird weiter über Skripte, die Brücke schaut nur nach.":"No network port, no credentials, only a fixed list of commands. Building still happens through scripts; the bridge only looks.",
+"Was die Brücke kann":"What the bridge can do","Karte laden":"Load the map","Kamera an eine Koordinate setzen und ein Bild machen":"Place the camera at a coordinate and take a picture","Höhe an einem Punkt messen":"Measure the height at a point","Objekte in der Karte suchen":"Find objects in the map","Bildrate messen":"Measure frame rate","Log nach Fehlern durchsuchen":"Search the log for errors",
+"Warum ein Briefkasten":"Why a mailbox","Eine fertige Programmierschnittstelle gibt es nur in der Forschungsversion des Simulators. Den Editor fernzusteuern hätte sich nicht gelohnt. Der Briefkasten ist der kleinste Weg, der funktioniert.":"A ready-made programming interface exists only in the research edition of the simulator. Remote-controlling the editor would not have paid off. The mailbox is the smallest approach that works.",
+"<b>Neuer Ablauf ab S08:</b> Jeder Schritt wird nach dem Einsetzen mit der Brücke abgefahren: Log sauber, Bilder an festen Kamerapunkten, Bildrate.":"<b>New routine from S08:</b> after installation every step is inspected through the bridge: clean log, pictures at fixed camera points, frame rate.",
+"Schritt S08 · Kuhfladen":"Step S08 · Cowpats","Kuhfladen: 2 535 Höcker nach Plan":"Cowpats: 2,535 bumps to plan",
+"Zwei schmale Kurse mit flachen, runden Höckern. Jeder Höcker sitzt dort, wo er im Luftbild liegt, und lässt sich einzeln verschieben.":"Two narrow courses with flat, round bumps. Every bump sits where it lies in the aerial image and can be moved individually.",
+"Die beiden Kuhfladen-Kurse sind schmale Bahnen aus altem, hellem Asphalt, auf denen flache Höcker verteilt sind. Fahrbahn und Ränder entstehen als 3D-Fahrbahn wie bei den anderen Kursen, ein 171 m langes Stück trägt eine dunkle Teerdecke wie im Luftbild.":"The two cowpat courses are narrow lanes of old light asphalt with flat bumps scattered on them. Surface and edges are built as a 3D road like the other courses; a 171 m section carries a dark tar surface as in the aerial image.",
+"Die Höcker sind keine Geländeform, sondern einzelne Objekte. So bleiben sie scharfkantig, lassen sich im Editor einzeln verschieben und haben eine harte Oberfläche, damit die Reifen sie spürbar überrollen.":"The bumps are not terrain shapes but individual objects. That keeps them crisp, lets them be moved one by one in the editor and gives them a hard surface so the tyres noticeably roll over them.",
+"Kurs":"Course","Fahrbahn":"Carriageway","Höhe der Höcker":"Bump height","Länge":"Length","Kuhfladen klein":"Cowpats small","Kuhfladen groß":"Cowpats large","Beide zusammen":"Both together","2 535 Höcker":"2,535 bumps",
+"Prüfbilder aus dem Simulator, aufgenommen über die Prüfbrücke: oben der kleine, unten der große Kurs, links aus Fahrerhöhe, rechts von oben.":"Check images from the simulator, taken via the inspection bridge: top the small, bottom the large course, left at driver height, right from above.",
+"Vier Ansichten aus dem Simulator: schmale helle Fahrbahnen mit vielen runden, dunkelroten Höckern, links aus Fahrerhöhe, rechts von oben":"Four views from the simulator: narrow light lanes with many round, dark-red bumps, left at driver height, right from above",
+"<b>Erstmals ohne Umweg:</b> Das Paket kam direkt in den Simulator, die Prüfbrücke hat nachgesehen. Die 3D-Vorschau war dafür nicht mehr nötig.":"<b>No detour for the first time:</b> the package went straight into the simulator and the inspection bridge checked it. The 3D preview was no longer needed.",
+"Schritt S12 · Einfahrt":"Step S12 · Entrance","Pforte, Einfahrt, Dynamikfläche":"Gate, entrance, dynamics pad","eingebaut":"built in",
+"Hier beginnt jede Fahrt: Pförtnerhaus aus dem Gebäudemodell, zwei Schranken, die sich öffnen, wenn ein Auto kommt, dazu die Dynamikfläche und 2,8 km Wartungsweg.":"Every drive starts here: gatehouse from the building model, two barriers that open when a car arrives, plus the dynamics pad and 2.8 km of maintenance road.",
+"S12 deckt vier Bereiche ab, die vorher im Luftbild abgegrenzt wurden. Die Schranken sind kleine Skripte im Simulator: Kommt ein Fahrzeug näher als ein paar Meter, schwenken sie hoch. Der Startpunkt der Karte liegt jetzt vor der Pforte, die Übersichtskarte im Menü zeigt das neue Gelände.":"S12 covers four areas outlined beforehand in the aerial image. The barriers are small scripts in the simulator: when a vehicle comes within a few metres they swing up. The map's start point is now in front of the gate, and the overview map in the menu shows the new site.",
+"Bereich":"Area","Inhalt":"Content","A Dynamikfläche":"A Dynamics pad","Große ebene Fläche als 3D-Fahrbahn, Markierungen aus dem Luftbild":"Large flat area as a 3D road, markings from the aerial image",
+"B Wartungsweg":"B Maintenance road","2,8 km Asphalt rund um das Oval, Schotter-Zufahrt von außen":"2.8 km of asphalt around the oval, gravel access from outside",
+"C Pforte und Einfahrt":"C Gate and entrance","Pförtnerhaus aus dem 3D-Gebäudemodell mit Vordach, Insel mit zwei Schranken, Fahnenmasten, Pylon ohne Logo, Zaun":"Gatehouse from the 3D building model with canopy, island with two barriers, flagpoles, pylon without logo, fence",
+"D Werkstattgelände":"D Workshop area","Straßen zwischen den Hallen":"Roads between the halls",
+"Plan für S12 im Luftbild: A Dynamikfläche, B Wartungsweg und Schotter-Zufahrt, C Einfahrt und Pforte, D Werkstattgelände.":"Plan for S12 on the aerial image: A dynamics pad, B maintenance road and gravel access, C entrance and gate, D workshop area.",
+"Luftbild mit farbig markierten Bereichen: Dynamikfläche, Wartungsweg, Schotter-Zufahrt, Einfahrt, Pforte und Werkstattgelände":"Aerial image with coloured areas: dynamics pad, maintenance road, gravel access, entrance, gate and workshop area",
+"Schritt S13 · Wald":"Step S13 · Forest","49 400 Bäume, 10,6 km Zaun":"49,400 trees, 10.6 km of fence",
+"Jeder Baum steht dort, wo das Oberflächenmodell eine Krone zeigt. Dazu Sichtschutzwand, Außenzaun und Leitplanken am Oval, bei weiter 60 Bildern pro Sekunde.":"Every tree stands where the surface model shows a crown. Plus privacy wall, outer fence and guardrails on the oval, still at 60 frames per second.",
+"Die Bäume kommen aus dem Oberflächenmodell: Wo es deutlich über dem Gelände liegt und die Form einer Krone hat, wird ein Baum gesetzt, in passender Höhe. Gesetzt werden sie als Waldobjekte, die der Simulator sehr sparsam zeichnet.":"The trees come from the surface model: wherever it rises clearly above the terrain in the shape of a crown, a tree is placed at a matching height. They are placed as forest objects, which the simulator draws very efficiently.",
+"Element":"Item","Menge":"Quantity","Bäume aus dem Oberflächenmodell":"Trees from the surface model","Außenzaun":"Outer fence","Leitplanken am Oval":"Guardrails on the oval","Holz-Sichtschutzwand":"Timber privacy wall","5 m hoch":"5 m high",
+"<b>Bildrate:</b> nach dem Einsetzen über die Prüfbrücke gemessen, weiter 60 FPS. Offen sind noch hohe Wände an zwei Stellen und die Leitplanken an den Innenkursen.":"<b>Frame rate:</b> measured via the inspection bridge after installation, still 60 FPS. Still open: high walls in two places and the guardrails on the infield courses.",
+"S13 v2 · S07b · Fertigteile":"S13 v2 · S07b · Stock parts","Fertigteile statt Eigenbau":"Stock parts instead of home-made",
+"Selbst gebaute Leitplanken und Zäune sahen nach Modell aus. Ersetzt durch die Bauteile, die der Simulator selbst mitbringt. Dabei aufgefallen: eine Wand, die die Unterführung versperrte.":"Home-made guardrails and fences looked like models. Replaced by the parts the simulator ships with. Spotted along the way: a wall that blocked the underpass.",
+"Die erste Ausstattung war selbst modelliert: einfache Formen mit eigener Textur. Im Simulator wirkte das flach. Version 2 nimmt die Bauteile, die der Simulator mitbringt und die auch auf seinen eigenen Karten stehen.":"The first furniture was self-modelled: simple shapes with a custom texture. In the simulator it looked flat. Version 2 uses the parts that ship with the simulator and also stand on its own maps.",
+"Die passenden Modelle wurden mit einem kleinen eigenen Werkzeug in den Spieldateien gesucht. Gesetzt werden sie wie die Bäume als Waldobjekte, entlang der gemessenen Linien.":"The matching models were found in the game files with a small tool of our own. Like the trees, they are placed as forest objects along the measured lines.",
+"vorher":"before","jetzt":"now","Leitplanke":"Guardrail","eigenes Profil":"own profile","Leitplanke mit Pfosten aus dem Spiel":"Guardrail with posts from the game","Sichtschutzwand":"Privacy wall","eigene Holzwand":"own timber wall","Holzwand aus dem Spiel":"Timber wall from the game","eigener Zaun":"own fence","Maschendrahtzaun aus dem Spiel, 6-m-Felder":"Mesh fence from the game, 6 m panels","Barken am Kies-Kurs":"Barriers at the gravel course","in v1 entfernt":"removed in v1","Barke rot-weiß aus dem Spiel (S07b)":"Red-white barrier from the game (S07b)",
+"Befund":"Finding","Die Holzwand lief über die Unterführung P15 hinweg und versperrte sie auf Fahrbahnhöhe. Jetzt sitzt sie dort auf Höhe des Deckels.":"The timber wall ran across the P15 underpass and blocked it at road level. Now it sits at roof height there.",
+"Schritt S10 · SKS":"Step S10 · SKS","SKS: die alte Waldstraße":"SKS: the old forest road",
+"Zwei einspurige Kurse durch den Wald, absichtlich in schlechtem Zustand: Wellen, Absenkungen, Risse, Flicken und Moos am Rand.":"Two single-lane courses through the forest, deliberately in poor condition: waves, dips, cracks, patches and moss at the edges.",
+"SKS 1 und 2 sind schmale Einbahnstraßen durch den Wald, 4 m breit, zusammen 1,7 km. Anders als die übrigen Kurse sollen sie alt wirken. Deshalb sind sie nicht als eigene 3D-Fahrbahn gebaut, sondern ins Gelände eingearbeitet: Wellen und Absenkungen stecken direkt im Höhenraster.":"SKS 1 and 2 are narrow one-way roads through the forest, 4 m wide, 1.7 km together. Unlike the other courses they should look old. So they are not built as a separate 3D road but worked into the terrain: waves and dips sit directly in the height grid.",
+"Aufbau":"Build-up","Wellen und Absenkungen im Gelände":"Waves and dips in the terrain","Risse, Flicken und Moosränder als Straßen-Aufkleber (Decals) des Simulators":"Cracks, patches and mossy edges as the simulator's road decals","Leitpfosten am Rand":"Delineator posts along the edge","Fahrtrichtung aus den Kartendaten":"Direction of travel from the map data",
+"Warum im Gelände":"Why in the terrain","Eine 3D-Fahrbahn ist glatt und hat saubere Kanten. Eine alte Waldstraße hat beides nicht. Im Gelände gehen Fahrbahn und Bankett weich ineinander über.":"A 3D road is smooth and has clean edges. An old forest road has neither. In the terrain, road and verge blend softly into each other.",
+"S13c · S12b · Decals":"S13c · S12b · Decals","Gebrauchsspuren und saubere Linien":"Wear marks and clean lines",
+"247 Straßen-Decals bringen Reifenspuren, Abnutzung, Risse und Flicken auf alle Kurse außer dem Oval. Die welligen Linien an der Einfahrt sind ersetzt.":"247 road decals add tyre marks, wear, cracks and patches to every course except the oval. The wavy lines at the entrance are replaced.",
+"Neue Fahrbahnen sehen zu sauber aus. S13c legt entlang der Fahrlinien 247 Decal-Straßen: Reifenspuren in der Spurmitte, Abnutzung, Risse, Flicken und dunkle Ränder. Das Oval bleibt frei, dort ist der Belag in gutem Zustand.":"New roads look too clean. S13c lays 247 decal roads along the driving lines: tyre marks in the lane centre, wear, cracks, patches and dark edges. The oval stays clear; its surface is in good condition.",
+"Beim Rundgang mit der Prüfbrücke fiel auf: Die Randlinien der Haupteinfahrt waren wellig, weil sie aus dem Luftbild abgelesen waren. S12b ersetzt sie durch saubere Linien: Randlinien parallel im Abstand von 6 m, Mittelstriche 3 m lang mit 9 m Lücke.":"The inspection-bridge walkthrough revealed: the edge lines of the main entrance were wavy because they were read from the aerial image. S12b replaces them with clean lines: parallel edge lines 6 m apart, centre dashes 3 m long with 9 m gaps.",
+"Gelernt":"Learned","Was aus dem Luftbild gemessen wird, wackelt im Dezimeterbereich. Für Markierungen, die gerade sein müssen, ist eine konstruierte Linie besser als eine gemessene.":"Whatever is measured from the aerial image wobbles by decimetres. For markings that must be straight, a constructed line beats a measured one.",
+"Was als Nächstes kommt":"What comes next","Vier Bauschritte warten auf ihre Testfahrt. Danach geht es an den Steigungshügel.":"Four build steps await their test drive. Then it's on to the gradient hill.",
+"Testfahrt":"Test drive","Barken am Kies-Kurs, Kuhfladen-Kurse, SKS 1 und 2":"Barriers at the gravel course, cowpat courses, SKS 1 and 2","Einfahrt-Linien, Wald und Fertigteile, Straßen-Decals":"Entrance lines, forest and stock parts, road decals",
+"Steigungshügel":"Gradient hill","Acht Rampen von 8 bis 30 % Steigung":"Eight ramps from 8 to 30 % gradient","Zustandsspuren":"Condition lanes","Auf Abruf: Gelände und Boden liegen schon":"On call: terrain and ground are already in",
+"Gebäude, Verkehr":"Buildings, traffic","Schlichte Platzhalter-Gebäude, Fahrwege für Verkehr, Startpunkte":"Simple placeholder buildings, paths for traffic, start points","Endtest":"Final test","Leistungs-Feinschliff und letzte Runde über alles":"Performance tuning and a final lap over everything",
+"<b>Abbildungen:</b> Prüfbilder stammen aus einer eigenen 3D-Vorschau oder aus dem Simulator. Spielansichten und Messstreifen sind Zwischenstände während des Baus und zeigen nicht den Endzustand.":"<b>Figures:</b> check images come from our own 3D preview or from the simulator. Game views and measurement strips are intermediate states during the build and do not show the final result.",
+"Alle Maße sind Näherungen aus offenen Daten. Nur für private Zwecke, ohne Gewähr. Alle Quellen und Lizenzen: <a href=\"../quellen/\">Quellen</a>.":"All dimensions are approximations from open data. Private use only, without warranty. All sources and licences: <a href=\"../quellen/\">Sources</a>."
+});
+</script>
 <script src="../assets/i18n.js"></script>
 <script>
 (function(){
-  /* Darstellung wechseln, gemeinsam mit dem Datenblatt */
-  const r=document.documentElement,b=document.getElementById("themebtn");
-  try{const s=localStorage.getItem("theme");if(s)r.setAttribute("data-theme",s)}catch(e){}
-  b.addEventListener("click",()=>{const cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");const nx=cur==="dark"?"light":"dark";r.setAttribute("data-theme",nx);try{localStorage.setItem("theme",nx)}catch(e){}});
-  /* Filter */
-  const chips=[...document.querySelectorAll("[data-f]")],entries=[...document.querySelectorAll(".entry")];
-  chips.forEach(c=>c.addEventListener("click",()=>{
-    chips.forEach(x=>x.setAttribute("aria-pressed",x===c));
-    const f=c.dataset.f;
-    entries.forEach(e=>{e.hidden=!(f==="all"||e.dataset.tags.split(" ").includes(f))});
-  }));
-  /* Reihenfolge */
-  const log=document.getElementById("log"),ob=document.getElementById("order");
-  ob.addEventListener("click",()=>{const on=ob.getAttribute("aria-pressed")!=="true";ob.setAttribute("aria-pressed",on);log.classList.toggle("rev",on);ob.textContent=t(on?"Chronologisch":"Neueste zuerst")});
-  /* Bild vergrößern */
-  const lb=document.getElementById("lb"),li=lb.querySelector("img"),lc=lb.querySelector("p");
-  document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{li.src=i.currentSrc||i.src;li.alt=i.alt;const c=i.parentElement.querySelector("figcaption");lc.textContent=c?c.textContent:"";lb.classList.add("on")}));
-  const close=()=>{lb.classList.remove("on");li.removeAttribute("src")};
-  lb.addEventListener("click",close);
-  addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+"use strict";
+const T=window.t||(s=>s),$=s=>document.querySelector(s),RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* Darstellung */
+const r=document.documentElement;
+try{const s=localStorage.getItem("theme");if(s)r.setAttribute("data-theme",s)}catch(e){}
+$("#themebtn").addEventListener("click",()=>{const cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");const nx=cur==="dark"?"light":"dark";r.setAttribute("data-theme",nx);try{localStorage.setItem("theme",nx)}catch(e){}});
+/* Aufklappen mit Animation */
+const ents=[...document.querySelectorAll("details.ent")];
+function setOpen(d,open,anim){const b=d.querySelector(".eb");if(!b){d.open=open;return}
+  if(!anim||RM||!b.animate){d.open=open;return}
+  if(open){d.open=true;const h=b.scrollHeight;b.animate([{height:"0px",opacity:0},{height:h+"px",opacity:1}],{duration:420,easing:"cubic-bezier(.2,.7,.1,1)"})}
+  else{const h=b.scrollHeight;const a=b.animate([{height:h+"px",opacity:1},{height:"0px",opacity:0}],{duration:300,easing:"ease-in"});a.onfinish=()=>{d.open=false}}}
+document.querySelectorAll("details.ent>summary,details.how>summary").forEach(s=>s.addEventListener("click",e=>{e.preventDefault();const d=s.parentElement;
+  if(d.classList.contains("how")){d.open=!d.open;return}setOpen(d,!d.open,true)}));
+/* Alle auf/zu */
+const ab=$("#all");ab.addEventListener("click",()=>{const on=ab.getAttribute("aria-pressed")!=="true";ab.setAttribute("aria-pressed",on);ab.textContent=T(on?"Alle zuklappen":"Alle aufklappen");ents.forEach(d=>{if(!d.hidden)setOpen(d,on,false)})});
+/* Filter */
+const chips=[...document.querySelectorAll("[data-f]")];
+chips.forEach(c=>c.addEventListener("click",()=>{chips.forEach(x=>x.setAttribute("aria-pressed",x===c));const f=c.dataset.f;let n=0;
+  ents.forEach(e=>{e.hidden=!(f==="all"||e.dataset.tags.split(" ").includes(f));if(!e.hidden)n++});
+  document.querySelectorAll(".chap").forEach(ch=>{const es=ch.querySelectorAll(".ent");if(es.length)ch.hidden=![...es].some(e=>!e.hidden)});
+  $("#empty").style.display=n?"none":"block"}));
+/* Sprungziel öffnen */
+function openHash(){const id=location.hash.slice(1);const d=id&&document.getElementById(id);if(d&&d.matches("details.ent")){d.hidden=false;d.closest(".chap").hidden=false;setOpen(d,true,false);setTimeout(()=>d.scrollIntoView({behavior:RM?"auto":"smooth",block:"start"}),60)}}
+addEventListener("hashchange",openHash);openHash();
+/* Kapitel-Navigation */
+const links=[...document.querySelectorAll("#toc a")],secs=links.map(a=>document.getElementById(a.dataset.k)),bar=$("#tocbar");
+function onScroll(){let k=0;const y=innerHeight*0.3;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<y)k=i});
+  links.forEach((a,i)=>a.classList.toggle("on",i===k));
+  const m=$("#log").getBoundingClientRect();const p=Math.min(1,Math.max(0,(y-m.top)/m.height));const t=$("#toc");bar.style.height=(p*(t.clientHeight-12))+"px"}
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+/* Einblenden */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".rv").forEach(e=>io.observe(e));
+/* Bild vergrößern */
+const lb=$("#lb"),li=lb.querySelector("img"),lc=lb.querySelector("p");
+document.querySelectorAll("figure img").forEach(i=>i.addEventListener("click",()=>{li.src=i.currentSrc||i.src;li.alt=i.alt;const c=i.parentElement.querySelector("figcaption");lc.textContent=c?c.textContent:"";lb.classList.add("on")}));
+const close=()=>{lb.classList.remove("on");li.removeAttribute("src")};lb.addEventListener("click",close);addEventListener("keydown",e=>{if(e.key==="Escape")close()});
 })();
 </script>
 </body>

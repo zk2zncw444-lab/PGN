@@ -1,7 +1,7 @@
 # Prüfgelände in Daten
 
-Technisches Datenblatt und Baublog zu einem Fahrzeug-Prüfgelände, ausgewertet aus offenen Geodaten.
-Technical datasheet and build log of a vehicle proving ground, analysed from open geodata.
+Interaktive Karte, Baublog und technisches Datenblatt zu einem Fahrzeug-Prüfgelände, ausgewertet aus offenen Geodaten.
+Interactive map, build log and technical datasheet of a vehicle proving ground, analysed from open geodata.
 
 **Live:** https://zk2zncw444-lab.github.io/PGN/
 
@@ -9,8 +9,9 @@ Technical datasheet and build log of a vehicle proving ground, analysed from ope
 
 | Bereich | Beschreibung |
 |---|---|
-| **Datenblatt** | Kennzahlen, Lageplan, Hochgeschwindigkeitsoval, Handlingkurse, Straßennetz, Steigungshügel, Gelände, Bewuchs und Gebäude in neun Blättern |
-| **Baublog** | Logbuch zum digitalen Nachbau für einen Fahrsimulator: Datenaufbereitung, Messungen, Fehleranalysen und Revisionen mit Mess- und Prüfbildern |
+| **Karte** (Startseite) | Interaktive Karte aller Kurse: anklicken für Kennzahlen, Höhenprofil, Baustand im Simulator und eine animierte Testfahrt; Rundgang über alle Kurse |
+| **Datenblatt** | Kennzahlen, Lageplan, Hochgeschwindigkeitsoval, Handlingkurse, Straßennetz, Steigungshügel, Gelände, Bewuchs und Gebäude in neun aufklappbaren Blättern |
+| **Baublog** | Logbuch zum digitalen Nachbau für einen Fahrsimulator in fünf Kapiteln: Datenaufbereitung, Messungen, Fehleranalysen und Revisionen. Jeder Eintrag mit Kurzfassung, Details zum Aufklappen |
 | **Quellen** | Quellenverzeichnis mit Herausgebern, Lizenzen und Zuordnung der wichtigsten Angaben |
 
 Die Seite ist zweisprachig (Deutsch und Englisch) und bietet eine helle und eine dunkle Darstellung.
@@ -22,10 +23,11 @@ Es werden ausschließlich Daten genutzt, die der Öffentlichkeit ohnehin zur Ver
 ## Aufbau
 
 ```
-index.html          Datenblatt
+index.html          Startseite mit interaktiver Karte
+datenblatt/         Datenblatt
 blog/               Baublog (Bilder in assets/blog/)
 quellen/            Quellenverzeichnis
-assets/             Relief, Bäume, Bilder, Übersetzung (i18n.js, i18n-en.js)
+assets/             Design (site.css), Kartengeometrie (strecken.js), Relief, Bäume, Bilder, Übersetzung (i18n.js, i18n-en.js)
 ```
 
 Statische Seite ohne Build-Schritt. Englische Texte stehen in `assets/i18n-en.js`.
@@ -36,4 +38,4 @@ Private, nicht kommerzielle Auswertung. Alle Werte sind Näherungen aus offenen 
 
 ---
 
-**EN:** A static, bilingual (German/English) site with a datasheet, a build log and a source index. Only publicly available data is used (Bavarian open geodata, CC BY 4.0, and OpenStreetMap, ODbL). All values are approximations, provided without warranty.
+**EN:** A static, bilingual (German/English) site with an interactive map, a datasheet, a build log and a source index. Only publicly available data is used (Bavarian open geodata, CC BY 4.0, and OpenStreetMap, ODbL). All values are approximations, provided without warranty.

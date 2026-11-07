@@ -1,4 +1,12 @@
 window.I18N_EN={
+"Baublog<span class=\"cnt\">19</span>": "Build log<span class=\"cnt\">19</span>",
+"Karte": "Map",
+"Blatt aufklappen": "Expand sheet",
+"Blatt zuklappen": "Collapse sheet",
+"DB-PG-01 · Datenblatt": "DB-PG-01 · Datasheet",
+"QV-PG-01 · Quellen": "QV-PG-01 · Sources",
+"PG-01 · Karte": "PG-01 · Map",
+"BL-PG-01 · Baublog": "BL-PG-01 · Build log",
 "Datenblatt DB-PG-01 · Rev. A": "Datasheet DB-PG-01 · Rev. A",
 "Blaupause / Papier": "Blueprint / Paper",
 "Datenblatt": "Datasheet",

@@ -9,23 +9,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
 <style>
+.nav{margin:0 calc(-1 * max(16px,env(safe-area-inset-left))) 0;font-size:16px;line-height:1.6}
+body::before{display:none}
+
 :root{
-  --bg:#0a1e3c; --panel:#0c2549; --panel2:#0f2d57; --ink:#e8f1ff; --ink2:#b3c8e8; --muted:#7f9cc6;
-  --line:#2c5a99; --line2:#1d4274; --grid:rgba(120,170,255,.09); --accent:#ffb000; --accent-ink:#1a1200;
+  --bg:#07111f; --panel:#0d1c31; --panel2:#11243e; --ink:#eaf2ff; --ink2:#b5c6df; --muted:#7d93b3;
+  --line:#22406a; --line2:#173054; --grid:rgba(110,160,240,.07); --accent:#ff6b1a; --accent-ink:#1a0a00;
   --cy:#5ec8ff; --ok:#4fe3c1; --bad:#ff5a4f; --warn:#ffd166;
   --f-d:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --f-b:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --f-m:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
   --asph:#3a4558; --beton:#8da0bd; --gras:#2f6b4f; --mark:#f2f6ff;
   color-scheme:dark;
 }
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
-  --bg:#f3f1e9; --panel:#fbfaf5; --panel2:#f0eee4; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
-  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#c2410c; --accent-ink:#fff;
+  --bg:#efeadf; --panel:#f8f5ee; --panel2:#efe9dc; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
+  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#d9480f; --accent-ink:#fff;
   --cy:#1b6ec2; --ok:#0b8f78; --bad:#e03131; --warn:#b07d00;
   --asph:#56627a; --beton:#b5c0d2; --gras:#7fae8f; --mark:#fff; color-scheme:light}}
 :root[data-theme="light"]{
-  --bg:#f3f1e9; --panel:#fbfaf5; --panel2:#f0eee4; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
-  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#c2410c; --accent-ink:#fff;
+  --bg:#efeadf; --panel:#f8f5ee; --panel2:#efe9dc; --ink:#13233a; --ink2:#3a4d68; --muted:#66768e;
+  --line:#1b4f8f; --line2:#b9c6d8; --grid:rgba(27,79,143,.08); --accent:#d9480f; --accent-ink:#fff;
   --cy:#1b6ec2; --ok:#0b8f78; --bad:#e03131; --warn:#b07d00;
   --asph:#56627a; --beton:#b5c0d2; --gras:#7fae8f; --mark:#fff; color-scheme:light}
 *{box-sizing:border-box}
@@ -152,9 +156,12 @@ footer{margin-top:34px;font-size:13px;color:var(--muted);max-width:90ch} footer 
 <script data-goatcounter="https://ericcarni.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
+<header class="nav">
+  <a class="brand" href="../" aria-label="Startseite"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" fill="none" stroke="var(--accent)" stroke-width="2"/><path d="M8 22c0-6 4-12 9-12s7 3 7 6-3 6-8 6H8" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>Prüfgelände in Daten</b><small>QV-PG-01 · Quellen</small></span></a>
+  <nav class="links" aria-label="Bereiche"><a href="../">Karte</a><a href="../blog/">Baublog<span class="cnt">19</span></a><a href="../datenblatt/">Datenblatt</a><a href="../quellen/" aria-current="page">Quellen</a></nav>
+  <div class="tools"><button class="btn" id="lang-de" type="button" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button><button class="btn" id="lang-en" type="button" aria-pressed="false" aria-label="English" lang="en">EN</button><button class="btn ic" id="themebtn" type="button" aria-label="Darstellung wechseln">◐</button></div>
+</header>
 <div class="wrap">
-<div class="top"><span>Quellenverzeichnis QV-PG-01 · Stand 02.11.2026</span><span class="tools"><button class="btn" id="lang-de" type="button" aria-pressed="true" aria-label="Deutsch" lang="de">DE</button><button class="btn" id="lang-en" type="button" aria-pressed="false" aria-label="English" lang="en">EN</button><button class="btn" id="themebtn" type="button" aria-label="Darstellung wechseln">Blaupause / Papier</button></span></div>
-<nav class="tabs" aria-label="Bereiche"><a href="../">Datenblatt</a><a href="../blog/" class="hl">Baublog<span class="cnt">12</span></a><a href="./" aria-current="page">Quellen</a></nav>
 
 <header class="hero">
   <div>
